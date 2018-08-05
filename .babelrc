@@ -1,0 +1,15 @@
+{
+    "presets": [
+        "env"
+    ],
+    "plugins": [
+        "syntax-object-rest-spread"
+    ],
+    "env": {
+        "production": {
+            "presets": [
+                "minify"
+            ]
+        }
+    }
+}
