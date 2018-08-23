@@ -6,7 +6,7 @@
   "scripts": {
     "build": "BABEL_ENV=production babel src -d lib",
     "dist": "npm run build && browserify lib/index.js > dist/quartz.min.js",
-    "test": "jasmine --reporter=jasmine-ts-console-reporter"
+    "test": "jasmine"
   },
   "author": "Diego Alberto Molina Vera <dracotm25@gmail.com>",
   "license": "MIT",
@@ -16,11 +16,12 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-minify": "^0.4.3",
     "browserify": "^16.2.2",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.12.0",
-    "jasmine": "^3.1.0",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "jasmine": "^3.2.0",
+    "jasmine-spec-reporter": "^4.2.1",
     "jasmine-ts-console-reporter": "^3.1.1"
   }
 }

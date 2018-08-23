@@ -237,8 +237,9 @@ const isNot = value => truthyOrFalsy(value) === false;
 const moreThan = (more, less) => more > less;
 const lessThan = (less, more) => less < more;
 const equal = (firstValue, secondValue) => firstValue === secondValue;
-const mustBetween = (firstValue, secondValue) => firstValue && secondValue;
-const coudlBetween = (firstValue, secondValue) => firstValue || secondValue;
+const odd = (firstValue, secondValue) => firstValue !== secondValue;
+const must = (firstValue, secondValue) => firstValue && secondValue;
+const could = (firstValue, secondValue) => firstValue || secondValue;
 
 
 /*****************************************************************************************/
@@ -261,7 +262,7 @@ const coudlBetween = (firstValue, secondValue) => firstValue || secondValue;
  * @param {string} password - String to match against with
  * @return {boolean}
  */
-const password = password => /[\wa-я\d\~\!@#\$%\^&\*_\-\+\=`\|\\\(\)\{\}\[\]\:;"'<>,\.\?\/]{4,}/.test(password);
+const password = password => /[\wa-я\d\~\!@#\$%\^&\*_\-\+\=`\|\\\(\)\{\}\[\]\:;"'<>,\.\?\/]{4,}/.test(password.toString());
 
 // ------------------------------------------------------------------
 // -                             number                             -
@@ -270,10 +271,22 @@ const password = password => /[\wa-я\d\~\!@#\$%\^&\*_\-\+\=`\|\\\(\)\{\}\[\]\:;
  * Validates numbers only
  * 
  * @param {string} value - String to match
- * @param {string} type - True if it has decimal values like currency
+ * @param {boolean}  strict - If the check is againts strict type
  * @return {boolean}
  */
-const number = (value, type = false) => /^\d+$/.test(is(type) ? value.replace(/\.|,/g, '') : value);
+const number = (value, type = false, strict = false) => {
+    let isValidStrict = true;
+
+    const cleanedValue = equal(typeof value, 'number')
+        ? value
+        : value.replace(/\.|,/g, '');
+
+    if (is(strict)) {
+        isValidStrict = equal(typeof cleanedValue, 'number');
+    }
+
+    return must(/^\d+$/.test(cleanedValue), isValidStrict);
+}
 
 // ------------------------------------------------------------------
 // -                              alpha                             -
@@ -284,7 +297,7 @@ const number = (value, type = false) => /^\d+$/.test(is(type) ? value.replace(/\
  * @param {string} value - String to match
  * @return {boolean}
  */
-const alpha = value => /^[a-z\sа-я]+$/i.test(value);
+const alpha = value => /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+$/i.test(value);
 
 // ------------------------------------------------------------------
 // -                              email                             -
@@ -312,25 +325,30 @@ const alpha = value => /^[a-z\sа-я]+$/i.test(value);
  * @return {boolean}
  */
 const email = value => {
-    let isEmail = false;
-    if (/^([a-z\d\!#\$%&'\.\*\+\-\/\=\?\^_`\{\|\}~"\(\),\:;<>\@\[\\\]\s]{1,64}@[a-z\d\-]{2,235}|\.[a-z]{1,20})+$/i.test(value)) {
-        const [localPart, domainPart] = value.split('@');
+    let isEmail = true;
+    if (/^[a-z\d\!#\$%&'\.\*\+\-\/\=\?\^_`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(value)) {
+        const lastPosition = value.lastIndexOf('@');
+        const localPart = value.slice(0, lastPosition);
+        const domainPart = value.slice(lastPosition + 1, value.length);
 
         // Local part
         if (/^[\.,]|[\.,]$/.test(localPart)) { // Forbidden
             isEmail = false;
-        } else if (
-            /(\.{2}|["\(\),\:;<>@\[\\\]])/g.test(localPart) &&
-            (localPart.slice(0, 1) !== '\"' && localPart.slice(-1) !== '\"')
-        ) { // Forbidden
+        } else if (must(/(\.{2,}|["\(\),\:;<>\[\\\]]|@+?)/g.test(localPart),
+            must(odd(localPart.slice(0, 1), '\"'), odd(localPart.slice(-1), '\"'))
+        )) { // Forbidden
             isEmail = false;
         }
 
         // Domain part
-        isEmail = /^[\-]|[\-]$/.test(domainPart) ? false : true;
+        if (isEmail) {
+            isEmail = /^[\-]|[\-]$/.test(domainPart) ? false : true;
+        }
+    } else {
+        isEmail = false;
     }
 
-    return isEmail = false;
+    return isEmail;
 };
 
 
@@ -350,7 +368,7 @@ const email = value => {
  * @return {string}
  */
 const eventToString = event => {
-    const e = event || window.e;
+    const e = could(event, window.e);
     return String.fromCharCode(is(e.which) ? e.keyCode : e.which);
 };
 
@@ -377,8 +395,8 @@ const stopEvent = event => (
 module.exports = {
     eventToString, // TODO: TEST
     rmAttrObject,
-    coudlBetween,
-    mustBetween,
+    could,
+    must,
     pipeValues,
     stopEvent, // TODO: TEST
     nestedObj,
@@ -387,12 +405,13 @@ module.exports = {
     lessThan,
     readOnly, // TODO: TEST
     compose, // TODO: TEST
-    number, // TODO: TEST
-    alpha, // TODO: TEST
-    email, // TODO: TEST
+    number,
+    alpha,
+    email,
     equal,
     isNot,
     pipe,
     isIn,
+    odd, // TODO: TEST
     is
 };
