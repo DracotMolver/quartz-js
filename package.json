@@ -4,24 +4,34 @@
   "description": "A very useful library with fancy functions",
   "main": "lib/index.js",
   "scripts": {
-    "build": "BABEL_ENV=production babel src -d lib",
-    "dist": "npm run build && browserify lib/index.js > dist/quartz.min.js",
-    "test": "jasmine"
+    "build": "babel src -d lib",
+    "test": "jasmine",
+    "dist": "npm run build && browserify lib/index.js > dist/quartz.min.js"
   },
   "author": "Diego Alberto Molina Vera <dracotm25@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-es2015-arrow-functions": "^6.22.0",
+    "babel-plugin-transform-es2015-computed-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-destructuring": "^6.23.0",
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.24.1",
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-plugin-transform-es2015-template-literals": "^6.22.0",
+    "babel-plugin-transform-es2015-typeof-symbol": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "babel-preset-minify": "^0.4.3",
-    "browserify": "^16.2.2",
-    "eslint": "^5.4.0",
+    "babel-preset-minify": "^0.5.0",
+    "browserify": "^16.2.3",
+    "eslint": "^6.0.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-import": "^2.17.3",
     "jasmine": "^3.2.0",
     "jasmine-spec-reporter": "^4.2.1",
     "jasmine-ts-console-reporter": "^3.1.1"
+  },
+  "dependencies": {
+    "jasmin": "0.0.2"
   }
 }
