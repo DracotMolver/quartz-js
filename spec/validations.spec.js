@@ -64,6 +64,18 @@ describe('A suit validations functions', () => {
       expect(is.falsy(0)).toBe(true);;
     });
 
+    it('Is NaN `nan`', () => {
+      expect(is.nan(NaN)).toBe(true);
+      expect(is.nan(Number('123A'))).toBe(true);
+    });
+
+    it('Is RUN (run)', () => {
+      expect(is.run('18150581-8')).toBe(true);
+      expect(is.run('19423287-k')).toBe(true);
+      expect(is.run('117945138')).toBe(true);
+      expect(is.run('24.634.452-3')).toBe(true);
+    });
+
     describe('Checking the length of the elements', () => {
       const object = {
         name: 'John Doe',
@@ -154,18 +166,19 @@ describe('A suit validations functions', () => {
       });
     });
   });
-  // it('Is not a valid email', () => {
-  //   expect(isNot(email('Abc.example.com'))).toBe(true);
-  //   expect(isNot(email('A@b@c@example.com'))).toBe(true);
-  //   expect(isNot(email('a"b(c)d,e:f;g<h>i[j\k]l@example.com'))).toBe(true);
-  //   expect(isNot(email('just"not"right@example.com'))).toBe(true);
-  //   expect(isNot(email('this is"not\allowed@example.com'))).toBe(true);
-  //   expect(isNot(email('this\ still\"not\\allowed@example.com'))).toBe(true);
-  //   expect(isNot(email('1234567890123456789012345678901234567890123456789012345678901234+x@example.com'))).toBe(true);
-  //   expect(isNot(email('john..doe@example.com'))).toBe(true);
-  //   expect(isNot(email('john.doe@example..com'))).toBe(true);
-  // });
 });
+
+    // it('Is not a valid email', () => {
+    //   expect(isNot(email('Abc.example.com'))).toBe(true);
+    //   expect(isNot(email('A@b@c@example.com'))).toBe(true);
+    //   expect(isNot(email('a"b(c)d,e:f;g<h>i[j\k]l@example.com'))).toBe(true);
+    //   expect(isNot(email('just"not"right@example.com'))).toBe(true);
+    //   expect(isNot(email('this is"not\allowed@example.com'))).toBe(true);
+    //   expect(isNot(email('this\ still\"not\\allowed@example.com'))).toBe(true);
+    //   expect(isNot(email('1234567890123456789012345678901234567890123456789012345678901234+x@example.com'))).toBe(true);
+    //   expect(isNot(email('john..doe@example.com'))).toBe(true);
+    //   expect(isNot(email('john.doe@example..com'))).toBe(true);
+    // });
 
 
   //         it('Is not Allows only letters', () => {
