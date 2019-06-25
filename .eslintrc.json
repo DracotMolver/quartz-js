@@ -3,15 +3,11 @@
         "browser": true,
         "commonjs": true,
         "es6": true,
-        "node": true
+        "node": true,
+        "jasmine": true,
     },
     "extends": "airbnb-base",
     "rules": {
-        "indent": [
-            2,
-            4
-        ],
-        "comma-dangle": "off",
-        "arrow-parens": ["as-needed"]
+        "arrow-parens": [1]
     }
 }
