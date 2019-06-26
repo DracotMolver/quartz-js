@@ -1,13 +1,15 @@
 {
-    "env": {
-        "browser": true,
-        "commonjs": true,
-        "es6": true,
-        "node": true,
-        "jasmine": true,
-    },
-    "extends": "airbnb-base",
-    "rules": {
-        "arrow-parens": [1]
-    }
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "node": true,
+    "jasmine": true
+  },
+  "extends": "airbnb-base",
+  "rules": {
+    "arrow-parens": [
+      1
+    ]
+  }
 }

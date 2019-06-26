@@ -746,29 +746,22 @@ function addClass(classes) {
 //   return self;
 // }
 
-// _string.prototype.toLowerCamelCase = function toLowerCamelCase() {
-//   let index = false;
+function toLowerCamelCase(text) {
+  const [firstLetter, ...rest] = text;
 
-//   const firstWord = this.slice(0, 1).toLowerCase();
-//   const self = `${firstWord}${this.slice(1)}`;
+  let temp = '';
+  const tempRest = rest.map((str, index) => {
+    temp = (str === '-' || str === '_')
+      ? rest[index - 1].toUpperCase()
+      : str;
 
-//   const result = Object.values(self)
-//     .map(str => {
-//       let tempStr = str;
+    return temp;
+  })
+    .filter(str => (str !== '-' || str !== '_'))
+    .join('');
 
-//       if (index) {
-//         tempStr = str.toUpperCase();
-//       }
-
-//       index = (str === '-' || str === '_');
-
-//       return tempStr;
-//     })
-//     .filter(str => str !== '-' && str !== '_')
-//     .join('');
-
-//   return result;
-// };
+  return `${firstLetter.toLowerCase()}${tempRest}`;
+}
 
 // export const normalizeKey = obj => {
 //   return truthty(Object.keys(obj))
@@ -948,12 +941,12 @@ function addClass(classes) {
 //   return tempText;
 // };
 
-
-// ------------------------------------------------------------------------------------------------------------------------
-
 module.exports = {
+  util: {
+    toLowerCamelCase,
+    addClass, // TODO: TEST
+  },
   // utils
-  addClass, // TODO: TEST
   //     eventToString, // TODO: TEST
   //     rmAttrObject,
   //     pipeValues,
@@ -970,7 +963,7 @@ module.exports = {
     oneValue,
     not: {
       oneValue: notOneValue,
-    }
+    },
   },
   is: {
     // TODO: test all of them
@@ -1012,5 +1005,5 @@ module.exports = {
     into,
     run,
     nan,
-  }
+  },
 };
