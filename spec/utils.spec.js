@@ -10,6 +10,24 @@ describe('A suit of stand alone utils', () => {
     expect(util.toLowerCamelCase('user_middle-name')).toEqual('userMiddleName');
   });
 
+  fit('obj2Arr', () => {
+    const obj = {
+      a: { a: 2 },
+      b: '3',
+      c: true,
+      d: [4],
+    };
+
+    const arr = [
+      { a: { a: 2 } },
+      { b: '3' },
+      { c: true },
+      { d: [4] },
+    ]
+
+    expect(util.obj2Arr(obj)).toEqual(arr);
+  });
+
   //     it('One or more keys are in a Object', () => {
   //       const object = {
   //         name: 'John Doe',

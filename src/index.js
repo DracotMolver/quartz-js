@@ -1,3 +1,5 @@
+require("core-js");
+
 /**
  * QUARTZ.JS
  *
@@ -310,7 +312,7 @@ function run(value) {
 
 // ------------------------------------------------------------------
 //
-// - ARRAYS
+// - ARRAYS / OBJECTS / Other uses
 //
 // Severals functions to use with arrays.
 // Most of them are function functions
@@ -385,6 +387,21 @@ function someValues(arr, values) {
 function notOneValue(value) {
   return content => content !== value;
 }
+
+
+/**
+ * It will turn out an object into an array of objects keeping the original
+ * keys of the object.
+ * 
+ * @param {object} obj the object to seek for
+ * @returns {array} An array of objects
+ */
+function obj2Arr(obj) {
+  return Object.entries(obj)
+    .flatMap(([key, value]) => [{ [key]: value }]);
+}
+
+
 
 // /**
 //  * HOF that will check if one of the values is equal to the given one.
@@ -642,46 +659,6 @@ function addClass(classes) {
 // /*****************************************************************************************/
 
 
-// /*****************************************************************************************/
-// /* This is a different section of the library.                                           */
-// /* Everything below are DOM manipulation                                                 */
-// /*****************************************************************************************/
-
-// // ------------------------------------------------------------------
-// // -                        eventToString                           -
-// // ------------------------------------------------------------------
-
-// /**
-//  * Returns the string representation of the key pressed charcode.
-//  * 
-//  * @param {Event} Event - Where it's being triggered
-//  * @returns {string}
-//  */
-// const eventToString = event => {
-//     const e = could(event, window.e);
-//     return String.fromCharCode(is(e.which) ? e.keyCode : e.which);
-// };
-
-// // ------------------------------------------------------------------
-// // -                          stopEvent                             -
-// // ------------------------------------------------------------------
-// /**
-//  * Prevents the default behavior of the elements.
-//  *
-//  * @param {Event} event - The event where it's being triggered
-//  * @returns {boolean}
-//  */
-// const stopEvent = event => (
-//     event.stopPropagation(),
-//     event.preventDefault(),
-//     event.returnValue = false,
-//     event.cancelBubble = true,
-//   event.returnValue = '';
-//     false
-// );
-
-
-
 // Object.defineProperty(Object, 'extractValues', {
 //   /**
 //    * It will return all the values from an Object or an alement from an specific
@@ -734,60 +711,28 @@ function addClass(classes) {
 //   writable: true,
 // });
 
-// // ---------------- String ---------------- 
-// const _string = String;
-// _string.prototype.toJSON = function toJSON(normalize = false) {
-//   let self = JSON.parse(this);
-
-//   if (normalize) {
-//     self = normalizeKey(self);
-//   }
-
-//   return self;
-// }
-
 function toLowerCamelCase(text) {
   const [firstLetter, ...rest] = text;
 
   let temp = '';
-  const tempRest = rest.map((str, index) => {
-    temp = (str === '-' || str === '_')
-      ? rest[index - 1].toUpperCase()
-      : str;
+  let isDash = false;
+
+  const tempRest = rest.map(str => {
+    temp = str;
+
+    if (isDash) {
+      temp = str.toUpperCase();
+    }
+
+    isDash = (str === '-' || str === '_');
 
     return temp;
   })
-    .filter(str => (str !== '-' || str !== '_'))
+    .filter(str => /[^\-_]/.test(str))
     .join('');
 
   return `${firstLetter.toLowerCase()}${tempRest}`;
 }
-
-// export const normalizeKey = obj => {
-//   return truthty(Object.keys(obj))
-//     ? Object.keys(obj)
-//       .reduce((prev, current) => {
-//         prev[current.toLowerCamelCase().replace('.', '')] = obj[current];
-//         return prev;
-//       }, {})
-//     : {};
-// };
-
-// /**
-//  * It will turn out an object into an array of objects keeping the original
-//  * keys
-//  * 
-//  * @param {object} obj the object to seek for
-//  * @returns {array} An array of objects
-//  */
-// export const objectToArray = obj =>
-//   Object.keys(obj)
-//     .reduce((prev, current) => (
-//       [
-//         ...prev,
-//         { [current]: obj[current] }
-//       ]
-//     ), []);
 
 // /**
 //  * It will turn out an array of object into a new array of objects or a new object of objects, but
@@ -921,30 +866,37 @@ function toLowerCamelCase(text) {
 //   writable: true,
 // });
 
-// const regex = new RegExp("\\.\\s*\\w{1}", 'g');
-// export const humanizeText = (text, fullname = false) => {
-//   let tempText = '';
-//   if (truthty(text)) {
-//     tempText = text.trim().toLowerCase();
 
-//     if (fullname) {
-//       tempText = tempText.split(/\s+/).map(a => `${a[0].toUpperCase()}${a.slice(1)}`).join(' ');
-//     } else {
-//       tempText = `${tempText[0].toUpperCase()}${tempText.slice(1)}`;
+function upperText(text, byWord = false) {
+  const regex = new RegExp("\\.\\s*\\w{1}", 'g');
+  let tempText = '';
 
-//       while (regex.exec(tempText) !== null) {
-//         tempText = `${tempText.slice(0, regex.lastIndex - 2)}${tempText[regex.lastIndex - 1].toUpperCase()}${tempText.slice(regex.lastIndex)}`;
-//       }
-//     }
-//   }
+  if (text) {
+    tempText = text.trim().toLowerCase();
 
-//   return tempText;
-// };
+    if (byWord) {
+      tempText = tempText.split(/\s+/g).map(([first, ...rest]) => `${first.toUpperCase()}${rest.join()}`).join(' ');
+    } else {
+      // const [first, rest]
+      // tempText = `${tempText[0].toUpperCase()}${tempText.slice(1)}`;
+
+      // while (regex.exec(tempText) !== null) {
+      //   tempText = `${tempText.slice(0, regex.lastIndex - 2)}${tempText[regex.lastIndex - 1].toUpperCase()}${tempText.slice(regex.lastIndex)}`;
+      // }
+    }
+  }
+
+  return tempText;
+};
 
 module.exports = {
   util: {
     toLowerCamelCase,
+    human: {
+      upperText,
+    },
     addClass, // TODO: TEST
+    obj2Arr,
   },
   // utils
   //     eventToString, // TODO: TEST
