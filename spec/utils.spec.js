@@ -1,16 +1,18 @@
 const {
+  OBJECT,
+  ARRAY,
   util,
 } = require('../src');
 
 
 describe('A suit of stand alone utils', () => {
-  it('toLowerCamelCase', () => {
-    expect(util.toLowerCamelCase('user_name')).toEqual('userName');
-    expect(util.toLowerCamelCase('user-name')).toEqual('userName');
-    expect(util.toLowerCamelCase('user_middle-name')).toEqual('userMiddleName');
+  it('lowerCamelCase', () => {
+    expect(util.lowerCamelCase('user_name')).toEqual('userName');
+    expect(util.lowerCamelCase('user-name')).toEqual('userName');
+    expect(util.lowerCamelCase('user_middle-name')).toEqual('userMiddleName');
   });
 
-  fit('obj2Arr', () => {
+  it('obj2Arr', () => {
     const obj = {
       a: { a: 2 },
       b: '3',
@@ -26,6 +28,55 @@ describe('A suit of stand alone utils', () => {
     ]
 
     expect(util.obj2Arr(obj)).toEqual(arr);
+  });
+
+  it('compress', () => {
+    const value = [{
+      name: 'AAA',
+      age: 23,
+      email: 'email@test.cl'
+    }, {
+      name: 'SSS',
+      age: 60,
+      email: 'email@test.cl'
+    }, {
+      name: 'DDD',
+      age: 13,
+      email: 'email@test.cl'
+    }];
+
+    const obj = {
+      AAA: 'email@test.cl',
+      SSS: 'email@test.cl',
+      DDD: 'email@test.cl'
+    };
+
+    const arr = [
+      { AAA: 'email@test.cl' },
+      { SSS: 'email@test.cl' },
+      { DDD: 'email@test.cl' }
+    ];
+
+    expect(util.compress(value, 'name', 'email')).toEqual(arr);
+    expect(util.compress(value, 'name', 'email', OBJECT)).toEqual(obj);
+  });
+
+  it('clone an Array or an Object', () => {
+    const arr = [1, 2, 3, 4];
+    const obj = {
+      name: 'diego',
+      age: 29
+    };
+
+    expect(util.clone(OBJECT, obj, { name: 'John', email: 'test@test.cl' }))
+      .toEqual({
+        name: 'John',
+        age: 29,
+        email: 'test@test.cl'
+      });
+
+    expect(util.clone(ARRAY, arr, [2, 10, 5]))
+      .toEqual([1, 2, 3, 4, 2, 10, 5]);
   });
 
   //     it('One or more keys are in a Object', () => {

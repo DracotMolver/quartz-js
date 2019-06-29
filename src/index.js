@@ -10,6 +10,8 @@ require("core-js");
  */
 // -=====================================================-
 const PRODUCTION = 'production';
+const OBJECT = 'object';
+const ARRAY = 'array';
 
 // ------------------------------------------------------------------
 //
@@ -58,11 +60,11 @@ function into(element, ...values) {
   return inFunctions[`isIn${Array.isArray(element) ? 'Array' : 'Object'}`](element, values);
 }
 
-const objLenth = element => (
-  Array.isArray(element)
+function objLenth(element) {
+  return Array.isArray(element)
     ? Object.values(element).length
     : Object.keys(element).length
-);
+};
 
 /**
  * It will check if the element has the exact `length` of elements (Object and Array)
@@ -312,7 +314,7 @@ function run(value) {
 
 // ------------------------------------------------------------------
 //
-// - ARRAYS / OBJECTS / Other uses
+// - ARRAYS / OBJECTS / Other stuffs
 //
 // Severals functions to use with arrays.
 // Most of them are function functions
@@ -572,17 +574,6 @@ function addClass(classes) {
 //     (...params) => [...getGenerator(func, params)];
 
 // // ------------------------------------------------------------------
-// // -                              readonly                          -
-// // ------------------------------------------------------------------
-// /**
-//  * It will set the object in an immutable state.
-//  *
-//  * @param {object} - The object to set as read only.
-//  * @returns {object} - The object itself but read only.
-//  */
-// const readOnly = object => Object.freeze(object);
-
-// // ------------------------------------------------------------------
 // // -                           nestedObj                            -
 // // ------------------------------------------------------------------
 // /**
@@ -711,7 +702,16 @@ function addClass(classes) {
 //   writable: true,
 // });
 
-function toLowerCamelCase(text) {
+/**
+ * It will parsed the given to be returnded as a Lower Camel Case.
+ *
+ * @example
+ * lowerCamelCase('user_name'); // userName
+ * 
+ * @param {string} text The text to parse
+ * @returns {string}
+ */
+function lowerCamelCase(text) {
   const [firstLetter, ...rest] = text;
 
   let temp = '';
@@ -734,23 +734,38 @@ function toLowerCamelCase(text) {
   return `${firstLetter.toLowerCase()}${tempRest}`;
 }
 
-// /**
-//  * It will turn out an array of object into a new array of objects or a new object of objects, but
-//  * the objects in the arrays are based on the passed `key` and `value` params
-//  * extracted from the objects in the initial array
-//  * 
-//  * @param {array} array The array to seek for
-//  * @param {string} key The name of the atribute to use as a key
-//  * @param {string} value The name of the atribute to use as a value
-//  * @returns {array} a new array of objects
-//  */
-// export const compressObject = (array, key, value) =>
-//   array.reduce((prev, current) => (
-//     [
-//       ...prev,
-//       { [current[key]]: current[value] }
-//     ]
-//   ), []);
+/**
+ * It will merge arrays or objects at first level returning a new object or array.
+ * Be carfuly with the order of the passed elements when they are objects
+ * 
+ * @example
+ * clone(OBJECT, {a: 'aA'}, {b: 'bB', a: 'AA'}); // {a: 'AA', b: 'bB'};
+ * 
+ * @param {string} objectType The constant type of data to merge. ARRAY or OBJECT
+ * @param  {(array|object)} obj The elements to merge
+ * @returns {(array|object)}
+ */
+function clone(objectType, ...obj) {
+  return objectType === OBJECT
+    ? Object.assign({}, ...obj)
+    : [].concat(...obj);
+}
+
+/**
+ * It will turn out an Array of objects into a new array of objects or a new object. 
+ * The new objects in the array are based on the passed `key` and `value` params extracted from
+ * the key of the objects in the initial array.
+ *
+ * @param {array} array The array where to work on
+ * @param {string} key The name of the atribute to use as a key
+ * @param {string} value The name of the atribute to use as a value
+ * @returns {array} a new array of objects
+ */
+function compress(array, key, value, objOrArra = ARRAY) {
+  return array.reduce((prev, current) =>
+    clone(objOrArra, prev, { [current[key]]: current[value] })
+    , objOrArra === ARRAY ? [] : {});
+}
 
 // export const appendToObject = (array, extraKey, extraValue, objItself = false) =>
 //   array.reduce((prev, current) => ([
@@ -851,10 +866,6 @@ function toLowerCamelCase(text) {
 //       return prev;
 //     }, {});
 
-// export const clone = (objectType, ...obj) =>
-//   objectType === 'OBJECT'
-//     ? Object.assign({}, ...obj)
-//     : obj.reduce((prev, current) => prev.concat(current), []).filter(truthty);
 
 // Object.defineProperty(clone, 'ARRAY', {
 //   value: 'ARRAY',
@@ -890,13 +901,18 @@ function upperText(text, byWord = false) {
 };
 
 module.exports = {
+  // constants
+  ARRAY,
+  OBJECT,
   util: {
-    toLowerCamelCase,
     human: {
       upperText,
     },
+    lowerCamelCase,
     addClass, // TODO: TEST
+    compress,
     obj2Arr,
+    clone,
   },
   // utils
   //     eventToString, // TODO: TEST
