@@ -17,8 +17,6 @@ const ARRAY = 'array';
 //
 // - VALIDATIONS
 //
-// They will only return `true` or `false`
-//
 // ------------------------------------------------------------------
 const inFunctions = {
   isInArray(element, values) {
@@ -314,12 +312,66 @@ function run(value) {
 
 // ------------------------------------------------------------------
 //
-// - ARRAYS / OBJECTS / Other stuffs
-//
-// Severals functions to use with arrays.
-// Most of them are function functions
+// - ARRAYS & OBJECTS 
 //
 // ------------------------------------------------------------------
+
+/**
+ * It will merge arrays or objects at first level returning a new object or array.
+ * Be carfuly with the order of the passed elements when they are objects
+ * 
+ * @example
+ * clone(OBJECT, {a: 'aA'}, {b: 'bB', a: 'AA'}); // {a: 'AA', b: 'bB'};
+ * 
+ * @param {string} elementType The constant type of data to merge. ARRAY or OBJECT
+ * @param  {(array|object)} obj The elements to merge
+ * @returns {(array|object)}
+ */
+function clone(elementType, ...obj) {
+  return elementType === OBJECT
+    ? Object.assign({}, ...obj)
+    : [].concat(...obj);
+}
+
+/**
+ * HOF - It will return only one `Truthty` value. `Falsy` values are not returned.
+ *
+ * @example
+ * [{name: 'john', age: 20}].map(util.unique('age')); // [{age: 20}]
+ * 
+ * @param {any} key The name of the chain attribute to get the value from
+ * @param {any} content The content from where to extract the value
+ * @returns {any} The needed value
+ */
+function unique(key) {
+  return content => content[key];
+}
+
+/**
+ * It will turn out an Array of objects into a new array of objects or a new object. 
+ * The new objects in the array are based on the passed `key` and `value` params extracted from
+ * the key of the objects in the initial array.
+ *
+ * @param {array} array The array where to work on
+ * @param {string} key The name of the atribute to use as a key
+ * @param {string} value The name of the atribute to use as a value
+ * @param {string=} [OBJECT] A constant that defines the type of element to return
+ * @returns {array} a new array of objects
+ */
+function compress(array, key, value, elementType = ARRAY) {
+  return array.reduce((prev, current) =>
+    clone(elementType, prev, { [current[key]]: current[value] })
+    , elementType === ARRAY ? [] : {});
+}
+
+// export const invertObj = obj =>
+//   Object.entries(obj)
+//     .reduce((prev, current) => {
+//       const [key, value] = current;
+//       prev[value] = key;
+//       return prev;
+//     }, {});
+
 /**
  * HOF that will check if one of the values is equal to the given one.
  * Works only with a single params.
@@ -332,6 +384,20 @@ function run(value) {
  */
 function oneValue(value) {
   return content => content === value;
+}
+
+/**
+ * HOF that will check if one of the values is different to the given one.
+ * Works only with a single params.
+ *
+ * @example
+ * [1, 2, 3].filter(has.not.oneValue(2));
+ * 
+ * @param {any} value Any type of value
+ * @returns {function(*): boolean} A function that will accept only one param
+ */
+function notOneValue(value) {
+  return content => content !== value;
 }
 
 /**
@@ -377,19 +443,32 @@ function someValues(arr, values) {
 }
 
 /**
- * HOF that will check if one of the values is different to the given one.
- * Works only with a single params.
- *
- * @example
- * [1, 2, 3].filter(has.not.oneValue(2));
+ * It will check if one of the values is equal to the given one based on they given `Key`.
  * 
- * @param {any} value Any type of value
- * @returns {function(*): boolean} A function that will accept only one param
+ * @example
+ * [{id: 1}, {id: 2}, {id: 3}].filter(has.valueByKey('id', 3));
+ * 
+ * @param {string} key the key of the object
+ * @param {*} value the value to match against the value of the object found by the given key.
+ * @returns {boolean}
  */
-function notOneValue(value) {
-  return content => content !== value;
+function valueByKey(key, value) {
+  return content => content[key] === value;
 }
 
+/**
+ * It will check if within the array is not the given value by they given `key`.
+ * 
+ * @example
+ * [{id: 1}, {id: 2}, {id: 3}].filter(has.not.valueByKey('id', 3));
+ * 
+ * @param {string} key the key of the object
+ * @param {*} value the value to match against the value of the object found by the given key.
+ * @returns {boolean}
+ */
+function notValueByKey(key, value) {
+  return content => content[key] !== value;
+}
 
 /**
  * It will turn out an object into an array of objects keeping the original
@@ -402,34 +481,6 @@ function obj2Arr(obj) {
   return Object.entries(obj)
     .flatMap(([key, value]) => [{ [key]: value }]);
 }
-
-
-
-// /**
-//  * HOF that will check if one of the values is equal to the given one.
-//  * 
-//  * @example
-//  * [{id: 1}, {id: 2}, {id: 3}].filter(hasValueByKey('id', 3));
-//  * 
-//  * @param {String} key the key of the object
-//  * @param {Any} value the value to match against the value of the object found by the given key.
-//  * @returns true
-//  */
-// export const hasValueByKey = (key, value) =>
-//   content => content[key] === value;
-
-// /**
-//  * HOF that will check if within the array are not the given value.
-//  * 
-//  * @example
-//  * [{id: 1}, {id: 2}, {id: 3}].filter(hasNotValueByKey('id', 3));
-//  * 
-//  * @param {String} key the key of the object
-//  * @param {Any} value the value to match against the value of the object found by the given key.
-//  * @returns false
-//  */
-// export const hasNotValueByKey = (key, value) =>
-//   content => content[key] !== value;
 
 // export const hasEveryValue = (element, values) => {
 //   let bool = false;
@@ -482,8 +533,6 @@ function obj2Arr(obj) {
 //
 // - Utils
 //
-// They will only return `true` or `false`
-//
 // ------------------------------------------------------------------
 /**
  * It will create a single string of valid classes.
@@ -501,206 +550,63 @@ function addClass(classes) {
   ).join(' ').trim();
 }
 
-// // ------------------------------------------------------------------
-// // -                              compose                           -
-// // ------------------------------------------------------------------
-// const unique = fn => value => fn(value);
+/**
+ * It will recive several function that are goint to `compose` into one function.
+ * This is read from right-to-left.
+ * 
+ * @param {function} func - Functions
+ * @returns {function} - A composed function to pass one value
+ */
+function compose(...func) {
+  return (...value) => {
+    const firstFunc = func.pop();
 
-// // ------------------------------------------------------------------
-// // -                              compose                           -
-// // ------------------------------------------------------------------
-// /**
-//  * It will recive several function that are gonna compose into one function.
-//  * This is read from right-to-left.
-//  * 
-//  * @param {function} func - Functions
-//  * @returns {function} - A composed function to pass one value
-//  */
-// const compose = (...func) =>
-//     (...value) => {
-//         const firstFunc = func.pop();
+    return func.reduce((prevValue, currentValue) =>
+      currentValue(prevValue(...value))
+      , firstFunc);
+  };
+}
 
-//         return func.reduce((prevValue, currentValue) =>
-//             currentValue(prevValue(...value))
-//             , firstFunc);
-//     };
+/**
+ * It will concat and execute several functions to the given values.
+ * If you add more than one value, only the first function will recive them and
+ * the result of it will be passed down to the rest of the functions.
+ *
+ * @param {function} func - Functions.
+ * @returns {function} - The result of passing all the values through
+ *               the functions.
+ */
+function pipe(...func) {
+  return func.reduce((prevFunc, currentFunc) => (...values) => currentFunc(prevFunc(...values)));
+}
 
-// // ------------------------------------------------------------------
-// // -                              pipe                              -
-// // ------------------------------------------------------------------
-// const pipReduce = (prevFunc, currentFunc) =>
-//     (...values) =>
-//         currentFunc(prevFunc(...values));
+function getGenerator(func, params) {
+  const generator = {};
+  let size = params.length - 1;
 
-// /**
-//  * It will concat and execute several functions synchronously the givens values.
-//  * If you add more than one value, only the first function will recive them and
-//  * the result of it will be passed down to the rest of the functions
-//  *
-//  * @param {function} func - Functions.
-//  * @returns {function} - The result of passing all the values through
-//  *               the functions.
-//  */
-// const pipe = (...func) =>
-//     func.reduce(pipReduce);
+  // Return an object with with key as an Iterator and the value a
+  // function generator which is an Iterator.
+  generator[Symbol.iterator] = function* iterGenerator() {
+    while (size > -1) {
+      yield func.call(null, params[size]);
+      size -= 1;
+    }
+  };
 
-// // ------------------------------------------------------------------
-// // -                           pipeValues                           -
-// // ------------------------------------------------------------------
-// const getGenerator = (func, params) => {
-//     const generator = {};
-//     let size = params.length - 1;
+  return generator;
+}
 
-//     // Return an object with with key as an Iterator and the value a
-//     // function generator which is an Iterator.
-//     generator[Symbol.iterator] = function* iterGenerator() {
-//         while (size > -1) {
-//             yield func.call(null, params[size]);
-//             size -= 1;
-//         }
-//     };
-
-//     return generator;
-// };
-
-// /**
-//  * It will apply a single function to several independents values.
-//  * It makes use of functions generators (async).
-//  *
-//  * @param {object} - The function to use
-//  * @returns {object} - It will return array of N values.
-//  */
-// const pipeValues = func =>
-//     (...params) => [...getGenerator(func, params)];
-
-// // ------------------------------------------------------------------
-// // -                           nestedObj                            -
-// // ------------------------------------------------------------------
-// /**
-//  * Creates a nested object based on an array of keys
-//  *
-//  * @param {sintrg} keys An string concadenating the keys with a dot.
-//  * @param {any} value Any value to apply to the last key.
-//  * @returns {object} A new nested object
-//  */
-// const nestedObj = (keys, value = {}) => {
-//     const arrKeys = keys.split('.');
-//     arrKeys.reverse();
-
-//     const restWrapper = arrKeys.reduce((prev, current, index) => (
-//         { [current]: index === 0 ? value : { ...prev } }
-//     ), {});
-
-//     return restWrapper;
-// };
-
-// // ------------------------------------------------------------------
-// // -                           rmAttrObject                         -
-// // ------------------------------------------------------------------
-// /**
-//  * It will delete the attribute with its value, wether is nested or not.
-//  * It won't keep the reference like the `delete` operator in cases it might be
-//  * referenced later.
-//  *
-//  * @param {object} object - The object to work with
-//  * @param {array} keys - The nested attributes to follow along till find the last
-//  *                       attribute which is the one to be deleted.
-//  *
-//  * @returns {object} A new object keeping the rest of the original values.
-//  */
-// const rmAttrObject = (object, keys) => {
-//     let chunk = { ...object };
-//     const keyToRemove = keys.pop();
-
-//     // get the chunk to use as haystack to look for the attribute
-//     // to remove
-//     keys.forEach((key) => {
-//         chunk = chunk[key];
-//     });
-
-
-//     // removed the last value and keep the rest of the content
-//     const rest = Object.keys(chunk)
-//         .reduce((accumulator, key) => (
-//             key !== keyToRemove
-//                 ? {
-//                     ...accumulator,
-//                     [key]: chunk[key]
-//                 }
-//                 : accumulator
-//         ), {});
-
-//     keys.reverse();
-//     const restWrapper = keys.reduce((prev, current, index) => (
-//         { [current]: index === 0 ? rest : { ...object[current], ...prev } }
-//     ), {});
-
-
-//     return {
-//         ...object,
-//         ...restWrapper
-//     };
-// };
-
-
-
-// /*****************************************************************************************/
-// /* This is a different section of the library.                                           */
-// /* Everything below is based on validations commonly used on web forms                   */
-// /*****************************************************************************************/
-
-
-// Object.defineProperty(Object, 'extractValues', {
-//   /**
-//    * It will return all the values from an Object or an alement from an specific
-//    * given position.
-//    * 
-//    * @param {Object} element The object to extract all the values
-//    * @param {Number} position The position of the element we would like to get in return
-//    * @returns Array of the object values.
-//    */
-//   value: function extractValues(element, position) {
-//     let el = [];
-
-//     if (truthty(element) && Object.values(element).length) {
-//       if (position >= 0 && position !== undefined && position !== null) {
-//         el = Object.values(element)[position];
-//       } else {
-//         el = Object.values(element);
-//       }
-//     }
-
-//     return el;
-//   },
-//   writable: true,
-// });
-
-// Object.defineProperty(Object, 'hasValues', {
-//   /**
-//    * It will check if the given object has any elements as a value
-//    * 
-//    * @param {Object} element The element to check the values
-//    * @returns Boolean
-//    */
-//   value: function hasValues(element) {
-//     return Boolean(Object.values(element).length);
-//   },
-//   writable: true,
-// });
-
-// Object.defineProperty(Object, 'findValue', {
-//   value: function findValue(element, fnc) {
-//     return truthty(element) ? Object.values(element).find(fnc) : [];
-//   },
-//   writable: true,
-// });
-
-// Object.defineProperty(Object, 'filterValues', {
-//   value: function filterValues(element, fnc) {
-//     return truthty(element) ? Object.values(element).filter(fnc) : [];
-//   },
-//   writable: true,
-// });
+/**
+ * It will apply a single function to several independents values.
+ * It makes use of functions generators (async).
+ * It will return array of N values.
+ *
+ * @param {function} - The function to use
+ * @returns {array}
+ */
+function pipeValues(func) {
+  return (...params) => [...getGenerator(func, params)];
+}
 
 /**
  * It will parsed the given to be returnded as a Lower Camel Case.
@@ -734,149 +640,52 @@ function lowerCamelCase(text) {
   return `${firstLetter.toLowerCase()}${tempRest}`;
 }
 
-/**
- * It will merge arrays or objects at first level returning a new object or array.
- * Be carfuly with the order of the passed elements when they are objects
- * 
- * @example
- * clone(OBJECT, {a: 'aA'}, {b: 'bB', a: 'AA'}); // {a: 'AA', b: 'bB'};
- * 
- * @param {string} objectType The constant type of data to merge. ARRAY or OBJECT
- * @param  {(array|object)} obj The elements to merge
- * @returns {(array|object)}
- */
-function clone(objectType, ...obj) {
-  return objectType === OBJECT
-    ? Object.assign({}, ...obj)
-    : [].concat(...obj);
+function rmKey(object, key) {
+  let tmp = {};
+
+  if (!/^w+\.\w+/ig.test(key)) { // one single key
+    ({ [key]: _, ...tmp } = object);
+  } else if (Array.isArray(key)) {
+    tmp = object;
+    for (let index = 0, size = key.length; index < size; index += 1) {
+      ({ [key[index]]: _, ...tmp } = tmp);
+    }
+  }
+  // TODO: REMOVE NESTED VALUES
+  //     let chunk = { ...object };
+  //     const keyToRemove = keys.pop();
+
+  //     // get the chunk to use as haystack to look for the attribute
+  //     // to remove
+  //     keys.forEach((key) => {hasNotValueByKey
+  //         chunk = chunk[key];
+  //     });
+
+
+  //     // removed the last value and keep the rest of the content
+  //     const rest = Object.keys(chunk)
+  //         .reduce((accumulator, key) => (
+  //             key !== keyToRemove
+  //                 ? {
+  //                     ...accumulator,
+  //                     [key]: chunk[key]
+  //                 }
+  //                 : accumulator
+  //         ), {});
+
+  //     keys.reverse();
+  //     const restWrapper = keys.reduce((prev, current, index) => (
+  //         { [current]: index === 0 ? rest : { ...object[current], ...prev } }
+  //     ), {});
+
+
+  //     return {
+  //         ...object,
+  //         ...restWrapper
+  //     };
+
+  return tmp;
 }
-
-/**
- * It will turn out an Array of objects into a new array of objects or a new object. 
- * The new objects in the array are based on the passed `key` and `value` params extracted from
- * the key of the objects in the initial array.
- *
- * @param {array} array The array where to work on
- * @param {string} key The name of the atribute to use as a key
- * @param {string} value The name of the atribute to use as a value
- * @returns {array} a new array of objects
- */
-function compress(array, key, value, objOrArra = ARRAY) {
-  return array.reduce((prev, current) =>
-    clone(objOrArra, prev, { [current[key]]: current[value] })
-    , objOrArra === ARRAY ? [] : {});
-}
-
-// export const appendToObject = (array, extraKey, extraValue, objItself = false) =>
-//   array.reduce((prev, current) => ([
-//     ...prev,
-//     {
-//       ...current,
-//       [extraKey]: objItself ? current[extraValue] : extraValue,
-//     }
-//   ]), []);
-
-// /**
-//  * It will turn out an array of objects to a single object
-//  *
-//  * @param {array} arr The array to seek for
-//  * @returns {object} A new object
-//  */
-// export const flatObject = arr =>
-//   arr.reduce((prev, current) => {
-//     const [[key, value]] = Object.entries(current);
-
-//     prev[key] = value;
-//     return prev;
-//   }, {});
-
-// /**
-//  * HOC - It will return only one value from an object.
-//  * falsy values are not returned.
-//  * Eg: data.name - returned value is "name".
-//  * Useful to work with `map`
-//  * 
-//  * @param {any} key The name of the chain attribute to get the value from
-//  * @param {any} content The content from where to extract the value
-//  * @returns {any} The needed value
-//  */
-// export const uniqueObjValue = key => content => content[key];
-
-
-// export const normalizeObj = arr => {
-//   let id = null;
-
-//   return truthty(arr)
-//     ? arr.reduce((prev, current, index) => {
-//       if (current.id !== undefined) {
-//         id = current.id;
-//       } else if (current.Id !== undefined) {
-//         id = current.Id;
-//       } else {
-//         id = index;
-//       }
-
-//       prev[id] = current;
-//       return prev;
-//     }, {})
-//     : (Array.isArray(arr) ? [] : {});
-// };
-
-// export const formatRUN = text => (
-//   /*eslint no-sequences: "off"*/
-//   text.length > 1 && (text = `${text.slice(0, text.length - 1)}-${text.slice(-1)}`),
-//   text.length > 5 && (text = `${text.slice(0, text.length - 5)}.${text.slice(text.length - 5)}`),
-//   text.length > 9 && (text = `${text.slice(0, text.length - 9)}.${text.slice(text.length - 9)}`)
-// );
-
-// export const getObjectByKey = element =>
-//   key => ({
-//     [key]: element[key]
-//   });
-
-// /**
-//  * It will concat and execute several functions synchronously.
-//  * If you add more than one value, only the first function will recive them and
-//  * the result of it will be passed down through the rest of the functions
-//  *
-//  * @param {function} func - Functions.
-//  * @returns {function} - The result of passing all the values through
-//  *               the functions.
-//  */
-// export const pipe = (...func) =>
-//   func.reduce((prevFunc, currentFunc) =>
-//     (...values) =>
-//       currentFunc(prevFunc(...values)));
-
-
-// export const removeKeyByFilter = (object, keyParam) =>
-//   Object.keys(object)
-//     .filter(key => key !== keyParam.toString())
-//     .reduce((obj, key) => {
-//       obj[key] = object[key];
-//       return obj;
-//     }, {});
-
-
-// export const invertObj = obj =>
-//   Object.entries(obj)
-//     .reduce((prev, current) => {
-//       const [key, value] = current;
-//       prev[value] = key;
-//       return prev;
-//     }, {});
-
-
-// Object.defineProperty(clone, 'ARRAY', {
-//   value: 'ARRAY',
-//   writable: true,
-// });
-
-// Object.defineProperty(clone, 'OBJECT', {
-//   value: 'OBJECT',
-//   writable: true,
-// });
-
 
 function upperText(text, byWord = false) {
   const regex = new RegExp("\\.\\s*\\w{1}", 'g');
@@ -909,27 +718,23 @@ module.exports = {
       upperText,
     },
     lowerCamelCase,
+    pipeValues, // TODO: TEST
     addClass, // TODO: TEST
     compress,
+    compose, // TODO: TEST
     obj2Arr,
     clone,
+    rmKey, // TODO: TEST
+    pipe, // TODO: TEST
   },
-  // utils
-  //     eventToString, // TODO: TEST
-  //     rmAttrObject,
-  //     pipeValues,
-  //     stopEvent, // TODO: TEST
-  //     nestedObj,
-  //     readOnly, // TODO: TEST
-  //     compose, // TODO: TEST
-  //     isNot,
-  //     pipe,
-  // TODO: test all of them
   has: {
+    valueByKey, // TODO: TEST
     someValues,
     someValue,
     oneValue,
+    unique, // TODO: TEST
     not: {
+      valueByKey: notValueByKey, // TODO: TEST
       oneValue: notOneValue,
     },
   },
