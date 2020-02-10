@@ -657,38 +657,6 @@ function rmKey(object, key) {
     }
   }
   // TODO: REMOVE NESTED VALUES
-  //     let chunk = { ...object };
-  //     const keyToRemove = keys.pop();
-
-  //     // get the chunk to use as haystack to look for the attribute
-  //     // to remove
-  //     keys.forEach((key) => {hasNotValueByKey
-  //         chunk = chunk[key];
-  //     });
-
-
-  //     // removed the last value and keep the rest of the content
-  //     const rest = Object.keys(chunk)
-  //         .reduce((accumulator, key) => (
-  //             key !== keyToRemove
-  //                 ? {
-  //                     ...accumulator,
-  //                     [key]: chunk[key]
-  //                 }
-  //                 : accumulator
-  //         ), {});
-
-  //     keys.reverse();
-  //     const restWrapper = keys.reduce((prev, current, index) => (
-  //         { [current]: index === 0 ? rest : { ...object[current], ...prev } }
-  //     ), {});
-
-
-  //     return {
-  //         ...object,
-  //         ...restWrapper
-  //     };
-
   return tmp;
 }
 
