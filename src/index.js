@@ -22,16 +22,14 @@ require("regenerator-runtime/runtime");
  * @copyright Diego Alberto Molina Vera 2018 - 2019.
  */
 // -=====================================================-
+
+// Constants
 const PRODUCTION = 'production';
 const OBJECT = 'object';
 const ARRAY = 'array';
 
-// ------------------------------------------------------------------
-//
-// - VALIDATIONS
-//
-// ------------------------------------------------------------------
-const inFunctions = {
+// Private functions
+const _inFunctions = {
   isInArray(element, values) {
     return values.every(value => element.indexOf(value) !== -1);
   },
@@ -42,6 +40,33 @@ const inFunctions = {
   },
 };
 
+function _objLen(element) {
+  return (Array.isArray(element)
+    ? Object.values(element)
+    : Object.keys(element)).length
+};
+
+function _getGenerator(func, params) {
+  const generator = {};
+  let size = params.length - 1;
+
+  // Return an object with with key as an Iterator and the value a
+  // function generator which is an Iterator.
+  generator[Symbol.iterator] = function* iterGenerator() {
+    while (size > -1) {
+      yield func.call(null, params[size]);
+      size -= 1;
+    }
+  };
+
+  return generator;
+}
+
+// ------------------------------------------------------------------
+//
+// - VALIDATIONS
+//
+// ------------------------------------------------------------------
 /**
  * It will check and return wether or not the value(s) exist on the
  * given object or array. For the object it will look for the attribute (key)
@@ -68,14 +93,8 @@ function into(element, ...values) {
     throw Error('Type Object is not allowed to be checked');
   }
 
-  return inFunctions[`isIn${Array.isArray(element) ? 'Array' : 'Object'}`](element, values);
+  return _inFunctions[`isIn${Array.isArray(element) ? 'Array' : 'Object'}`](element, values);
 }
-
-function objLenth(element) {
-  return Array.isArray(element)
-    ? Object.values(element).length
-    : Object.keys(element).length
-};
 
 /**
  * It will check if the element has the exact `length` of elements (Object and Array)
@@ -96,7 +115,7 @@ function exactSize(element, size) {
 
   return (typeof element === 'string'
     ? element.trim().length
-    : objLenth(element)) === size;
+    : _objLen(element)) === size;
 }
 
 /**
@@ -114,7 +133,7 @@ function moreOrEqual(element, size) {
 
   return (typeof element === 'string'
     ? element.trim().length
-    : objLenth(element)) >= size;
+    : _objLen(element)) >= size;
 }
 
 /**
@@ -130,7 +149,7 @@ function lessOrEqual(element, size) {
     throw Error('Type objects are not allowed to be checked');
   }
 
-  return (typeof element === 'string' ? element.trim().length : objLenth(element)) <= size;
+  return (typeof element === 'string' ? element.trim().length : _objLen(element)) <= size;
 }
 
 /**
@@ -585,22 +604,6 @@ function pipe(...func) {
   return func.reduce((prevFunc, currentFunc) => (...values) => currentFunc(prevFunc(...values)));
 }
 
-function getGenerator(func, params) {
-  const generator = {};
-  let size = params.length - 1;
-
-  // Return an object with with key as an Iterator and the value a
-  // function generator which is an Iterator.
-  generator[Symbol.iterator] = function* iterGenerator() {
-    while (size > -1) {
-      yield func.call(null, params[size]);
-      size -= 1;
-    }
-  };
-
-  return generator;
-}
-
 /**
  * It will apply a single function to several independents values.
  * It makes use of functions generators (async).
@@ -610,7 +613,7 @@ function getGenerator(func, params) {
  * @returns {array}
  */
 function pipeValues(func) {
-  return (...params) => [...getGenerator(func, params)];
+  return (...params) => [..._getGenerator(func, params)];
 }
 
 /**
