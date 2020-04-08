@@ -389,19 +389,19 @@ function compress(array, key, value) {
   };
 }
 
-// /**
-//  * HOF that will check if one of the values is equal to the given one.
-//  * Works only with a single params.
-//  *
-//  * @example
-//  * [1, 2, 3].filter(has.oneValue(2));
-//  *
-//  * @param {*} value Any type of value.
-//  * @returns {function(*): boolean} - A function that will accept only one param
-//  */
-// function oneValue(value) {
-//   return content => content === value;
-// }
+/**
+ * High Order Function to be used within filter and map.
+ *
+ * @example
+ * [1, 2, 3].filter(has.oneValue(2));
+ * // [2];
+ *
+ * @param {any} value              - Any value to use as a seed to filter.
+ * @returns {function(any): boolean} - A function that will accept only one param.
+ */
+function oneValue(value) {
+  return (content) => content === value;
+}
 
 // /**
 //  * HOF that will check if one of the values is different to the given one.
@@ -674,7 +674,7 @@ module.exports = {
     //   valueByKey, // TODO: TEST
     someValues,
     someValue,
-    //   oneValue,
+    oneValue,
     //   unique, // TODO: TEST
     //   not: {
     //     valueByKey: notValueByKey, // TODO: TEST
