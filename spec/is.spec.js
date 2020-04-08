@@ -1,46 +1,23 @@
 const is = require('./../src/is');
 
 describe('A collectin of "is" functions', () => {
-  //   describe('`is` functions', () => {
-  //     it('Is `into` and Array or Object the specified value(s)', () => {
-  //       const object = {
-  //         name: 'John Doe',
-  //         age: 20,
-  //         married: false,
-  //         other: {
-  //           email: 'joahn@doe.cl'
-  //         }
-  //       };
+  it('truthy', done => {
+    expect(is.truthty({ a: 'hello' })).toBe(true);
+    expect(is.truthty('hello')).toBe(true);
+    expect(is.truthty([1, 2])).toBe(true);
+    expect(is.truthty(true)).toBe(true);
+    expect(is.truthty(3)).toBe(true);
+    //
+    expect(is.truthty(NaN)).toBe(false);
+    expect(is.truthty([])).toBe(false);
+    expect(is.truthty({})).toBe(false);
+    expect(is.truthty(undefined)).toBe(false);
+    expect(is.truthty('')).toBe(false);
+    expect(is.truthty(false)).toBe(false);
+    expect(is.truthty(0)).toBe(false);
 
-  // const array = ['hello', 'hola', 20, true, 'hallo', 'priviet', {}];
-
-  //       // array test
-  //       expect(is.into(array, 20)).toBe(true);
-  //       expect(is.into(array, 'priviet', 20)).toBe(true);
-
-  //       // object testing
-  //       expect(is.into(object, 'name')).toBe(true);
-  //       expect(is.into(object, 'married', 'email')).toBe(true);
-
-  //       // Testing not allowed values
-  //       expect(() => is.into(array, {})).toThrow();
-  //     });
-
-  //     it('Is truthy the given values', () => {
-  //       expect(is.truthty({ a: 'hello' })).toBe(true);
-  //       expect(is.truthty('hello')).toBe(true);
-  //       expect(is.truthty([1, 2])).toBe(true);
-  //       expect(is.truthty(true)).toBe(true);
-  //       expect(is.truthty(3)).toBe(true);
-  //       //
-  //       expect(is.truthty(NaN)).toBe(false);
-  //       expect(is.truthty([])).toBe(false);
-  //       expect(is.truthty({})).toBe(false);
-  //       expect(is.truthty(undefined)).toBe(false);
-  //       expect(is.truthty('')).toBe(false);
-  //       expect(is.truthty(false)).toBe(false);
-  //       expect(is.truthty(0)).toBe(false);
-  //     });
+    done();
+  });
 
   //     it('Is falsy the given values', () => {
   //       expect(is.falsy({ a: 'hello' })).toBe(false);
@@ -58,17 +35,21 @@ describe('A collectin of "is" functions', () => {
   //       expect(is.falsy(0)).toBe(true);;
   //     });
 
-  //     it('Is NaN `nan`', () => {
-  //       expect(is.nan(NaN)).toBe(true);
-  //       expect(is.nan(Number('123A'))).toBe(true);
-  //     });
+  it('nan', done => {
+    expect(is.nan(NaN)).toBe(true);
+    expect(is.nan(Number('123A'))).toBe(true);
 
-  //     it('Is RUN (run)', () => {
-  //       expect(is.run('18150581-8')).toBe(true);
-  //       expect(is.run('19423287-k')).toBe(true);
-  //       expect(is.run('117945138')).toBe(true);
-  //       expect(is.run('24.634.452-3')).toBe(true);
-  //     });
+    done();
+  });
+
+  it('R.U.N (run) - Chile ID', done => {
+    expect(is.run('18150581-8')).toBe(true);
+    expect(is.run('19423287-k')).toBe(true);
+    expect(is.run('117945138')).toBe(true);
+    expect(is.run('24.634.452-3')).toBe(true);
+
+    done();
+  });
 
   //     describe('Checking the length of the elements', () => {
   const object = {
@@ -76,8 +57,8 @@ describe('A collectin of "is" functions', () => {
     age: 20,
     married: false,
     other: {
-      email: 'joahn@doe.cl',
-    },
+      email: 'joahn@doe.cl'
+    }
   }; // length:4
 
   const array = ['hello', 'hola', 20, true, 'hallo', 'priviet', {}]; // length:7
@@ -111,7 +92,7 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  it('Is `lessOrEqual` than the given value', done => {
+  it('lessOrEqual', done => {
     expect(is.lessOrEqual(object, 10)).toBe(true);
     expect(is.lessOrEqual(array, 7)).toBe(true);
     expect(is.lessOrEqual(string, 20)).toBe(true);
@@ -144,12 +125,14 @@ describe('A collectin of "is" functions', () => {
   //         expect(is.email('example@s.example')).toBe(true);
   //       });
 
-  //       it('Allows only words `alpha`', () => {
-  //         expect(is.alpha('hola')).toBe(true);
-  //         expect(is.alpha('John Doe')).toBe(true);
-  //         expect(is.alpha('John Doe día')).toBe(true);
-  //         expect(is.alpha('John Doe Ño')).toBe(true);
-  //       });
+  it('alpha', done => {
+    expect(is.alpha('hola')).toBe(true);
+    expect(is.alpha('John Doe')).toBe(true);
+    expect(is.alpha('John Doe día')).toBe(true);
+    expect(is.alpha('John Doe Ño')).toBe(true);
+
+    done();
+  });
 
   //       it('Allows only numbers `number`', () => {
   //         expect(is.number('1234')).toBe(true);

@@ -19,14 +19,14 @@ describe('A collection of "utils" functions', () => {
       a: { a: 2 },
       b: '3',
       c: true,
-      d: [4],
+      d: [4]
     };
 
     const arr = [
       { a: { a: 2 } },
       { b: '3' },
       { c: true },
-      { d: [4] },
+      { d: [4] }
     ];
 
     expect(utils.obj2Arr(obj)).toEqual(arr);
@@ -39,30 +39,30 @@ describe('A collection of "utils" functions', () => {
       {
         name: 'AAA',
         age: 23,
-        email: 'email@test.cl',
+        email: 'email@test.cl'
       },
       {
         name: 'SSS',
         age: 60,
-        email: 'email@test.cl',
+        email: 'email@test.cl'
       },
       {
         name: 'DDD',
         age: 13,
-        email: 'email@test.cl',
-      },
+        email: 'email@test.cl'
+      }
     ];
 
     const obj = {
       AAA: 'email@test.cl',
       SSS: 'email@test.cl',
-      DDD: 'email@test.cl',
+      DDD: 'email@test.cl'
     };
 
     const arr = [
       { AAA: 'email@test.cl' },
       { SSS: 'email@test.cl' },
-      { DDD: 'email@test.cl' },
+      { DDD: 'email@test.cl' }
     ];
 
     expect(utils.compress(value, 'name', 'email').array()).toEqual(
@@ -85,7 +85,7 @@ describe('A collection of "utils" functions', () => {
     expect(obj).toEqual({
       name: 'John',
       age: 29,
-      email: 'test@test.cl',
+      email: 'test@test.cl'
     });
 
     expect(arr).toEqual([1, 2, 3, 4, 2, 10, 5]);
@@ -93,61 +93,6 @@ describe('A collection of "utils" functions', () => {
     done();
   });
 
-  // //     it('One or more keys are in a Object', () => {
-  // //       const object = {
-  // //         name: 'John Doe',
-  // //         age: 20,
-  // //         married: false,
-  // //         other: {
-  // //           email: 'joahn@doe.cl'
-  // //         }
-  // //       };
-
-  // //       // Testing one value
-  // //       let value = isIn(object, 'name');
-  // //       expect(value).toBe(true);
-
-  // //       // Testing two values
-  // //       value = isIn(object, 'married', 'email');
-  // //       expect(value).toBe(true);
-  // //     });
-
-  // //     it('Has exactly the specified amount of elements', () => {
-  // //       const object = {
-  // //         name: 'John Doe',
-  // //         age: 20,
-  // //         married: false,
-  // //         other: {
-  // //           email: 'joahn@doe.cl'
-  // //         }
-  // //       };
-
-  // //       let size = isExactSize(object, 4);
-  // //       expect(size).toBe(true);
-  // //       size = isExactSize(object, 5);
-  // //       expect(size).toBe(false);
-  // //       size = isExactSize(object, 3);
-  // //       expect(size).toBe(false);
-  // //     });
-
-  // //     it('It is greater and equal than the given value', () => {
-  // //       const object = {
-  // //         name: 'John Doe',
-  // //         age: 20,
-  // //         married: false,
-  // //         other: {
-  // //           email: 'joahn@doe.cl'
-  // //         }
-  // //       };
-
-  // //       let size = isMoreAndEqual(object, 4);
-  // //       expect(size).toBe(true);
-  // //       size = isMoreAndEqual(object, 5);
-  // //       expect(size).toBe(false);
-  // //       size = isMoreAndEqual(object, 3);
-  // //       expect(size).toBe(true);
-  // //     });
-  // //   });
 
   // //   // describe('Testing pipe function', () => {
   // //   //   it('Executes several functions for one value', () => {

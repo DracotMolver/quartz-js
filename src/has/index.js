@@ -51,7 +51,7 @@ function someValues(arr, values) {
 function someValue(element, values) {
   let result = null;
 
-  if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
+  if (!util.isArray(values) && TARGET !== PRODUCTION) {
     throw new Error('The second param should be an Array');
   }
 
@@ -87,5 +87,5 @@ function oneValue(value) {
 module.exports = {
   someValues,
   someValue,
-  oneValue,
+  oneValue
 };

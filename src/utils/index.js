@@ -51,7 +51,7 @@ function compress(array, key, value) {
 
   return {
     object: () => _maker({}),
-    array: () => _maker([]),
+    array: () => _maker([])
   };
 }
 
@@ -67,7 +67,7 @@ function compress(array, key, value) {
  */
 function obj2Arr(obj) {
   return Object.entries(obj).flatMap(([key, value]) => [
-    { [key]: value },
+    { [key]: value }
   ]);
 }
 
@@ -92,5 +92,5 @@ module.exports = {
   camelCase,
   compress,
   obj2Arr,
-  clone,
+  clone
 };

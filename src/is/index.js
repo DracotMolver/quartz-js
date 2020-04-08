@@ -7,13 +7,15 @@
  * @copyright Diego Alberto Molina Vera 2020.
  */
 
-"use strict";
+'use strict';
 
-const util = require("util");
+const util = require('util');
 
 function _objLen(element) {
-  return (util.isArray(element) ? Object.values(element) : Object.keys(element))
-    .length;
+  return (util.isArray(element)
+    ? Object.values(element)
+    : Object.keys(element)
+  ).length;
 }
 
 /**
@@ -25,11 +27,14 @@ function _objLen(element) {
  * @returns {boolean}
  */
 function moreOrEqual(value, size) {
-  if (util.isNumber(value) && process.env.NODE_ENV !== PRODUCTION) {
-    throw Error("Type number is not allowed to be checked");
+  if (util.isNumber(value) && TARGET !== 'production') {
+    throw Error('Type number is not allowed to be checked');
   }
 
-  return (util.isString(value) ? value.trim().length : _objLen(value)) >= size;
+  return (
+    (util.isString(value) ? value.trim().length : _objLen(value)) >=
+    size
+  );
 }
 
 /**
@@ -41,11 +46,14 @@ function moreOrEqual(value, size) {
  * @returns {boolean}
  */
 function lessOrEqual(value, size) {
-  if (util.isNumber(value) && process.env.NODE_ENV !== PRODUCTION) {
-    throw Error("Type number is not allowed to be checked");
+  if (util.isNumber(value) && TARGET !== 'production') {
+    throw Error('Type number is not allowed to be checked');
   }
 
-  return (util.isString(value) ? value.trim().length : _objLen(value)) <= size;
+  return (
+    (util.isString(value) ? value.trim().length : _objLen(value)) <=
+    size
+  );
 }
 
 /**
@@ -61,15 +69,117 @@ function lessOrEqual(value, size) {
  * @returns {boolean}
  */
 function exactSize(value, size) {
-  if (util.isNumber(value) && process.env.NODE_ENV !== PRODUCTION) {
-    throw Error("Type number are not allowed to be checked");
+  if (util.isNumber(value) && TARGET !== 'production') {
+    throw Error('Type number are not allowed to be checked');
   }
 
-  return (util.isString(value) ? value.trim().length : _objLen(value)) === size;
+  return (
+    (util.isString(value) ? value.trim().length : _objLen(value)) ===
+    size
+  );
+}
+
+/**
+ * It will check if the given value is NaN.
+ *
+ * @param {*} value   - Any value to be checked that is NaN.
+ * @returns {boolean}
+ */
+function nan(value) {
+  return String(value) === 'NaN';
+}
+
+/**
+ * It will check if a value is truthty but with slightly modifications for Ojects and Arrays.
+ *
+ * @example
+ * | type    | description                     |
+ * |---------|---------------------------------|
+ * | Objects | "{}" => false. "{a: 2}" => true |
+ * |---------|---------------------------------|
+ * | Arrays  | "[]" => false. "[2]" => true    |
+ * |---------|---------------------------------|
+ *
+ * @param {any} value - Any value to be checked.
+ * @returns {boolean}
+ */
+function truthty(value) {
+  let isTruthy = false;
+
+  if (/^\d+$/.test(value)) {
+    value = Number(value);
+  }
+
+  if (value && !nan(value)) {
+    isTruthy = true;
+    if (typeof value === 'object' && Object.keys(value).length) {
+      isTruthy = true;
+    } else if (
+      typeof value === 'object' &&
+      !Object.keys(value).length
+    ) {
+      isTruthy = false;
+    }
+  }
+
+  return isTruthy;
+}
+
+/**
+ * It will check if the given R.U.N is valid - Chile ID.
+ *
+ * @param {string} value The given R.U.N.
+ * @returns {boolean}
+ */
+function run(value) {
+  const text = value.toLowerCase().trim().replace(/[.-]/g, '');
+
+  let counter = 2;
+  let total = 0;
+  let size = text.length - 2;
+
+  for (; size >= 0; size--, counter += 1) {
+    if (counter > 7) {
+      counter = 2;
+    }
+
+    total += text[size] * counter;
+  }
+
+  total = Number(11 - (total - 11 * Math.floor(total / 11)));
+
+  if (total === 11) {
+    total = 0;
+  } else {
+    total = 'k';
+  }
+
+  return String(total) === text.slice(-1);
+}
+
+/**
+ * Validates that the given value has only words.
+ *
+ * @param {string} value - Value to match
+ * @returns {boolean}
+ */
+function alpha(value) {
+  if (
+    (!util.isString(value) !== TARGET) !==
+    'production'
+  ) {
+    throw Error('The value must be an string');
+  }
+
+  return /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+$/i.test(value);
 }
 
 module.exports = {
   moreOrEqual,
   lessOrEqual,
   exactSize,
+  truthty,
+  alpha,
+  nan,
+  run
 };

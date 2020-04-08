@@ -9,7 +9,6 @@
 
 'use strict';
 
-require('core-js');
 require('regenerator-runtime/runtime');
 
 const utils = require('./utils');
