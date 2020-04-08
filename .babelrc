@@ -3,7 +3,7 @@
     [
       "@babel/preset-env",
       {
-        "targets": {
+        "process.env.NODE_ENVs": {
           "node": "6.10"
         },
         "useBuiltIns": "usage",

@@ -19,21 +19,21 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  //     it('Is falsy the given values', () => {
-  //       expect(is.falsy({ a: 'hello' })).toBe(false);
-  //       expect(is.falsy('hello')).toBe(false);
-  //       expect(is.falsy([1, 2])).toBe(false);
-  //       expect(is.falsy(true)).toBe(false);
-  //       expect(is.falsy(3)).toBe(false);
-  //       //
-  //       expect(is.falsy(NaN)).toBe(true);
-  //       expect(is.falsy([])).toBe(true);
-  //       expect(is.falsy({})).toBe(true);
-  //       expect(is.falsy(undefined)).toBe(true);
-  //       expect(is.falsy('')).toBe(true);
-  //       expect(is.falsy(false)).toBe(true);
-  //       expect(is.falsy(0)).toBe(true);;
-  //     });
+  it('falsy', () => {
+    expect(is.falsy({ a: 'hello' })).toBe(false);
+    expect(is.falsy('hello')).toBe(false);
+    expect(is.falsy([1, 2])).toBe(false);
+    expect(is.falsy(true)).toBe(false);
+    expect(is.falsy(3)).toBe(false);
+    //
+    expect(is.falsy(NaN)).toBe(true);
+    expect(is.falsy([])).toBe(true);
+    expect(is.falsy({})).toBe(true);
+    expect(is.falsy(undefined)).toBe(true);
+    expect(is.falsy('')).toBe(true);
+    expect(is.falsy(false)).toBe(true);
+    expect(is.falsy(0)).toBe(true);
+  });
 
   it('nan', done => {
     expect(is.nan(NaN)).toBe(true);
@@ -107,23 +107,36 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  //     describe('Checking differents commons validations', () => {
-  //       it('Is a valid `email`', () => {
-  //         expect(is.email('very.common@example.com')).toBe(true);
-  //         expect(is.email('disposable.style.email.with + symbol@example.com')).toBe(true);
-  //         expect(is.email('other.email -with-hyphen@example.com')).toBe(true);
-  //         expect(is.email('fully - qualified - domain@example.com')).toBe(true);
-  //         expect(is.email('user.name + tag + sorting@example.com')).toBe(true);
-  //         expect(is.email('x@example.com')).toBe(true);
-  //         expect(is.email('"very.(),:;<>[]\\".VERY.\"very@\\ \"very\".unusual"@strange.example.com')).toBe(true);
-  //         expect(is.email('example - indeed@strange-example.com')).toBe(true);
-  //         expect(is.email('admin@mailserver1')).toBe(true);
-  //         expect(is.email('#!$ %& \'*+-/=?^_`{}|~@example.org')).toBe(true);
-  //         expect(is.email('simple@example.com')).toBe(true);
-  //         expect(is.email('" "@example.org')).toBe(true);
-  //         expect(is.email('user@[2001:DB8::1]')).toBe(true);
-  //         expect(is.email('example@s.example')).toBe(true);
-  //       });
+  it('Is a valid `email`', () => {
+    expect(is.email('very.common@example.com')).toBe(true);
+    expect(
+      is.email('disposable.style.email.with + symbol@example.com')
+    ).toBe(true);
+    expect(is.email('other.email -with-hyphen@example.com')).toBe(
+      true
+    );
+    expect(is.email('fully - qualified - domain@example.com')).toBe(
+      true
+    );
+    expect(is.email('user.name + tag + sorting@example.com')).toBe(
+      true
+    );
+    expect(is.email('x@example.com')).toBe(true);
+    expect(
+      is.email(
+        '"very.(),:;<>[]\\".VERY."very@\\ "very".unusual"@strange.example.com'
+      )
+    ).toBe(true);
+    expect(is.email('example - indeed@strange-example.com')).toBe(
+      true
+    );
+    expect(is.email('admin@mailserver1')).toBe(true);
+    expect(is.email("#!$ %& '*+-/=?^_`{}|~@example.org")).toBe(true);
+    expect(is.email('simple@example.com')).toBe(true);
+    expect(is.email('" "@example.org')).toBe(true);
+    expect(is.email('user@[2001:DB8::1]')).toBe(true);
+    expect(is.email('example@s.example')).toBe(true);
+  });
 
   it('alpha', done => {
     expect(is.alpha('hola')).toBe(true);

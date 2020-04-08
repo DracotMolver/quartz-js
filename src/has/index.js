@@ -51,7 +51,7 @@ function someValues(arr, values) {
 function someValue(element, values) {
   let result = null;
 
-  if (!util.isArray(values) && TARGET !== PRODUCTION) {
+  if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
     throw new Error('The second param should be an Array');
   }
 
@@ -83,6 +83,20 @@ function someValue(element, values) {
 function oneValue(value) {
   return content => content === value;
 }
+
+// // /**
+// //  * HOF - It will return only one `Truthty` value. `Falsy` values are not returned.
+// //  *
+// //  * @example
+// //  * [{name: 'john', age: 20}].map(util.unique('age')); // [{age: 20}]
+// //  *
+// //  * @param {any} key The name of the chain attribute to get the value from
+// //  * @param {any} content The content from where to extract the value
+// //  * @returns {any} The needed value
+// //  */
+// // function unique(key) {
+// //   return content => content[key];
+// // }
 
 module.exports = {
   someValues,

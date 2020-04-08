@@ -27,7 +27,7 @@ function _objLen(element) {
  * @returns {boolean}
  */
 function moreOrEqual(value, size) {
-  if (util.isNumber(value) && TARGET !== 'production') {
+  if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
     throw Error('Type number is not allowed to be checked');
   }
 
@@ -46,7 +46,7 @@ function moreOrEqual(value, size) {
  * @returns {boolean}
  */
 function lessOrEqual(value, size) {
-  if (util.isNumber(value) && TARGET !== 'production') {
+  if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
     throw Error('Type number is not allowed to be checked');
   }
 
@@ -69,7 +69,7 @@ function lessOrEqual(value, size) {
  * @returns {boolean}
  */
 function exactSize(value, size) {
-  if (util.isNumber(value) && TARGET !== 'production') {
+  if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
     throw Error('Type number are not allowed to be checked');
   }
 
@@ -126,6 +126,41 @@ function truthty(value) {
 }
 
 /**
+ * It will check if a value is falsy but with slightly modifications for Object and Array.
+ *
+ * @example
+ * | type    |  description                    |
+ * |---------|---------------------------------|
+ * | Objects | "{}" => true. "{a: 2}" => false |
+ * |---------|---------------------------------|
+ * | Arrays  | "[]" => true. "[2]" => false    |
+ * |---------|---------------------------------|
+ *
+ * @param {any} value - Any value to be checked
+ * @returns {boolean}
+ */
+function falsy(value) {
+  let isFalsy = false;
+
+  function isPromise(object) {
+    if (Promise && Promise.resolve) {
+      return Promise.resolve(object) === object;
+    }
+  }
+
+  if ((!isPromise(value) && !value) || nan(value)) {
+    isFalsy = true;
+  } else if (!isPromise(value) && typeof value === 'object') {
+    if (!(value instanceof Date)) {
+      // check for dates
+      isFalsy = !Boolean(Object.keys(value).length);
+    }
+  }
+
+  return isFalsy;
+}
+
+/**
  * It will check if the given R.U.N is valid - Chile ID.
  *
  * @param {string} value The given R.U.N.
@@ -150,7 +185,7 @@ function run(value) {
 
   if (total === 11) {
     total = 0;
-  } else {
+  } else if (total === 10) {
     total = 'k';
   }
 
@@ -165,8 +200,8 @@ function run(value) {
  */
 function alpha(value) {
   if (
-    (!util.isString(value) !== TARGET) !==
-    'production'
+    !util.isString(value) &&
+    process.env.NODE_ENV !== 'production'
   ) {
     throw Error('The value must be an string');
   }
@@ -174,11 +209,54 @@ function alpha(value) {
   return /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+$/i.test(value);
 }
 
+/**
+ * Validates if the value is a well formed email.
+ *
+ * @param {string} value - String to match against with-
+ * @returns {boolean}
+ */
+function email(value) {
+  let isEmail = true;
+  if (
+    /^[a-z\d\!#\$%&'.\*\+\-\/\=\?\^_`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(
+      value.toLowerCase()
+    )
+  ) {
+    const lastPosition = value.lastIndexOf('@');
+    const localPart = value.slice(0, lastPosition);
+    const domainPart = value.slice(lastPosition + 1, value.length);
+
+    // Local part
+    if (/^[.,]|[.,]$/.test(localPart)) {
+      // Forbidden
+      isEmail = false;
+    } else if (
+      /(\.{2,}|["\(\),\:;<>\[\\\]]|@+?)/g.test(localPart) &&
+      localPart.slice(0, 1) !== '"' &&
+      localPart.slice(-1) !== '"'
+    ) {
+      // Forbidden
+      isEmail = false;
+    }
+
+    // Domain part
+    if (isEmail) {
+      isEmail = /^[\-]|[\-]$/.test(domainPart) ? false : true;
+    }
+  } else {
+    isEmail = false;
+  }
+
+  return isEmail;
+}
+
 module.exports = {
   moreOrEqual,
   lessOrEqual,
   exactSize,
   truthty,
+  email,
+  falsy,
   alpha,
   nan,
   run
