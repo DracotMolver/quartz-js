@@ -300,10 +300,99 @@ function url(value) {
   return isValid;
 }
 
+/**
+ * It will set up a Password Strength Policy.
+ * The returned funciton will check later if a password is valid under that policy.
+ *
+ * @param {string} pwd               - String to match against with
+ * @param {object} rules             - The set of rules for your password
+ * @param {number} rules.minLength   - Minimun size of characters
+ * @param {number} rules.minAlpha    - Minimun size of alpha characters
+ * @param {number} rules.minNumber   - Minimun of numbers
+ * @param {number} rules.minSameChar - Minimun of equal characters
+ * @param {boolean} rules.allowSpace - If allow or not whitespace
+ * @returns {boolean}
+ */
+function password(rules = null) {
+  const isValid = {
+    minLength: false,
+    maxLength: false,
+    minAlpha: false,
+    minNumber: false,
+    minSameChar: true,
+    allowSpace: true
+  };
+
+  let callback = null;
+
+  if (truthty(rules)) {
+    callback = pwd => {
+      if (process.env.NODE_ENV !== 'production') {
+        if (rules.minLength < rules.minNumber + rules.minAlpha) {
+          throw Error(
+            "The minLength can't be less than the sum of the minNumber and minAlpha values. It can be equal or more."
+          );
+        }
+
+        if (rules.maxLength < rules.minNumber + rules.minAlpha) {
+          throw Error(
+            "The maxLength can't be less than the sum of the minNumber and minAlpha values. It can be only equal."
+          );
+        }
+
+        if (rules.maxLength < rules.minLength) {
+          throw Error(
+            "The maxLength can't be less than the minLenght. It must be more."
+          );
+        }
+      }
+
+      const strPwd = pwd;
+
+      isValid.minLength = strPwd.length >= rules.minLength;
+      isValid.maxLength = strPwd.length <= rules.maxLength;
+
+      const matchedWords = strPwd.match(/\D+/g).join('');
+      isValid.minAlpha = matchedWords.length >= rules.minAlpha;
+
+      const matchedNumbers = strPwd.match(/\d+/g).join('');
+      isValid.minNumber = matchedNumbers.length >= rules.minNumber;
+
+      if (rules.minSameChar) {
+        const singlekeys = [...new Set(strPwd)].filter(
+          s => !Number(s)
+        );
+        let size = singlekeys.length;
+        const tmpPwd = strPwd.slice();
+
+        while (size) {
+          size -= 1;
+          isValid.minSameChar =
+            tmpPwd.split(singlekeys[size]).length - 1 >=
+            rules.minSameChar;
+        }
+      }
+
+      if (!rules.allowSpace) {
+        isValid.allowSpace = strPwd.split(/\s+/g).length === 1;
+      }
+
+      const isValidPwd = Object.entries(isValid)
+        .map(([key, value]) => (!value ? { rule: key, value } : null))
+        .filter(v => v !== null);
+
+      return isValidPwd.length === 0 || isValidPwd;
+    };
+  }
+
+  return callback;
+}
+
 module.exports = {
   moreOrEqual,
   lessOrEqual,
   exactSize,
+  password,
   truthty,
   number,
   email,

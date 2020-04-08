@@ -100,6 +100,21 @@ function oneValue(value) {
 // //   return content => content[key];
 // // }
 
+// /**
+//  * It will check if one of the values is equal to the given one based on they given `Key`.
+//  *
+//  * @example
+//  * [{id: 1}, {id: 2}, {id: 3}].filter(valueByKey('id', 3));
+//  *
+//  * @param {string} key the key of the object
+//  * @param {*} value the value to match against the value of the object found by the given key.
+//  * @returns {boolean}
+//  */
+// function valueByKey(key, value) {
+//   return content => content[key] === value;
+// }
+
+
 /**
  * It will check that the given value is present in all the rest of the values.
  *

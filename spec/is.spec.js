@@ -163,7 +163,7 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  it('number', () => {
+  it('number', done => {
     expect(is.number('1234')).toBe(true);
     expect(is.number('12.34')).toBe(true);
     expect(is.number('12,34')).toBe(true);
@@ -171,17 +171,84 @@ describe('A collectin of "is" functions', () => {
     expect(is.number('2')).toBe(true);
     expect(is.number(2.2)).toBe(true);
     expect(is.number(2)).toBe(true);
+
+    done();
   });
 
-  //     // it('Is not a valid email', () => {
-  //     //   expect(isNot(email('Abc.example.com'))).toBe(true);
-  //     //   expect(isNot(email('A@b@c@example.com'))).toBe(true);
-  //     //   expect(isNot(email('a"b(c)d,e:f;g<h>i[j\k]l@example.com'))).toBe(true);
-  //     //   expect(isNot(email('just"not"right@example.com'))).toBe(true);
-  //     //   expect(isNot(email('this is"not\allowed@example.com'))).toBe(true);
-  //     //   expect(isNot(email('this\ still\"not\\allowed@example.com'))).toBe(true);
-  //     //   expect(isNot(email('1234567890123456789012345678901234567890123456789012345678901234+x@example.com'))).toBe(true);
-  //     //   expect(isNot(email('john..doe@example.com'))).toBe(true);
-  //     //   expect(isNot(email('john.doe@example..com'))).toBe(true);
-  //     // });
+  it('password', done => {
+    // set a different policy for different passwords
+    let pwdMatcher = is.password({
+      minLength: 7,
+      maxLength: 10,
+      minAlpha: 2,
+      minNumber: 5,
+      minSameChar: 0,
+      allowSpace: false
+    });
+
+    // success
+    expect(pwdMatcher('di12345e')).toBe(true);
+    expect(pwdMatcher('di12345eh')).toBe(true);
+    expect(pwdMatcher('di12345')).toBe(true);
+    expect(pwdMatcher('d@12345')).toBe(true);
+    expect(pwdMatcher('d@12345')).toBe(true);
+    // mistakes
+    expect(pwdMatcher('d12345')).toEqual([
+      {
+        rule: 'minLength',
+        value: false
+      },
+      {
+        rule: 'minAlpha',
+        value: false
+      }
+    ]);
+
+    expect(pwdMatcher('diego123')).toEqual([
+      {
+        rule: 'minNumber',
+        value: false
+      }
+    ]);
+
+    expect(pwdMatcher('di 12345')).toEqual([
+      {
+        rule: 'allowSpace',
+        value: false
+      }
+    ]);
+
+    // Allowing space
+    pwdMatcher = is.password({
+      minLength: 7,
+      maxLength: 10,
+      minAlpha: 2,
+      minNumber: 5,
+      minSameChar: 0,
+      allowSpace: true
+    });
+
+    expect(pwdMatcher('di 12345')).toBe(true);
+    expect(pwdMatcher('di12345')).toBe(true);
+
+    // min char
+    pwdMatcher = is.password({
+      minLength: 7,
+      maxLength: 10,
+      minAlpha: 2,
+      minNumber: 5,
+      minSameChar: 2,
+      allowSpace: false
+    });
+
+    expect(pwdMatcher('dd12345')).toBe(true);
+    expect(pwdMatcher('di12345')).toEqual([
+      {
+        rule: 'minSameChar',
+        value: false
+      }
+    ]);
+
+    done();
+  });
 });

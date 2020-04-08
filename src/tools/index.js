@@ -131,6 +131,110 @@ function upperParagraph(text, byWord = false) {
   return tempText;
 }
 
+// /**
+//  * It will recive several function that are goint to `compose` into one function.
+//  * This is read from right-to-left.
+//  *
+//  * @param {function} func - Functions
+//  * @returns {function} - A composed function to pass one value
+//  */
+// function compose(...func) {
+//   return (...value) => {
+//     const firstFunc = func.pop();
+
+//     return func.reduce((prevValue, currentValue) => currentValue(prevValue(...value)), firstFunc);
+//   };
+// }
+
+// /**
+//  * It will concat and execute several functions to the given values.
+//  * If you add more than one value, only the first function will recive them and
+//  * the result of it will be passed down to the rest of the functions.
+//  *
+//  * @param {function} func - Functions.
+//  * @returns {function} - The result of passing all the values through
+//  *               the functions.
+//  */
+// function pipe(...func) {
+//   return func.reduce((prevFunc, currentFunc) => (...values) => currentFunc(prevFunc(...values)));
+// }
+
+// function getGenerator(func, params) {
+//   const generator = {};
+//   let size = params.length - 1;
+
+//   // Return an object with with key as an Iterator and the value a
+//   // function generator which is an Iterator.
+//   generator[Symbol.iterator] = function* iterGenerator() {
+//     while (size > -1) {
+//       yield func.call(null, params[size]);
+//       size -= 1;
+//     }
+//   };
+
+//   return generator;
+// }
+
+// /**
+//  * It will apply a single function to several independents values.
+//  * It makes use of functions generators (async).
+//  * It will return array of N values.
+//  *
+//  * @param {function} - The function to use
+//  * @returns {array}
+//  */
+// function pipeVal(func) {
+//   return (...params) => [...getGenerator(func, params)];
+// }
+
+// /**
+//  * It will remove a property from an object based on the given key.
+//  * It has three ways to work:
+//  * 1.- Remove the property based on one given key but at FIRST level
+//  * 2.- Remove the properties based on more than one given keys but at FIRST level.
+//  *     You must pass an array containing the keys to remove.
+//  * 3.- Remove the property based on one given key but the attribute can be nested (N level).
+//  *     You must pass `true` as the third value. You must pass an array that follows te chain
+//  *     of the nested keys from the very first one.
+//  *
+//  * @example
+//  * const obj = {age: 22, names: {firstName: 'John', lastName: 'Doeh'}, email: 'test@test.ts'};
+//  * // remove one key
+//  * rmKey(obj, 'age'); // {names: {firstName: 'John',lastName: 'Doeh'}}
+//  * // remove one key
+//  * rmKey(obj, ['age', 'names']); // {email: 'test@test.ts'}
+//  * // remove one key but nested
+//  * rmKey(obj, ['names', 'lastName'], true);
+//  * // {age: 22, names: {firstName: 'John'}, email: 'test@test.ts'}
+//  *
+//  * @param {object} object The object to check and removed its key
+//  * @param {(string|array)} keys The key(s) to remove from the object
+//  * @param {boolean} isNested Default false, if `true` is passed it will search for a nested key
+//  */
+// function rmKey(object, keys, isNested = false) {
+//   let tmp = { ...object };
+//   let dropVar = null;
+
+//   if (Array.isArray(keys) && !isNested) {
+//     for (let index = 0, size = keys.length; index < size; index += 1) {
+//       ({ [keys[index]]: dropVar, ...tmp } = tmp);
+//     }
+//   } else if (isNested) {
+//     const strKey = keys.map(key => `"${key}":.+`).join('');
+
+//     const match = JSON.stringify(object).match(new RegExp(`${strKey}(?=(},|",|[\d\w]}))`));
+
+//     const replaceFor = match[0].replace(new RegExp(`"${keys[keys.length - 1]}".+`), '');
+
+//     tmp = JSON.parse(JSON.stringify(object).replace(match[0], replaceFor));
+//   } else {
+//     // one single key
+//     ({ [keys]: dropVar, ...tmp } = tmp);
+//   }
+
+//   return tmp;
+// }
+
 module.exports = {
   upperParagraph,
   camelCase,
