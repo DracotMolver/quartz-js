@@ -1,4 +1,4 @@
-const is = require("./../src/is");
+const is = require('./../src/is');
 
 describe('A collectin of "is" functions', () => {
   //   describe('`is` functions', () => {
@@ -72,18 +72,18 @@ describe('A collectin of "is" functions', () => {
 
   //     describe('Checking the length of the elements', () => {
   const object = {
-    name: "John Doe",
+    name: 'John Doe',
     age: 20,
     married: false,
     other: {
-      email: "joahn@doe.cl",
+      email: 'joahn@doe.cl',
     },
   }; // length:4
 
-  const array = ["hello", "hola", 20, true, "hallo", "priviet", {}]; // length:7
-  const string = "hellow world"; // length:12
+  const array = ['hello', 'hola', 20, true, 'hallo', 'priviet', {}]; // length:7
+  const string = 'hellow world'; // length:12
 
-  it("exactSize", () => {
+  it('exactSize', () => {
     expect(is.exactSize(object, 4)).toBe(true);
     expect(is.exactSize(array, 7)).toBe(true);
     expect(is.exactSize(string, 12)).toBe(true);
@@ -96,7 +96,7 @@ describe('A collectin of "is" functions', () => {
     expect(() => is.exactSize(5, 5)).toThrow();
   });
 
-  it("moreOrEqual", (done) => {
+  it('moreOrEqual', done => {
     expect(is.moreOrEqual(object, 4)).toBe(true);
     expect(is.moreOrEqual(array, 5)).toBe(true);
     expect(is.moreOrEqual(string, 12)).toBe(true);
@@ -111,7 +111,7 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  it("Is `lessOrEqual` than the given value", (done) => {
+  it('Is `lessOrEqual` than the given value', done => {
     expect(is.lessOrEqual(object, 10)).toBe(true);
     expect(is.lessOrEqual(array, 7)).toBe(true);
     expect(is.lessOrEqual(string, 20)).toBe(true);

@@ -7,9 +7,9 @@
  * @copyright Diego Alberto Molina Vera 2020.
  */
 
-"use strict";
+'use strict';
 
-const util = require("util");
+const util = require('util');
 
 /**
  * It will check if the values on the first Array exist at least one of them
@@ -52,7 +52,7 @@ function someValue(element, values) {
   let result = null;
 
   if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
-    throw new Error("The second param should be an Array");
+    throw new Error('The second param should be an Array');
   }
 
   if (
@@ -62,7 +62,9 @@ function someValue(element, values) {
   ) {
     result = values.indexOf(element) !== -1;
   } else {
-    throw new Error("The first param can only be: string, number or boolean");
+    throw new Error(
+      'The first param can only be: string, number or boolean'
+    );
   }
 
   return result;
@@ -79,7 +81,7 @@ function someValue(element, values) {
  * @returns {function(any): boolean} - A function that will accept only one param.
  */
 function oneValue(value) {
-  return (content) => content === value;
+  return content => content === value;
 }
 
 module.exports = {

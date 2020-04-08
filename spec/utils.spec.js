@@ -4,8 +4,12 @@ describe('A collection of "utils" functions', () => {
   it('camelCase', done => {
     expect(utils.camelCase('user_name')).toEqual('userName');
     expect(utils.camelCase('user-name')).toEqual('userName');
-    expect(utils.camelCase('user_middle-name')).toEqual('userMiddleName');
-    expect(utils.camelCase('UserMiddle-name')).toEqual('userMiddleName');
+    expect(utils.camelCase('user_middle-name')).toEqual(
+      'userMiddleName'
+    );
+    expect(utils.camelCase('UserMiddle-name')).toEqual(
+      'userMiddleName'
+    );
 
     done();
   });
@@ -31,48 +35,58 @@ describe('A collection of "utils" functions', () => {
   });
 
   it('compress', done => {
-    const value = [{
-      name: 'AAA',
-      age: 23,
-      email: 'email@test.cl'
-    }, {
-      name: 'SSS',
-      age: 60,
-      email: 'email@test.cl'
-    }, {
-      name: 'DDD',
-      age: 13,
-      email: 'email@test.cl'
-    }];
+    const value = [
+      {
+        name: 'AAA',
+        age: 23,
+        email: 'email@test.cl',
+      },
+      {
+        name: 'SSS',
+        age: 60,
+        email: 'email@test.cl',
+      },
+      {
+        name: 'DDD',
+        age: 13,
+        email: 'email@test.cl',
+      },
+    ];
 
     const obj = {
       AAA: 'email@test.cl',
       SSS: 'email@test.cl',
-      DDD: 'email@test.cl'
+      DDD: 'email@test.cl',
     };
 
     const arr = [
       { AAA: 'email@test.cl' },
       { SSS: 'email@test.cl' },
-      { DDD: 'email@test.cl' }
+      { DDD: 'email@test.cl' },
     ];
 
-    expect(utils.compress(value, 'name', 'email').array()).toEqual(arr);
-    expect(utils.compress(value, 'name', 'email').object()).toEqual(obj);
+    expect(utils.compress(value, 'name', 'email').array()).toEqual(
+      arr
+    );
+    expect(utils.compress(value, 'name', 'email').object()).toEqual(
+      obj
+    );
 
     done();
   });
 
   it('clone', done => {
     const arr = utils.clone([1, 2, 3, 4], [2, 10, 5]);
-    const obj = utils.clone({ name: 'diego', age: 29 }, { name: 'John', email: 'test@test.cl' });
+    const obj = utils.clone(
+      { name: 'diego', age: 29 },
+      { name: 'John', email: 'test@test.cl' }
+    );
 
-    expect(obj)
-      .toEqual({
-        name: 'John',
-        age: 29,
-        email: 'test@test.cl'
-      });
+    expect(obj).toEqual({
+      name: 'John',
+      age: 29,
+      email: 'test@test.cl',
+    });
 
     expect(arr).toEqual([1, 2, 3, 4, 2, 10, 5]);
 

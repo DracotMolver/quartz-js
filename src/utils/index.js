@@ -7,9 +7,9 @@
  * @copyright Diego Alberto Molina Vera 2020.
  */
 
-"use strict";
+'use strict';
 
-const util = require("util");
+const util = require('util');
 
 /**
  * It will convert the string as a Lower Camel Case
@@ -24,10 +24,12 @@ function camelCase(text) {
   const [firstWord, ...rest] = text.split(/[_-]/);
 
   const tempRest = rest
-    .map((str) => `${str[0].toUpperCase()}${str.slice(1)}`)
-    .join("");
+    .map(str => `${str[0].toUpperCase()}${str.slice(1)}`)
+    .join('');
 
-  return `${firstWord[0].toLowerCase()}${firstWord.slice(1)}${tempRest}`;
+  return `${firstWord[0].toLowerCase()}${firstWord.slice(
+    1
+  )}${tempRest}`;
 }
 
 /**
@@ -40,9 +42,10 @@ function camelCase(text) {
  * @returns {array}      - A new Array of objects
  */
 function compress(array, key, value) {
-  const _maker = (base) =>
+  const _maker = base =>
     array.reduce(
-      (prev, current) => clone(prev, { [current[key]]: current[value] }),
+      (prev, current) =>
+        clone(prev, { [current[key]]: current[value] }),
       base
     );
 
@@ -63,7 +66,9 @@ function compress(array, key, value) {
  * @returns {array} - An array of objects
  */
 function obj2Arr(obj) {
-  return Object.entries(obj).flatMap(([key, value]) => [{ [key]: value }]);
+  return Object.entries(obj).flatMap(([key, value]) => [
+    { [key]: value },
+  ]);
 }
 
 /**
@@ -78,7 +83,9 @@ function obj2Arr(obj) {
  * @returns {(array|object)}
  */
 function clone(obj1, obj2) {
-  return util.isArray(obj1) ? obj1.concat(obj2) : Object.assign(obj1, obj2);
+  return util.isArray(obj1)
+    ? obj1.concat(obj2)
+    : Object.assign(obj1, obj2);
 }
 
 module.exports = {
