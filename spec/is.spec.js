@@ -1,6 +1,22 @@
 const is = require('./../src/is');
 
 describe('A collectin of "is" functions', () => {
+  it('ip', () => {
+    expect(is.ip('255.255.255.255')).toBe(true);
+    expect(is.ip('0.0.0.0')).toBe(true);
+    expect(is.ip('127.0.0.1')).toBe(true);
+    expect(is.ip('192.88.99.0')).toBe(true);
+  });
+
+  it('url', () => {
+    expect(is.url('http://www.exampledomain.com')).toBe(true);
+    expect(is.url('http://exampledomain.com')).toBe(true);
+    expect(is.url('http://exampledomain.com:8080')).toBe(true);
+    expect(is.url('https://www.exampledomain.com')).toBe(true);
+    expect(is.url('mailto::xalphase@ampledomain.cl')).toBe(true);
+    expect(is.url('ftp://www.exampledomain.com')).toBe(true);
+  });
+
   it('truthy', done => {
     expect(is.truthty({ a: 'hello' })).toBe(true);
     expect(is.truthty('hello')).toBe(true);
@@ -107,7 +123,7 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  it('Is a valid `email`', () => {
+  it('email', () => {
     expect(is.email('very.common@example.com')).toBe(true);
     expect(
       is.email('disposable.style.email.with + symbol@example.com')
@@ -147,18 +163,15 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  //       it('Allows only numbers `number`', () => {
-  //         expect(is.number('1234')).toBe(true);
-  //         expect(is.number('12.34')).toBe(true);
-  //         expect(is.number('12,34')).toBe(true);
-  //         expect(is.number('$12,34')).toBe(true);
-  //         expect(is.number('2')).toBe(true);
-  //         expect(is.number(2.2)).toBe(true);
-  //         expect(is.number(2)).toBe(true);
-  //       });
-  //     });
-  //   });
-  // });
+  it('number', () => {
+    expect(is.number('1234')).toBe(true);
+    expect(is.number('12.34')).toBe(true);
+    expect(is.number('12,34')).toBe(true);
+    expect(is.number('$12,34')).toBe(true);
+    expect(is.number('2')).toBe(true);
+    expect(is.number(2.2)).toBe(true);
+    expect(is.number(2)).toBe(true);
+  });
 
   //     // it('Is not a valid email', () => {
   //     //   expect(isNot(email('Abc.example.com'))).toBe(true);
@@ -171,21 +184,4 @@ describe('A collectin of "is" functions', () => {
   //     //   expect(isNot(email('john..doe@example.com'))).toBe(true);
   //     //   expect(isNot(email('john.doe@example..com'))).toBe(true);
   //     // });
-
-  //   //         it('Is not Allows only letters', () => {
-  //   //             expect(isNot(alpha('John Doe234'))).toBe(true);
-  //   //             expect(isNot(alpha('123John Doe234'))).toBe(true);
-  //   //             expect(isNot(alpha('123234'))).toBe(true);
-  //   //             expect(isNot(alpha(123234))).toBe(true);
-  //   //         });
-  //   //     });
-
-  //   //     describe('number function', () => {
-
-  //   //         it('Is not Allows only numbers', () => {
-  //   //             expect(isNot(alpha('John Doe234'))).toBe(true);
-  //   //             expect(isNot(alpha('123John Doe234'))).toBe(true);
-  //   //             expect(isNot(alpha('123234', true))).toBe(true);
-  //   //             expect(isNot(alpha(123234, false))).toBe(true);
-  //   //         });
 });

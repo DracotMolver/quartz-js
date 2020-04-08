@@ -26,4 +26,11 @@ describe('A collection of "has" functions', () => {
 
     done();
   });
+
+  it('oneValue', done => {
+    expect([1, 2, 3].filter(has.oneValue(2))).toEqual([2]);
+    expect([1, 2, 3].filter(has.oneValue(6))).toEqual([]);
+
+    done();
+  });
 });

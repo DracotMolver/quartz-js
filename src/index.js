@@ -11,8 +11,8 @@
 
 require('regenerator-runtime/runtime');
 
-const utils = require('./utils');
+const tools = require('./tools');
 const has = require('./has');
 
-exports.utils = utils;
+exports.tools = tools;
 exports.has = has;

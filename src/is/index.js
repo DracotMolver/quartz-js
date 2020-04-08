@@ -250,14 +250,67 @@ function email(value) {
   return isEmail;
 }
 
+/**
+ * Validates only numbers
+ *
+ * @param {(string|number)} value - The value to be validated
+ * @returns {boolean}
+ */
+function number(value) {
+  return /^\d+$/.test(String(value).trim().replace(/[.,$]/g, ''));
+}
+
+/**
+ * It will check if the value is a valid ip
+ *
+ * @param {string} ip - The ip to be checked.
+ * @return {boolean}
+ */
+function ip(ip) {
+  return /^(25[0-5]|[1-9]{3}|[0-9]{1,2}|\.){7}$/.test(ip);
+}
+
+/**
+ * It will check if the url has the right format
+ * based on: https://www.w3.org/Addressing/URL/url-spec.txt
+ *
+ * @example
+ * is.url('http://google.cl');
+ *
+ * @param {string} value - An URL.
+ * @return {boolean}
+ */
+function url(value) {
+  const [protocol, ...rest] = value.split(':');
+  let isValid = false;
+
+  if (
+    protocol === 'http' ||
+    protocol === 'https' ||
+    protocol === 'ftp'
+  ) {
+    isValid = /^([0-65536]{2,4}|)\/\/[\w\d+-.]+\.\w+([\/\w\?=%;&]|:[0-65536]{2,4})+/.test(
+      rest
+    );
+  } else if (protocol === 'mailto') {
+    const mailTo = value.replace('mailto', '');
+    isValid = /^::[\w\d-+]+@[\w\d-+.]+/.test(mailTo);
+  }
+
+  return isValid;
+}
+
 module.exports = {
   moreOrEqual,
   lessOrEqual,
   exactSize,
   truthty,
+  number,
   email,
   falsy,
   alpha,
   nan,
-  run
+  run,
+  url,
+  ip
 };

@@ -26,7 +26,9 @@ const util = require('util');
 function someValues(arr, values) {
   let bool = false;
 
-  for (let index = 0, size = arr.length; index < size; index += 1) {
+  const size = arr.length;
+
+  for (let index = 0; index < size; index += 1) {
     if (values.indexOf(arr[index]) !== -1) {
       bool = true;
       index = size;
@@ -98,7 +100,27 @@ function oneValue(value) {
 // //   return content => content[key];
 // // }
 
+/**
+ * It will check that the given value is present in all the rest of the values.
+ *
+ * @param {any} value    - The value to look for
+ * @param {array} values - An array of possible values.
+ * @returns {boolean}
+ */
+function everyValue(value, values) {
+  let bool = false;
+
+  const size = values.length;
+
+  for (let index = 0; index < size; index += 1) {
+    bool = values[index] === value;
+  }
+
+  return bool;
+}
+
 module.exports = {
+  everyValue,
   someValues,
   someValue,
   oneValue

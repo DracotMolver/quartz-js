@@ -88,7 +88,51 @@ function clone(obj1, obj2) {
     : Object.assign(obj1, obj2);
 }
 
+/**
+ * It will upper case the first letter of a text. It will look for the first word of
+ * a paragraph and any other word after a dot.
+ *
+ * @param {string} text   - The text to be parsed
+ * @param {boolean} byWord - True if you want to upper the first letter of each word
+ * @returns {string} The parsed content
+ */
+function upperParagraph(text, byWord = false) {
+  const regex = new RegExp('\\.\\s*\\w{1}', 'g');
+  let tempText = text;
+
+  if (text) {
+    tempText = text.trim().toLowerCase();
+
+    if (byWord) {
+      tempText = tempText
+        .split(/\s+/g)
+        .map(word => `${word[0].toUpperCase()}${word.slice(1)}`)
+        .join(' ');
+    } else {
+      tempText = `${tempText[0].toUpperCase()}${tempText.slice(1)}`;
+
+      while (regex.exec(tempText) !== null) {
+        tempText = `${tempText.slice(
+          0,
+          regex.lastIndex - 2
+        )}${tempText[
+          regex.lastIndex - 1
+        ].toUpperCase()}${tempText.slice(regex.lastIndex)}`;
+      }
+    }
+
+    tempText = tempText
+      .replace(/\./g, '. ')
+      .replace(/,/g, ', ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  return tempText;
+}
+
 module.exports = {
+  upperParagraph,
   camelCase,
   compress,
   obj2Arr,
