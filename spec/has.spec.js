@@ -1,4 +1,4 @@
-const { has } = require("../src");
+const has = require("./../src/has");
 
 describe('A collection of "has" functions', () => {
   it("someValues", (done) => {

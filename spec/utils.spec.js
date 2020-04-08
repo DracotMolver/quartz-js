@@ -1,13 +1,11 @@
-const {
-  util,
-} = require('../src');
+const utils = require('./../src/utils');
 
-describe('A collection of "util" functions', () => {
+describe('A collection of "utils" functions', () => {
   it('camelCase', done => {
-    expect(util.camelCase('user_name')).toEqual('userName');
-    expect(util.camelCase('user-name')).toEqual('userName');
-    expect(util.camelCase('user_middle-name')).toEqual('userMiddleName');
-    expect(util.camelCase('UserMiddle-name')).toEqual('userMiddleName');
+    expect(utils.camelCase('user_name')).toEqual('userName');
+    expect(utils.camelCase('user-name')).toEqual('userName');
+    expect(utils.camelCase('user_middle-name')).toEqual('userMiddleName');
+    expect(utils.camelCase('UserMiddle-name')).toEqual('userMiddleName');
 
     done();
   });
@@ -27,7 +25,7 @@ describe('A collection of "util" functions', () => {
       { d: [4] },
     ];
 
-    expect(util.obj2Arr(obj)).toEqual(arr);
+    expect(utils.obj2Arr(obj)).toEqual(arr);
 
     done();
   });
@@ -59,15 +57,15 @@ describe('A collection of "util" functions', () => {
       { DDD: 'email@test.cl' }
     ];
 
-    expect(util.compress(value, 'name', 'email').array()).toEqual(arr);
-    expect(util.compress(value, 'name', 'email').object()).toEqual(obj);
+    expect(utils.compress(value, 'name', 'email').array()).toEqual(arr);
+    expect(utils.compress(value, 'name', 'email').object()).toEqual(obj);
 
     done();
   });
 
   it('clone', done => {
-    const arr = util.clone([1, 2, 3, 4], [2, 10, 5]);
-    const obj = util.clone({ name: 'diego', age: 29 }, { name: 'John', email: 'test@test.cl' });
+    const arr = utils.clone([1, 2, 3, 4], [2, 10, 5]);
+    const obj = utils.clone({ name: 'diego', age: 29 }, { name: 'John', email: 'test@test.cl' });
 
     expect(obj)
       .toEqual({
