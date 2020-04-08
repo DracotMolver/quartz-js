@@ -4,7 +4,7 @@
   "description": "A very useful library with fancy functions",
   "main": "lib/index.js",
   "scripts": {
-    "build": "babel src -d lib",
+    "build": "babel src -d lib --no-comments",
     "test": "jasmine"
   },
   "author": "Diego Alberto Molina Vera <dracotm25@gmail.com>",
