@@ -1,8 +1,8 @@
+'use strict';
+
 const util = require('util');
-require("core-js/features/array/flat-map");
-require("core-js/features/array/reduce");
-require("core-js/features/array/map");
-//
+// 
+require("core-js");
 require("regenerator-runtime/runtime");
 
 /**
