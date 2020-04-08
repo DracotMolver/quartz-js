@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-const util = require('util');
-// 
+const util = require("util");
+//
 require("core-js");
 require("regenerator-runtime/runtime");
 
@@ -158,7 +158,7 @@ require("regenerator-runtime/runtime");
 //  * |---------|---------------------------------|
 //  * | Arrays  | "[]" => false. "[2]" => true    |
 //  * |---------|---------------------------------|
-//  * 
+//  *
 //  * @param {*} value Any value to be checked.
 //  * @returns {boolean}
 //  */
@@ -183,7 +183,7 @@ require("regenerator-runtime/runtime");
 
 // /**
 //  * It will check if a value is falsy but with slightly modifications for Object and Array.
-//  * 
+//  *
 //  * @example
 //  * | type    |  description                    |
 //  * |---------|---------------------------------|
@@ -191,7 +191,7 @@ require("regenerator-runtime/runtime");
 //  * |---------|---------------------------------|
 //  * | Arrays  | "[]" => true. "[2]" => false    |
 //  * |---------|---------------------------------|
-//  * 
+//  *
 //  * @param {*} value Any value to be checked
 //  * @returns {boolean}
 //  */
@@ -218,7 +218,7 @@ require("regenerator-runtime/runtime");
 // /**
 //  * Validates if the value is a well formed email.
 //  * (link: https://en.wikipedia.org/wiki/Email_address)
-//  * 
+//  *
 //  * LOCAL PART:
 //  * Uppercase and lowercase Latin letters A to Z and a to z
 //  * digits 0 to 9
@@ -268,7 +268,7 @@ require("regenerator-runtime/runtime");
 
 // /**
 //  * Validates only words
-//  * 
+//  *
 //  * @param {string} value - String to match
 //  * @returns {boolean}
 //  */
@@ -278,8 +278,8 @@ require("regenerator-runtime/runtime");
 
 // /**
 //  * Validates only numbers
-//  * 
-//  * @param {(string|number)} value - A String or the Number 
+//  *
+//  * @param {(string|number)} value - A String or the Number
 //  * @returns {boolean}
 //  */
 // function number(value) {
@@ -304,7 +304,7 @@ require("regenerator-runtime/runtime");
 
 // /**
 //  * It will check if the given R.U.N is valid.
-//  * 
+//  *
 //  * @param {string} value The given R.U.N.
 //  * @returns {boolean}
 //  */
@@ -341,14 +341,12 @@ require("regenerator-runtime/runtime");
  * @example
  * clone({a: 'aA'}, {b: 'bB', a: 'AA'});
  * // {a: 'AA', b: 'bB'};
- * 
+ *
  * @param  {(array|object)} obj The elements to merge
  * @returns {(array|object)}
  */
 function clone(obj1, obj2) {
-  return util.isArray(obj1)
-    ? obj1.concat(obj2)
-    : Object.assign(obj1, obj2);
+  return util.isArray(obj1) ? obj1.concat(obj2) : Object.assign(obj1, obj2);
 }
 
 // /**
@@ -356,7 +354,7 @@ function clone(obj1, obj2) {
 //  *
 //  * @example
 //  * [{name: 'john', age: 20}].map(util.unique('age')); // [{age: 20}]
-//  * 
+//  *
 //  * @param {any} key The name of the chain attribute to get the value from
 //  * @param {any} content The content from where to extract the value
 //  * @returns {any} The needed value
@@ -375,10 +373,11 @@ function clone(obj1, obj2) {
  * @returns {array}      - A new Array of objects
  */
 function compress(array, key, value) {
-  const _maker = base =>
-    array.reduce((prev, current) =>
-      clone(prev, { [current[key]]: current[value] })
-      , base);
+  const _maker = (base) =>
+    array.reduce(
+      (prev, current) => clone(prev, { [current[key]]: current[value] }),
+      base
+    );
 
   return {
     object() {
@@ -386,17 +385,17 @@ function compress(array, key, value) {
     },
     array() {
       return _maker([]);
-    }
-  }
+    },
+  };
 }
 
 // /**
 //  * HOF that will check if one of the values is equal to the given one.
 //  * Works only with a single params.
-//  * 
+//  *
 //  * @example
 //  * [1, 2, 3].filter(has.oneValue(2));
-//  * 
+//  *
 //  * @param {*} value Any type of value.
 //  * @returns {function(*): boolean} - A function that will accept only one param
 //  */
@@ -410,7 +409,7 @@ function compress(array, key, value) {
 //  *
 //  * @example
 //  * [1, 2, 3].filter(has.not.oneValue(2));
-//  * 
+//  *
 //  * @param {any} value Any type of value
 //  * @returns {function(*): boolean} A function that will accept only one param
 //  */
@@ -418,33 +417,46 @@ function compress(array, key, value) {
 //   return content => content !== value;
 // }
 
-// /**
-//  * It will check a single value against N values. If at least one of the values is `true`
-//  * it will stop checking and return `true`, otherwise `false`.
-//  *
-//  * @example
-//  * has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']);
-//  *
-//  * @param {*} element The element to match against with.
-//  * @param {array} values All the values to match
-//  * @returns {boolean}
-//  */
-// function someValue(element, values) {
-//   if (!Array.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
-//     throw Error('The second param should be an Array');
-//   }
+/**
+ * It will check a single value against N values until find one match.
+ *
+ *
+ * @example
+ * has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']);
+ * // true
+ *
+ * @param {string|boolean|number} element - The element to match against with.
+ * @param {array} values                  - All the values to match
+ * @returns {boolean}
+ */
+function someValue(element, values) {
+  let result = null;
 
-//   return values.indexOf(element) !== -1;
-// }
+  if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
+    throw new Error("The second param should be an Array");
+  }
+
+  if (
+    util.isNumber(element) ||
+    util.isString(element) ||
+    util.isBoolean(element)
+  ) {
+    result = values.indexOf(element) !== -1;
+  } else {
+    throw new Error("The first param can only be: string, number or boolean");
+  }
+
+  return result;
+}
 
 /**
  * It will check if the values on the first Array exist at least one of them
  * in the second Array.
- * 
+ *
  * @example
  * has.someValues([1, 2, 3], [1, 5, 4, 3, 10]);
  * // true
- * 
+ *
  * @param {array} arr    - An Array of elements to used against the second param
  * @param {array} values - The values that are gonna be searched.
  * @returns {boolean}
@@ -464,10 +476,10 @@ function someValues(arr, values) {
 
 // /**
 //  * It will check if one of the values is equal to the given one based on they given `Key`.
-//  * 
+//  *
 //  * @example
 //  * [{id: 1}, {id: 2}, {id: 3}].filter(has.valueByKey('id', 3));
-//  * 
+//  *
 //  * @param {string} key the key of the object
 //  * @param {*} value the value to match against the value of the object found by the given key.
 //  * @returns {boolean}
@@ -478,10 +490,10 @@ function someValues(arr, values) {
 
 // /**
 //  * It will check if within the array is not the given value by they given `key`.
-//  * 
+//  *
 //  * @example
 //  * [{id: 1}, {id: 2}, {id: 3}].filter(has.not.valueByKey('id', 3));
-//  * 
+//  *
 //  * @param {string} key the key of the object
 //  * @param {*} value the value to match against the value of the object found by the given key.
 //  * @returns {boolean}
@@ -492,7 +504,7 @@ function someValues(arr, values) {
 
 /**
  * It will create an object into an array of objects keeping the original keys of the object.
- * 
+ *
  * @example
  * util.obj2Arr({ b: '3', c: true, d: [4] });
  * // [{ b: '3' }, { c: true }, { d: [4] }]
@@ -501,8 +513,7 @@ function someValues(arr, values) {
  * @returns {array} - An array of objects
  */
 function obj2Arr(obj) {
-  return Object.entries(obj)
-    .flatMap(([key, value]) => [{ [key]: value }]);
+  return Object.entries(obj).flatMap(([key, value]) => [{ [key]: value }]);
 }
 
 // // export const hasEveryValue = (element, values) => {
@@ -525,18 +536,16 @@ function obj2Arr(obj) {
 // //   return bool;
 // // }
 
-
 // // /**
 // // * It will check a single value against N values. If at least one value is false
 // // * it will stop checking and return true, otherwise false
-// // * 
+// // *
 // // * @param {Any} element The element to match against with.
 // // * @param {Array} values All the values to match
 // // * @returns Boolean
 // // */
 // // export const hasNotSomeValue = (element, values) =>
 // //   values.indexOf(element) === -1;
-
 
 // // export const someValuesByKey = (key, values) =>
 // //   content => values.indexOf(content[key]) !== -1;
@@ -576,7 +585,7 @@ function obj2Arr(obj) {
 // /**
 //  * It will recive several function that are goint to `compose` into one function.
 //  * This is read from right-to-left.
-//  * 
+//  *
 //  * @param {function} func - Functions
 //  * @returns {function} - A composed function to pass one value
 //  */
@@ -620,16 +629,16 @@ function obj2Arr(obj) {
  *
  * @example
  * camelCase('user_name'); // userName
- * 
+ *
  * @param {string} text - The text to converted
  * @returns {string}
  */
 function camelCase(text) {
   const [firstWord, ...rest] = text.split(/[_-]/);
 
-  const tempRest = rest.map(str =>
-    `${str[0].toUpperCase()}${str.slice(1)}`
-  ).join('');
+  const tempRest = rest
+    .map((str) => `${str[0].toUpperCase()}${str.slice(1)}`)
+    .join("");
 
   return `${firstWord[0].toLowerCase()}${firstWord.slice(1)}${tempRest}`;
 }
@@ -664,7 +673,7 @@ module.exports = {
   has: {
     //   valueByKey, // TODO: TEST
     someValues,
-    //   someValue,
+    someValue,
     //   oneValue,
     //   unique, // TODO: TEST
     //   not: {
