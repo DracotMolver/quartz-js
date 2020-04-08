@@ -7,13 +7,13 @@
  * @copyright Diego Alberto Molina Vera 2020.
  */
 
-"use strict";
+'use strict';
 
-require("core-js");
-require("regenerator-runtime/runtime");
+require('core-js');
+require('regenerator-runtime/runtime');
 
-const utils = require("./utils");
-const has = require("./has");
+const utils = require('./utils');
+const has = require('./has');
 
 exports.utils = utils;
 exports.has = has;
