@@ -74,6 +74,25 @@ function someValue(element, values) {
 }
 
 /**
+ * It will check that the given value is present in all the rest of the values.
+ *
+ * @param {any} value    - The value to look for
+ * @param {array} values - An array of possible values.
+ * @returns {boolean}
+ */
+function everyValue(value, values) {
+  let bool = false;
+
+  const size = values.length;
+
+  for (let index = 0; index < size; index += 1) {
+    bool = values[index] === value;
+  }
+
+  return bool;
+}
+
+/**
  * High Order Function to be used within filter and map.
  * Doesn't work with Array of object, for that use the `unique` function
  *
@@ -118,24 +137,8 @@ function valueByKey(key, value) {
   return content => content[key] === value;
 }
 
-/**
- * It will check that the given value is present in all the rest of the values.
- *
- * @param {any} value    - The value to look for
- * @param {array} values - An array of possible values.
- * @returns {boolean}
- */
-function everyValue(value, values) {
-  let bool = false;
-
-  const size = values.length;
-
-  for (let index = 0; index < size; index += 1) {
-    bool = values[index] === value;
-  }
-
-  return bool;
-}
+// someValueByKey
+// someValuesByKey
 
 module.exports = {
   valueByKey,
