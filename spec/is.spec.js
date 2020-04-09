@@ -266,8 +266,8 @@ describe('A collectin of "is" functions', () => {
     expect(is.not.url('http//:www.exampledomain.com')).toBe(true);
     expect(is.not.url('shttp://exampledomain.com')).toBe(true);
     expect(is.not.url('http://8080:exampledomain.com:8080')).toBe(true);
-    // expect(is.not.url('https/:www.exampledomain.com')).toBe(true);
-    // expect(is.not.url('mailto:xalphase@ampledomain.cl')).toBe(true);
-    // expect(is.not.url('sftp:/www.exampledomain.com')).toBe(true);
+    expect(is.not.url('https/:www.exampledomain.com')).toBe(true);
+    expect(is.not.url('mailto:xalphase@ampledomain.cl')).toBe(true);
+    expect(is.not.url('sftp:/www.exampledomain.com')).toBe(true);
   });
 });
