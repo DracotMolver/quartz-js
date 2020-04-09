@@ -292,7 +292,7 @@ function url(value) {
     protocol === 'ftp'
   ) {
     isValid = /^([0-65536]{2,4}|)\/\/[\w\d+-.]+\.\w+([\/\w\?=%;&]|:[0-65536]{2,4})+/.test(
-      rest
+      rest.join(':')
     );
   } else if (protocol === 'mailto') {
     const mailTo = value.replace('mailto', '');
@@ -405,7 +405,8 @@ const is = {
   url,
   ip,
   not: {
-    ip: val => !is.ip(val)
+    ip: val => !is.ip(val),
+    url: val => !is.url(val),
   }
 };
 
