@@ -131,20 +131,26 @@ function upperParagraph(text, byWord = false) {
   return tempText;
 }
 
-// /**
-//  * It will recive several function that are goint to `compose` into one function.
-//  * This is read from right-to-left.
-//  *
-//  * @param {function} func - Functions
-//  * @returns {function} - A composed function to pass one value
-//  */
-// function compose(...func) {
-//   return (...value) => {
-//     const firstFunc = func.pop();
+/**
+ * It will recive several function that are goint to `compose` into one function.
+ * This is read from right to left.
+ *
+ * You can pass multiple variables, but then the result of the first function
+ * will be passing through the rest of the functions.
+ *
+ * @param {function} func - A set of functions
+ * @returns {function} - A composed function to pass one value
+ */
+function compose(...func) {
+  return (...value) => {
+    const firstFunc = func.pop();
 
-//     return func.reduce((prevValue, currentValue) => currentValue(prevValue(...value)), firstFunc);
-//   };
-// }
+    return func.reduce(
+      (prevValue, currentValue) => currentValue(prevValue(...value)),
+      firstFunc
+    );
+  };
+}
 
 // /**
 //  * It will concat and execute several functions to the given values.
@@ -239,6 +245,7 @@ module.exports = {
   upperParagraph,
   camelCase,
   compress,
+  compose,
   obj2Arr,
   clone
 };

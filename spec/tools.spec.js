@@ -112,4 +112,18 @@ describe('A collection of "tools" functions', () => {
 
     done();
   });
+
+  it('compose', done => {
+    function sum(a) {
+      return a / 2;
+    }
+
+    function multi(a, b) {
+      return a * b;
+    }
+
+    expect(tools.compose(sum, multi)(10, 30)).toEqual(150);
+
+    done();
+  });
 });

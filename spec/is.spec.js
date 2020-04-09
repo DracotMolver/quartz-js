@@ -251,4 +251,14 @@ describe('A collectin of "is" functions', () => {
 
     done();
   });
+
+  it('not.ip', done => {
+    expect(is.not.ip('25x.2s5.255.255')).toBe(true);
+    expect(is.not.ip('288.0.1.0')).toBe(true);
+    expect(is.not.ip('288.999.999.999')).toBe(true);
+    expect(is.not.ip('127.500.0.1')).toBe(true);
+    expect(is.not.ip('12a.88.99.0')).toBe(true);
+
+    done();
+  });
 });

@@ -267,7 +267,9 @@ function number(value) {
  * @return {boolean}
  */
 function ip(ip) {
-  return /^(25[0-5]|[1-9]{3}|[0-9]{1,2}|\.){7}$/.test(ip);
+  return /\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/.test(
+    ip
+  );
 }
 
 /**
@@ -388,7 +390,7 @@ function password(rules = null) {
   return callback;
 }
 
-module.exports = {
+const is = {
   moreOrEqual,
   lessOrEqual,
   exactSize,
@@ -401,5 +403,10 @@ module.exports = {
   nan,
   run,
   url,
-  ip
+  ip,
+  not: {
+    ip: val => !is.ip(val)
+  }
 };
+
+module.exports = is;
