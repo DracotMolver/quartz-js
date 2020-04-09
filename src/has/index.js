@@ -14,6 +14,7 @@ const util = require('util');
 /**
  * It will check if the values on the first Array exist at least one of them
  * in the second Array.
+ * Doesn't work with Array of Objects, for that use `someValuesByKey` function
  *
  * @example
  * has.someValues([1, 2, 3], [1, 5, 4, 3, 10]);
@@ -40,7 +41,7 @@ function someValues(arr, values) {
 
 /**
  * It will check a single value against N values until find one match.
- *
+ * Doesn't work with Array of Objects, for that use the `someValueByKey` function
  *
  * @example
  * has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']);
@@ -74,12 +75,13 @@ function someValue(element, values) {
 
 /**
  * High Order Function to be used within filter and map.
+ * Doesn't work with Array of object, for that use the `unique` function
  *
  * @example
  * [1, 2, 3].filter(has.oneValue(2));
  * // [2];
  *
- * @param {any} value              - Any value to use as a seed to filter.
+ * @param {any} value                - Any value to use as a seed to filter.
  * @returns {function(any): boolean} - A function that will accept only one param.
  */
 function oneValue(value) {
@@ -100,20 +102,21 @@ function oneValue(value) {
 // //   return content => content[key];
 // // }
 
-// /**
-//  * It will check if one of the values is equal to the given one based on they given `Key`.
-//  *
-//  * @example
-//  * [{id: 1}, {id: 2}, {id: 3}].filter(valueByKey('id', 3));
-//  *
-//  * @param {string} key the key of the object
-//  * @param {*} value the value to match against the value of the object found by the given key.
-//  * @returns {boolean}
-//  */
-// function valueByKey(key, value) {
-//   return content => content[key] === value;
-// }
-
+/**
+ * It will check if one of the values is equal to the one got from using the `Key`.
+ * This funciton is for using it with Array of Objects.
+ *
+ * @example
+ * [{id: 1}, {id: 2}, {id: 3}].filter(valueByKey('id', 3));
+ * // [{id: 3}]
+ *
+ * @param {string} key - The key of the object.
+ * @param {*} value    - The value we are looking for.
+ * @returns {boolean}
+ */
+function valueByKey(key, value) {
+  return content => content[key] === value;
+}
 
 /**
  * It will check that the given value is present in all the rest of the values.
@@ -135,6 +138,7 @@ function everyValue(value, values) {
 }
 
 module.exports = {
+  valueByKey,
   everyValue,
   someValues,
   someValue,

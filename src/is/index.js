@@ -24,17 +24,25 @@ function _objLen(element) {
  *
  * @param {(object|array|string)} value - The value to evaluate its length.
  * @param {number} size                 - The seed we will use to compare.
+ * @param {boolea} isMoreOnly           - This will check the length of value must be more than the given size.
  * @returns {boolean}
  */
-function moreOrEqual(value, size) {
+function moreOrEqual(value, size, isMoreOnly = false) {
   if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
     throw Error('Type number is not allowed to be checked');
   }
 
-  return (
-    (util.isString(value) ? value.trim().length : _objLen(value)) >=
-    size
-  );
+  const comp = util.isString(value)
+    ? value.trim().length
+    : _objLen(value);
+
+  let res = comp >= size;
+
+  if (isMoreOnly) {
+    res = comp > size;
+  }
+
+  return res;
 }
 
 /**
@@ -43,17 +51,25 @@ function moreOrEqual(value, size) {
  *
  * @param {(object|array|string)} value - The value to evaluate its length.
  * @param {number} size                 - The seed we will use to compare.
+ * @param {boolean} isLessOnly          - This will check the length of value must be more than the given size.
  * @returns {boolean}
  */
-function lessOrEqual(value, size) {
+function lessOrEqual(value, size, isLessOnly = false) {
   if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
     throw Error('Type number is not allowed to be checked');
   }
 
-  return (
-    (util.isString(value) ? value.trim().length : _objLen(value)) <=
-    size
-  );
+  const comp = util.isString(value)
+    ? value.trim().length
+    : _objLen(value);
+
+  let res = comp <= size;
+
+  if (isLessOnly) {
+    res = comp < size;
+  }
+
+  return res;
 }
 
 /**
@@ -407,6 +423,8 @@ const is = {
   not: {
     ip: val => !is.ip(val),
     url: val => !is.url(val),
+    nan: val => !is.nan(val),
+    alpha: val => !is.alpha(val)
   }
 };
 

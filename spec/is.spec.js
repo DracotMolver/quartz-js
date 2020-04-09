@@ -97,10 +97,12 @@ describe('A collectin of "is" functions', () => {
     expect(is.moreOrEqual(object, 4)).toBe(true);
     expect(is.moreOrEqual(array, 5)).toBe(true);
     expect(is.moreOrEqual(string, 12)).toBe(true);
+    expect(is.moreOrEqual('hello', 3, true)).toBe(true);
     //
     expect(is.moreOrEqual(object, 10)).toBe(false);
     expect(is.moreOrEqual(array, 12)).toBe(false);
     expect(is.moreOrEqual(string, 13)).toBe(false);
+    expect(is.moreOrEqual('hello', 5, true)).toBe(false);
 
     // Testing not allowed values
     expect(() => is.moreOrEqual(5, 5)).toThrow();
@@ -112,10 +114,12 @@ describe('A collectin of "is" functions', () => {
     expect(is.lessOrEqual(object, 10)).toBe(true);
     expect(is.lessOrEqual(array, 7)).toBe(true);
     expect(is.lessOrEqual(string, 20)).toBe(true);
+    expect(is.lessOrEqual('hello', 7, true)).toBe(true);
     //
     expect(is.lessOrEqual(object, 1)).toBe(false);
     expect(is.lessOrEqual(array, 2)).toBe(false);
     expect(is.lessOrEqual(string, 10)).toBe(false);
+    expect(is.lessOrEqual('hello', 2, true)).toBe(false);
 
     // Testing not allowed values
     expect(() => is.lessOrEqual(5, 5)).toThrow();
@@ -265,9 +269,26 @@ describe('A collectin of "is" functions', () => {
   it('not.url', () => {
     expect(is.not.url('http//:www.exampledomain.com')).toBe(true);
     expect(is.not.url('shttp://exampledomain.com')).toBe(true);
-    expect(is.not.url('http://8080:exampledomain.com:8080')).toBe(true);
+    expect(is.not.url('http://8080:exampledomain.com:8080')).toBe(
+      true
+    );
     expect(is.not.url('https/:www.exampledomain.com')).toBe(true);
     expect(is.not.url('mailto:xalphase@ampledomain.cl')).toBe(true);
     expect(is.not.url('sftp:/www.exampledomain.com')).toBe(true);
+  });
+
+  it('not.nan', done => {
+    expect(is.not.nan(123)).toBe(true);
+    expect(is.not.nan(Number('123'))).toBe(true);
+
+    done();
+  });
+
+  it('alpha', done => {
+    expect(is.not.alpha('123')).toBe(true);
+    expect(is.not.alpha(String(123))).toBe(true);
+    expect(is.not.alpha('123412`0.-,')).toBe(true);
+
+    done();
   });
 });
