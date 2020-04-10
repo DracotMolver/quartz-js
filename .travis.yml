@@ -17,6 +17,5 @@ deploy:
   api_key: $NPM_AUTH_TOKEN
   cleanup: true
   on:
-    branch: master
+    all_branches: true
     tags: true
-    repo: DracotMolver/quartz-js
