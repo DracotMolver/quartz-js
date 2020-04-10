@@ -81,4 +81,5 @@ if (is.truthty(obj2)) {
 
 name | params | definition
 -----|--------|----------
- `moreOrEqual` | `value: object\|array\|string` <br /> `size: number` <br /> `isMoreOnly: boolean`| It will check if the given value has a length greater or equal to the given size. It make strict comparision. <br /> * value: The value to evaluate its length. * size: The seed we will use to compare. * isMoreOnly: This will check the length of value must be more than the given size. 
+ `moreOrEqual` | `value: object\|array\|string` <br /> `size: number` <br /> `isMoreOnly: boolean`| It will check if the given value has a length greater or equal to the given size. It make strict comparision. <br />value: The value to evaluate its length. <br />size: The seed we will use to compare. <br />isMoreOnly: This will check the length of value must be more than the given size
+`lessOrMore` | `value: object\|array\|string` <br /> `size: number` <br /> `isLessOnly: boolena` | It will check if the given value has a length lower or equal to the given size. It make strict comparision. <br /> value: The value to evaluate its length.<br /> size: The seed we will use to compare. <br /> isLessOnly: This will check the length of value must be more than the given size.
