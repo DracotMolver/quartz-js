@@ -424,7 +424,8 @@ const is = {
     ip: val => !is.ip(val),
     url: val => !is.url(val),
     nan: val => !is.nan(val),
-    alpha: val => !is.alpha(val)
+    alpha: val => !is.alpha(val),
+    number: val => !is.number(val)
   }
 };
 

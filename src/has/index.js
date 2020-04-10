@@ -93,7 +93,7 @@ function everyValue(value, values) {
 }
 
 /**
- * High Order Function to be used within filter and map.
+ * High Order Function to be with filter and map.
  * Doesn't work with Array of object, for that use the `unique` function
  *
  * @example
@@ -107,19 +107,20 @@ function oneValue(value) {
   return content => content === value;
 }
 
-// // /**
-// //  * HOF - It will return only one `Truthty` value. `Falsy` values are not returned.
-// //  *
-// //  * @example
-// //  * [{name: 'john', age: 20}].map(util.unique('age')); // [{age: 20}]
-// //  *
-// //  * @param {any} key The name of the chain attribute to get the value from
-// //  * @param {any} content The content from where to extract the value
-// //  * @returns {any} The needed value
-// //  */
-// // function unique(key) {
-// //   return content => content[key];
-// // }
+/**
+ * High Order Function to be used with filter and map.
+ * It will return the first value of a given key that return `truthty`.
+ *
+ * @example
+ * [{name: 'john', age: 0}, {name: 'dee', age: 20}].map(util.unique('age'));
+ * // [20]
+ *
+ * @param {any} key                  - The key looking for on the object.
+ * @returns {function(any): boolean} - A function that will accept only one param.
+ */
+function unique(key) {
+  return content => content[key];
+}
 
 /**
  * It will check if one of the values is equal to the one got from using the `Key`.
@@ -129,9 +130,8 @@ function oneValue(value) {
  * [{id: 1}, {id: 2}, {id: 3}].filter(valueByKey('id', 3));
  * // [{id: 3}]
  *
- * @param {string} key - The key of the object.
- * @param {*} value    - The value we are looking for.
- * @returns {boolean}
+ * @param {string} key               - The key of the object.
+ * @returns {function(any): boolean} - A function that will accept only one param.
  */
 function valueByKey(key, value) {
   return content => content[key] === value;
@@ -145,5 +145,6 @@ module.exports = {
   everyValue,
   someValues,
   someValue,
-  oneValue
+  oneValue,
+  unique
 };

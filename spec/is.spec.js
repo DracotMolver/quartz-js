@@ -284,10 +284,20 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  it('alpha', done => {
+  it('not.alpha', done => {
     expect(is.not.alpha('123')).toBe(true);
     expect(is.not.alpha(String(123))).toBe(true);
     expect(is.not.alpha('123412`0.-,')).toBe(true);
+
+    done();
+  });
+
+  it('not.number', done => {
+    expect(is.not.number('1a234')).toBe(true);
+    expect(is.not.number('hola')).toBe(true);
+    expect(is.not.number(NaN)).toBe(true);
+    expect(is.not.number(undefined)).toBe(true);
+    expect(is.not.number(null)).toBe(true);
 
     done();
   });

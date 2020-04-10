@@ -37,8 +37,8 @@ function camelCase(text) {
  * choose from the given Object or a new Object based on this condition.
  *
  * @param {array} array  - The Array where to work on
- * @param {string} key   - The name of the atribute to use as a key
- * @param {string} value - The name of the atribute to use as a value
+ * @param {string} key   - The name of the attribute to use as a key
+ * @param {string} value - The name of the attribute to use as a value
  * @returns {array}      - A new Array of objects
  */
 function compress(array, key, value) {
@@ -132,14 +132,16 @@ function upperParagraph(text, byWord = false) {
 }
 
 /**
- * It will recive several function that are goint to `compose` into one function.
+ * It will recive several function that are going to `compose` into one function.
+ * If you add more than one value, only the first function will recive them and
+ * the result of it will be passed down to the rest of the functions.
  * This is read from right to left.
  *
  * You can pass multiple variables, but then the result of the first function
  * will be passing through the rest of the functions.
  *
- * @param {function} func - A set of functions
- * @returns {function} - A composed function to pass one value
+ * @param {function} func            - A set of functions
+ * @returns {function(any): any} - A function that will accept only one param.
  */
 function compose(...func) {
   return (...value) => {
@@ -152,46 +154,48 @@ function compose(...func) {
   };
 }
 
-// /**
-//  * It will concat and execute several functions to the given values.
-//  * If you add more than one value, only the first function will recive them and
-//  * the result of it will be passed down to the rest of the functions.
-//  *
-//  * @param {function} func - Functions.
-//  * @returns {function} - The result of passing all the values through
-//  *               the functions.
-//  */
-// function pipe(...func) {
-//   return func.reduce((prevFunc, currentFunc) => (...values) => currentFunc(prevFunc(...values)));
-// }
+/**
+ * It will concat and execute several functions to the given values.
+ * If you add more than one value, only the first function will recive them and
+ * the result of it will be passed down to the rest of the functions.
+ * This is read from left to right.
+ *
+ * @param {function} func            - All the Functions to be executed.
+ * @returns {function(any): any} - The result of passing all the values through the functions.
+ */
+function pipe(...func) {
+  return func.reduce((prevFunc, currentFunc) => (...values) =>
+    currentFunc(prevFunc(...values))
+  );
+}
 
-// function getGenerator(func, params) {
-//   const generator = {};
-//   let size = params.length - 1;
+function getGenerator(func, params) {
+  const generator = {};
+  const size = params.length;
+  let iter = 0;
 
-//   // Return an object with with key as an Iterator and the value a
-//   // function generator which is an Iterator.
-//   generator[Symbol.iterator] = function* iterGenerator() {
-//     while (size > -1) {
-//       yield func.call(null, params[size]);
-//       size -= 1;
-//     }
-//   };
+  // Return an object with with key as an Iterator and the value a
+  // function generator which is an Iterator.
+  generator[Symbol.iterator] = function* iterGenerator() {
+    while (iter < size) {
+      yield func.call(null, params[iter]);
+      iter += 1;
+    }
+  };
 
-//   return generator;
-// }
+  return generator;
+}
 
-// /**
-//  * It will apply a single function to several independents values.
-//  * It makes use of functions generators (async).
-//  * It will return array of N values.
-//  *
-//  * @param {function} - The function to use
-//  * @returns {array}
-//  */
-// function pipeVal(func) {
-//   return (...params) => [...getGenerator(func, params)];
-// }
+/**
+ * It will call a single function for several independents values.
+ * It will return array of N values.
+ *
+ * @param {function} unc         - The function to use.
+ * @returns {function(any): any} - The result of passing all the values through the function.
+ */
+function pipeVal(func) {
+  return (...params) => [...getGenerator(func, params)];
+}
 
 // /**
 //  * It will remove a property from an object based on the given key.
@@ -247,5 +251,7 @@ module.exports = {
   compress,
   compose,
   obj2Arr,
-  clone
+  pipeVal,
+  clone,
+  pipe
 };

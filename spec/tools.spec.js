@@ -115,15 +115,43 @@ describe('A collection of "tools" functions', () => {
 
   it('compose', done => {
     function sum(a) {
-      return a / 2;
+      return a + 2;
     }
 
     function multi(a, b) {
       return a * b;
     }
 
-    expect(tools.compose(sum, multi)(10, 30)).toEqual(150);
+    expect(tools.compose(sum, multi)(10, 30)).toEqual(302);
 
+    done();
+  });
+
+  it('pip', done => {
+    function sum(a, b) {
+      return a + b;
+    }
+
+    function multi(a) {
+      return a * 5;
+    }
+
+    expect(tools.pipe(sum, multi)(10, 30)).toEqual(200);
+
+    done();
+  });
+
+  it('pipVal', done => {
+    function sum(a) {
+      return a + 2;
+    }
+
+    expect(tools.pipeVal(sum)(10, 20, 30, 40)).toEqual([
+      12,
+      22,
+      32,
+      42
+    ]);
     done();
   });
 });
