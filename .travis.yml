@@ -12,6 +12,7 @@ jobs:
 
 deploy:
   provider: npm
+  - script: "npm run build"
   email: $NPM_EMAIL_ADDRESS
   api_key: $NPM_AUTH_TOKEN
   on:

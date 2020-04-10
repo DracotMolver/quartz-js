@@ -1,6 +1,6 @@
 {
   "name": "quartz.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A very useful library with fancy small functions",
   "main": "lib/index.js",
   "scripts": {
