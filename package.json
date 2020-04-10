@@ -18,7 +18,7 @@
     "prettier": "2.0.4"
   },
   "dependencies": {
-    "core-js": "^3.1.4",
+    "core-js": "^3.6.5",
     "jasmine-spec-reporter": "^5.0.1",
     "regenerator-runtime": "^0.13.2"
   }
