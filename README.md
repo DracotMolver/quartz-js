@@ -99,6 +99,6 @@ if (is.truthty(obj2)) {
 
 - definitions
 
-| name                                     | params                                                                                                                                                                                                                     | definition                                                                                                   |
-| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| **moreOrEqual(value, size, isMoreOnly)** | value: `(object|array|string)` - The value to evaluate its length.<br> size: `number` - The seed we will use to compare.<br> isMoreOnly: `boolean` - This will check the length of value must be more than the given size. | It will check if the given value has a length greater or equal to the given size. It make strict comparision |
+| name | params  | definition |
+| - | - | - |
+| **moreOrEqual(value: (object|array|string), size: number, isMoreOnly: boolean)** | value: The value to evaluate its length.<br> size: The seed we will use to compare.<br> isMoreOnly: This will check the length of value must be more than the given size. | It will check if the given value has a length greater or equal to the given size. It make strict comparision |
