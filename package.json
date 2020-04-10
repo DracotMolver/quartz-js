@@ -1,7 +1,7 @@
 {
   "name": "quartz.js",
   "version": "1.0.0",
-  "description": "A very useful library with fancy functions",
+  "description": "A very useful library with fancy small functions",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib --no-comments",
@@ -9,17 +9,31 @@
   },
   "author": "Diego Alberto Molina Vera <dracotm25@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DracotMolver/quartz-js"
+  },
+  "homepage": "https://dracotmolver.github.io/quartz-js/",
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.4.5",
+    "jasmine-spec-reporter": "^5.0.1",
     "eslint": "^6.0.1",
     "jasmine": "^3.2.0",
     "prettier": "2.0.4"
   },
+  "keywords": [
+    "javascript",
+    "nodejs",
+    "functional programming",
+    "functions",
+    "has function",
+    "is function",
+    "tools"
+  ],
   "dependencies": {
     "core-js": "^3.6.5",
-    "jasmine-spec-reporter": "^5.0.1",
     "regenerator-runtime": "^0.13.2"
   }
 }
