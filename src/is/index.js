@@ -406,7 +406,7 @@ function password(rules = null) {
   return callback;
 }
 
-const is = {
+const is = Object.freeze({
   moreOrEqual,
   lessOrEqual,
   exactSize,
@@ -419,14 +419,21 @@ const is = {
   nan,
   run,
   url,
-  ip,
-  not: {
-    ip: val => !is.ip(val),
-    url: val => !is.url(val),
-    nan: val => !is.nan(val),
-    alpha: val => !is.alpha(val),
-    number: val => !is.number(val)
+  ip
+});
+
+const isNot = Object.freeze({
+  ip: val => !is.ip(val),
+  url: val => !is.url(val),
+  nan: val => !is.nan(val),
+  alpha: val => !is.alpha(val),
+  number: val => !is.number(val)
+});
+
+const handler = {
+  get(obj, prop) {
+    return prop === 'not' ? isNot : obj[prop];
   }
 };
 
-module.exports = is;
+module.exports = new Proxy(is, handler);

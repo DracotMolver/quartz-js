@@ -245,7 +245,7 @@ function pipeVal(func) {
 //   return tmp;
 // }
 
-module.exports = {
+module.exports = Object.freeze({
   upperParagraph,
   camelCase,
   compress,
@@ -254,4 +254,4 @@ module.exports = {
   pipeVal,
   clone,
   pipe
-};
+});

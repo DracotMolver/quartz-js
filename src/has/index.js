@@ -140,11 +140,11 @@ function valueByKey(key, value) {
 // someValueByKey
 // someValuesByKey
 
-module.exports = {
+module.exports = Object.freeze({
   valueByKey,
   everyValue,
   someValues,
   someValue,
   oneValue,
   unique
-};
+});
