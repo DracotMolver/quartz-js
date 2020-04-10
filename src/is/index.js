@@ -20,7 +20,7 @@ function _objLen(element) {
 
 /**
  * It will check if the given value has a length greater or equal to the given size.
- * It make strict comparision
+ * it makes strict comparision
  *
  * @param {(object|array|string)} value - The value to evaluate its length.
  * @param {number} size                 - The seed we will use to compare.
@@ -47,7 +47,7 @@ function moreOrEqual(value, size, isMoreOnly = false) {
 
 /**
  * It will check if the given value has a length lower or equal to the given size.
- * It make strict comparision
+ * it makes strict comparision
  *
  * @param {(object|array|string)} value - The value to evaluate its length.
  * @param {number} size                 - The seed we will use to compare.
@@ -74,7 +74,7 @@ function lessOrEqual(value, size, isLessOnly = false) {
 
 /**
  * It will check if the given value has exect the same length as the given size.
- * It make strict comparision
+ * it makes strict comparision
  *
  * @example
  * exactSize([1, 2, 3, 4], 4); // true
