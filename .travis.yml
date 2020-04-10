@@ -1,19 +1,22 @@
 language: node_js
 node_js:
-  - "12.16.1"
+  - '12.16.1'
 
 jobs:
   include:
     - stage: test
-      name: "Unit Tests"
-      script: "npm run test"
+      name: 'Unit Tests'
+      script: 'npm run test'
     - stage: deploy
-      script: "npm run build"
-      name: "Deploy to NPM"
+      script: 'npm run build'
+      name: 'Deploy to NPM'
 
 deploy:
   provider: npm
   email: $NPM_EMAIL_ADDRESS
   api_key: $NPM_AUTH_TOKEN
+  skip_cleanup: true
   on:
+    branch: master
     tags: true
+    tag: next
