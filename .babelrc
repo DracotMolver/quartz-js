@@ -3,8 +3,8 @@
     [
       "@babel/preset-env",
       {
-        "process.env.NODE_ENVs": {
-          "node": "6.10"
+        "targets": {
+          "node": "8.0.0"
         },
         "useBuiltIns": "usage",
         "corejs": {

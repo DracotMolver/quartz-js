@@ -8,7 +8,6 @@
  */
 
 'use strict';
-
 require('regenerator-runtime/runtime');
 
 const tools = require('./tools');
