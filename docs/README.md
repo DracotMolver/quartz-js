@@ -1,206 +1,89 @@
-# Quartz is meant to be a readable and understandtable set of functions that explain _What_ are you doing instead of _How_.
+# [TeXt Theme](https://github.com/kitian616/jekyll-TeXt-theme)
 
-Everything is about functions. With this statement born `Quartz`. Functions explain what you are doing and they abstract all the verbove logic you need to code.
-Why not use functions to explain the your intention instead and also abstract you from the _**How**_.
+[![license](https://img.shields.io/github/license/kitian616/jekyll-TeXt-theme.svg)](https://github.com/kitian616/jekyll-TeXt-theme/blob/master/LICENSE)
+[![Gem Version](https://img.shields.io/gem/v/jekyll-text-theme.svg)](https://github.com/kitian616/jekyll-TeXt-theme/releases)
+[![Travis](https://img.shields.io/travis/kitian616/jekyll-TeXt-theme.svg)](https://travis-ci.org/kitian616/jekyll-TeXt-theme)
+[![Tip Me via PayPal](https://img.shields.io/badge/PayPal-tip%20me-1462ab.svg?logo=paypal)](https://www.paypal.me/kitian616)
+[![Tip Me via Bitcoin](https://img.shields.io/badge/Bitcoin-tip%20me-f7931a.svg?logo=bitcoin)](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/docs/assets/images/3Fkufxcw2xd8HnaRJBNK4ccdtkUDyyNu4V.jpg)
 
-**Quartz** strongely inspired by tests frameworks like Mocha and Jasmin, encouraging to use functional programming and remove those effect that cause in many developers independently their leve of experince.
+![TeXt Theme](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/TeXt-home.jpg)
 
-The heart of **Quartz**:
+![TeXt Theme Details](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/TeXt-layouts.png)
 
-- **is**: Are primarily validations.
-- **has**: Are for working with Array and Objects.
-- **tools**: A set of different usefull functions.
+TeXt is a super customizable Jekyll theme for personal site, team site, blog, project, documentation, etc. Similar to iOS 11 style, it has large and prominent titles, round buttons and cards.
 
-- Some examples.
+**[Change Log](https://github.com/kitian616/jekyll-TeXt-theme/blob/master/CHANGELOG.md)** | **[中文](https://github.com/kitian616/jekyll-TeXt-theme/blob/master/README-zh.md)**
 
-```js
-if (/^\d{0,3}\.\d{0,3}\.\d{0,3}\.$/.test('192.168.0.1')) {
-  // Do something...
-}
-```
+## Features
 
-Let\'s be honest. Most of the developers hate regular expressions, and who doesn\'t?!.
-That was hard to understand at first sight. What about now using _Quartz_.
+- Responsive
+- Semantic HTML
+- Skins
+- Highlight Theme
+- Internationalization
+- Search
+- Table of contents
+- Authors
+- Additional styles (alert, tag, image, icon, button, grid, etc)
+- Extensions (audios, videos, slides, demos)
+- Markdown enhancements ([MathJax](https://www.mathjax.org/), [mermaid](https://mermaidjs.github.io/), [chartjs](http://www.chartjs.org/))
+- Sharing ([AddToAny](https://www.addtoany.com/), [AddThis](https://www.addthis.com/))
+- Comments ([Disqus](https://disqus.com/), [Gitalk](https://gitalk.github.io/), [Valine](https://valine.js.org/en/))
+- Pageview ([LeanCloud](https://leancloud.cn/))
+- Analytics ([Google Analytics](https://analytics.google.com/analytics/web/))
+- RSS ([jekyll-feed](https://github.com/jekyll/jekyll-feed))
 
-```js
-if (is.ip('192.168.0.1')) {
-  // Do something...
-}
-```
+## Skins
 
-Isn\'t easier to understand?. I can - _almost_ - read **_If it is an ip_**.
+TeXt has 6 built-in skins, you can also set up your own skin.
 
-Next example:
+| `default` | `dark` | `forest` |
+| --- |  --- | --- |
+| ![Default](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_default.jpg) | ![Dark](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_dark.jpg) | ![Forest](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_forest.jpg) |
 
-```js
-const str = 'qwerty';
-if (str.length) {
-  // Do something...
-}
-```
+| `ocean` | `chocolate` | `orange` |
+| --- |  --- | --- |
+| ![Ocean](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_ocean.jpg) | ![Chocolate](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_chocolate.jpg) | ![Orange](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/skins_orange.jpg) |
 
-This example for me it says nothing. I know as a developer what is going to evaluate the statement. But it says nothing. Shouldn't be nice to read clear **\_What\_\_** I'm doing?
+### Highlight Theme
 
-```js
-const str = 'qwerty';
-if (is.moreOrEqual(str, 0, true)) {
-  // Do something...
-}
-```
+TeXt use [Tomorrow](https://github.com/chriskempson/tomorrow-theme) as the highlight theme.
 
-> NOTE: The example of above the `if (str.length)` is better for performance.
+| `tomorrow` | `tomorrow-night` | `tomorrow-night-eighties` | `tomorrow-night-blue` | `tomorrow-night-bright` |
+| --- |  --- | --- | --- |  --- |
+| ![Tomorrow](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow.png) | ![Tomorrow Night](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow-night.png) | ![Tomorrow Night Eighties](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow-night-eighties.png) | ![Tomorrow Night Blue](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow-night-blue.png) | ![Tomorrow Night Bright](https://raw.githubusercontent.com/kitian616/jekyll-TeXt-theme/master/screenshots/highlight_tomorrow-night-bright.png) |
 
-Taking the last example, I'll do it using and Object.
+## Documentation
 
-```js
-const obj = { name: 'diego', age: 30, country: 'chile' };
-if (Object.keys(str).length) {
-  // Do something...
-}
-```
+### Start
 
-Even if the Object is empty I have to do some extra code because an empty Object is `true` due the nature of JavaScript. This is well known as `Trusthy` or `Falsy`.
+- [Quick Start](https://tianqi.name/jekyll-TeXt-theme/docs/en/quick-start)
+- [Update from 1.x to 2.x](https://tianqi.name/jekyll-TeXt-theme/docs/en/update-from-1-to-2)
 
-In _Quarzt_ this would be different. An empty Object or Array are `false`. This is even in pure JavaScript if you get the length of an Array or Object, which is 0 if it's empty, Therefore false.
+### Customization
 
-```js
-const obj = { name: 'diego', age: 30, country: 'chile' };
-if (is.moreOrLess(str, 0, true)) {
-  // Do something...
-}
+- [Configuration](https://tianqi.name/jekyll-TeXt-theme/docs/en/configuration)
+- [Navigation](https://tianqi.name/jekyll-TeXt-theme/docs/en/navigation)
+- [Layouts](https://tianqi.name/jekyll-TeXt-theme/docs/en/layouts)
+- [Logo and Favicon](https://tianqi.name/jekyll-TeXt-theme/docs/en/logo-and-favicon)
+- [Authors](https://tianqi.name/jekyll-TeXt-theme/docs/en/authors)
+- [Internationalization](https://tianqi.name/jekyll-TeXt-theme/docs/en/i18n)
 
-// or more accurate
-const obj2 = {};
-if (is.truthty(obj2)) {
-  // Do something (Won't pass because is an empty Object)
-}
-```
+### Content
 
-# Instalation
+- [Writing Posts](https://tianqi.name/jekyll-TeXt-theme/docs/en/writing-posts)
+- [Additional styles](https://tianqi.name/jekyll-TeXt-theme/docs/en/additional-styles)
+- [Extensions](https://tianqi.name/jekyll-TeXt-theme/docs/en/extensions)
+- [Markdown Enhancements](https://tianqi.name/jekyll-TeXt-theme/docs/en/markdown-enhancements)
 
-Open your favourite terminal and type
+## Demo Pages
 
-```
-npm install quartz
-```
+| Name | Description |
+| --- | --- |
+| [Home](https://tianqi.name/jekyll-TeXt-theme/test/) | Home page |
+| [Archive](https://tianqi.name/jekyll-TeXt-theme/archive.html) | Archive page |
+| [Layout Examples](https://tianqi.name/jekyll-TeXt-theme/samples.html) | Examples for different layouts |
 
-## is
+## License
 
-It's a dependency where the functions must return a boolean. Some functions has their opposite version using `is.not`.
-
-- `moreOrEqual`
-
-  It will check if the given value has a length greater or equal to the given size. It make strict comparision.
-
-  - **value**: {object\|array\|string} _The value to evaluate its length._
-  - **size**: {number} _The seed we will use to compare._
-  - **isMoreOnly**: {boolean} _This will check the length of value must be more than the given size._
-
-  ```js
-  is.moreOrEqual({ name: 'John Doe', married: false }, 2); // true
-  is.moreOrEqual(['hello', 'hola', 'hallo', 'priviet'], 5); // true
-  is.moreOrEqual('hellow world', 4, true); // true - It is more than 4
-  ```
-
-- `lessOrMore`
-  It will check if the given value has a length lower or equal to the given size. It make strict comparision.
-
-  - **value**: {object\|array\|string} _The value to evaluate its length._
-  - **size**: {number} _The seed we will use to compare._
-  - **isLessOnly**: {boolean} _This will check the length of value must be more than the given size._
-
-- `exactSize`
-  It will check if the given value has exect the same length as the given size. It make strict comparision.
-
-  - **value**: {object\|array\|string} _The value to evaluate._
-  - **size**: {number} _The seed we will use to compare._
-
-```js
-is.exactSize([1, 2, 3, 4], 4); // true
-is.exactSize({ a: { c: 2 }, b: 'hello' }, 2); // true
-```
-
-- `nan`
-  It will check if the given value is NaN.
-
-  - **value**: {any} _Any value to be checked that is NaN._
-
-- `truthty`
-  It will check if a value is truthty but with slightly modifications for Ojects and Arrays.
-
-  - **value**: {any} _Any value to be checked._
-
-> Important Array and Object are false if they are empty.
-
-| type   | description                     |
-| ------ | ------------------------------- |
-| Object | "{}" => false. "{a: 2}" => true |
-| Array  | "[]" => false. "[2]" => true    |
-
-- `falsy`
-  It will check if a value is falsy but with slightly modifications for Object and Array.
-
-  - **value**: {any} _Any value to be checked._
-
-> Important Array and Object are true if they are empty.
-
-| type    | description                     |
-| ------- | ------------------------------- |
-| Objects | "{}" => true. "{a: 2}" => false |
-| Arrays  | "[]" => true. "[2]" => false    |
-
-- `run`
-  _(Chile only)_ - It will check if the given R.U.N is valid.
-
-  - **value**: {string} _The given R.U.N._
-
-- `alpha`
-  Validates that the given value has only words.
-
-  - **value** {string} _Value to match if it's valid._
-
-- `email`
-  Validates if the value is a well formed email.
-
-  - **value** {string} _The email to check if it's valid._
-
-- `ip`
-  It will check if the value is a valid ip
-
-  - **value** {string} _The ip to checke._
-
-- `url`
-  It will check if the url has the right format
-
-  **value** {string} _An URL to check._
-
-  ```js
-  is.url('http://google.cl'); // true
-  ```
-
-- `password`
-  It will set up a Password Strength Policy. The returned funciton will check later if a password is valid under that policy.
-
-  - **pwd** {string} _String to match against with._
-  - **rules** {object} _The set of rules for your password._
-  - **rules.minLength** {number} _Minimun size of characters._
-  - **rules.minAlpha** {number} _Minimun size of alpha characters._
-  - **rules.minNumber** {number} _Minimun of numbers._
-  - **rules.minSameChar** {number} _Minimun of equal characters._
-  - **rules.allowSpace** {boolean} _If allow or not whitespace._
-
-  ```js
-  // Set a Policy Configuration
-  const pwdPolicy = is.password({
-    minLength: 7,
-    maxLength: 10,
-    minAlpha: 2,
-    minNumber: 5,
-    minSameChar: 0,
-    allowSpace: false
-  });
-
-  if (pwdMatcher('d@12345')) {
-    // valid password. Do smoething
-  }
-  ```
+TeXt Theme is [MIT licensed](https://github.com/kitian616/jekyll-TeXt-theme/blob/master/LICENSE).
