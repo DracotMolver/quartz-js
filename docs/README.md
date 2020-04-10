@@ -80,7 +80,7 @@ if (is.truthty(obj2)) {
   - isMoreOnly: {boolean} - _This will check the length of value must be more than the given size._
 
   ```js
-  is.moreOrEqual({ name: 'John Doe', married: false}, 2); // true
+  is.moreOrEqual({ name: 'John Doe', married: false }, 2); // true
   is.moreOrEqual(['hello', 'hola', 'hallo', 'priviet'], 5); // true
   is.moreOrEqual('hellow world', 4, true); // true - It is more than 4
   ```
@@ -96,12 +96,15 @@ if (is.truthty(obj2)) {
   It will check if the given value has exect the same length as the given size. It make strict comparision.
 
   - value: {object\|array\|string} - _The value to evaluate._
-  - siae: {number} - _The seed we will use to compare._
+  - size: {number} - _The seed we will use to compare._
+    <br />
 
   ```js
   is.exactSize([1, 2, 3, 4], 4); // true
   is.exactSize({ a: { c: 2 }, b: 'hello' }, 2); // true
   ```
+
+  <br />
 
 * It will check if the given value is NaN.
 *
