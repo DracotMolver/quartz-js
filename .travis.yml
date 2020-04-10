@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "8.0.0"
+
+jobs:
+  include:
+    - stage: test
+      name: "Unit Tests"
+      script: "npm run test"
+    - stage: deploy
+      name: "Deploy to NPM"
+
+deploy:
+  provider: npm
+  email: "NPM_EMAIL_ADDRESS"
+  app_token: "NPM_AUTH_TOKEN"
+  on:
+    branch: master
