@@ -67,7 +67,7 @@ describe('A collectin of "is" functions', () => {
     done();
   });
 
-  //     describe('Checking the length of the elements', () => {
+  //     describe('Checking the length of the values', () => {
   const object = {
     name: 'John Doe',
     age: 20,

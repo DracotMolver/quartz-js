@@ -1,7 +1,7 @@
 /**
  * QUARTZ.JS
  *
- * @file A very useful library with fancy functions
+ * @file A very useful library with fancy small functions
  * @version 1.0.0
  * @author Diego Alberto Molina Vera <dracotm25@gmail.com>
  * @copyright Diego Alberto Molina Vera 2020.
@@ -73,13 +73,13 @@ function obj2Arr(obj) {
 
 /**
  * It will merge Arrays or Objects at first level returning a new Object or Array.
- * Be carful with the order of the elements you are passing when they are objects.
+ * Be carful with the order of the values you are passing when they are objects.
  *
  * @example
  * clone({a: 'aA'}, {b: 'bB', a: 'AA'});
  * // {a: 'AA', b: 'bB'};
  *
- * @param  {(array|object)} obj The elements to merge
+ * @param  {(array|object)} obj The values to merge
  * @returns {(array|object)}
  */
 function clone(obj1, obj2) {

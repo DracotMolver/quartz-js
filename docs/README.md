@@ -104,13 +104,13 @@ is.moreOrEqual('hellow world', 4, true); // true - It is more than 4
 
   <br />
 
-- `lessOrMore`
-  It will check if the given value has a length lower or equal to the given size. it makes strict comparision.
+`lessOrMore`
+It will check if the given value has a length lower or equal to the given size. it makes strict comparision.
 
-  - **value**: {object\|array\|string} _The value to evaluate its length._
-  - **size**: {number} _The seed we will use to compare._
-  - **isLessOnly**: {boolean} _This will check the length of value must be more than the given size._
-    <br />
+- **value**: {object\|array\|string} _The value to evaluate its length._
+- **size**: {number} _The seed we will use to compare._
+- **isLessOnly**: {boolean} _This will check the length of value must be more than the given size._
+  <br />
 
 `exactSize`
 It will check if the given value has exect the same length as the given size. it makes strict comparision.
@@ -132,10 +132,10 @@ It will check if the given value is NaN.
 
 <br />
 
-- `truthty`
-  It will check if a value is truthty but with slightly modifications for Object and Array.
+`truthty`
+It will check if a value is truthty but with slightly modifications for Object and Array.
 
-  - **value**: {any} _Any value to be checked._
+- **value**: {any} _Any value to be checked._
 
 > Important Array and Object are false if they are empty.
 
@@ -167,10 +167,10 @@ _(Chile only)_ - It will check if the given R.U.N is valid.
 
 <br />
 
-- `alpha`
-  Validates that the given value has only words.
+`alpha`
+Validates that the given value has only words.
 
-  - **value** {string} _Value to match if it's valid._
+- **value** {string} _Value to match if it's valid._
 
 <br />
 
@@ -181,10 +181,10 @@ Validates if the value is a well formed email.
 
 <br />
 
-- `ip`
-  It will check if the value is a valid ip
+`ip`
+It will check if the value is a valid ip
 
-  - **value** {string} _The ip to checke._
+- **value** {string} _The ip to checke._
 
 <br />
 
@@ -199,32 +199,32 @@ is.url('http://google.cl'); // true
 
 <br />
 
-- `password`
-  It will set up a Password Strength Policy. The returned funciton will check later if a password is valid under that policy.
+`password`
+It will set up a Password Strength Policy. The returned funciton will check later if a password is valid under that policy.
 
-  - **pwd** {string} _String to match against with._
-  - **rules** {object} _The set of rules for your password._
-  - **rules.minLength** {number} _Minimun size of characters._
-  - **rules.minAlpha** {number} _Minimun size of alpha characters._
-  - **rules.minNumber** {number} _Minimun of numbers._
-  - **rules.minSameChar** {number} _Minimun of equal characters._
-  - **rules.allowSpace** {boolean} _If allow or not whitespace._
+- **pwd** {string} _String to match against with._
+- **rules** {object} _The set of rules for your password._
+- **rules.minLength** {number} _Minimun size of characters._
+- **rules.minAlpha** {number} _Minimun size of alpha characters._
+- **rules.minNumber** {number} _Minimun of numbers._
+- **rules.minSameChar** {number} _Minimun of equal characters._
+- **rules.allowSpace** {boolean} _If allow or not whitespace._
 
-  ```js
-  // Set a Policy Configuration
-  const pwdPolicy = is.password({
-    minLength: 7,
-    maxLength: 10,
-    minAlpha: 2,
-    minNumber: 5,
-    minSameChar: 0,
-    allowSpace: false
-  });
+```js
+// Set a Policy Configuration
+const pwdPolicy = is.password({
+  minLength: 7,
+  maxLength: 10,
+  minAlpha: 2,
+  minNumber: 5,
+  minSameChar: 0,
+  allowSpace: false
+});
 
-  if (pwdMatcher('d@12345')) {
-    // valid password. Do smoething
-  }
-  ```
+if (pwdMatcher('d@12345')) {
+  // valid password. Do smoething
+}
+```
 
 # has
 
@@ -233,112 +233,65 @@ It's a set of functions that will help you to work with Array and Objects.
 `somevalues`
 It will check if the values on the first Array exist at least one of them in the second Array. It Doesn't work with Array of Objects, for that use `someValuesByKey` function
 
-- **arr**: {array} _An Array of elements to used against the second param._
+- **arr**: {array} _An Array of values to used against the second param._
 - **values**: {array} _The values that are gonna be searched._
 
 ```js
 has.someValues([1, 2, 3], [1, 5, 4, 3, 10]); // true
 ```
 
-/\*\*
+<br />
 
-- It will check a single value against N values until find one match.
-- Doesn't work with Array of Objects, for that use the `someValueByKey` function
--
-- @example
-- has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']);
-- // true
--
-- @param {string|boolean|number} element - The element to match against with.
-- @param {array} values - All the values to match
-- @returns {boolean}
-  \*/
-  function someValue(element, values) {
-  let result = null;
+`someValue`
+It will check a single value against N values until find one match. Doesn't work with Array of Objects, for that use the `someValueByKey` function
 
-if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
-throw new Error('The second param should be an Array');
-}
+- **value** {string|boolean|number} _The value to match against with._
+- **values** {array} values _All the values to match._
 
-if (
-util.isNumber(element) ||
-util.isString(element) ||
-util.isBoolean(element)
-) {
-result = values.indexOf(element) !== -1;
-} else {
-throw new Error(
-'The first param can only be: string, number or boolean'
-);
-}
+```js
+has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']); // true
+```
 
-return result;
-}
+<br />
 
-/\*\*
+`everyValue`
+It will check that the given value is present in all the rest of the values.
 
-- It will check that the given value is present in all the rest of the values.
--
-- @param {any} value - The value to look for
-- @param {array} values - An array of possible values.
-- @returns {boolean}
-  \*/
-  function everyValue(value, values) {
-  let bool = false;
+- **value** {any} _The value to look for._
+- **value** {array} _An array of possible values._
 
-const size = values.length;
+<br />
 
-for (let index = 0; index < size; index += 1) {
-bool = values[index] === value;
-}
+`oneValue`
+High Order Function to be with filter and map. It Doesn't work with Array of object, for that use the `unique` function.
 
-return bool;
-}
+- **value** {any} _Any value to use as a seed to filter._
+- **callback** {function(any): boolean} _A function that will accept only one param._
 
-/\*\*
+```js
+[1, 2, 3].filter(has.oneValue(2)); // [2];
+```
 
-- High Order Function to be with filter and map.
-- Doesn't work with Array of object, for that use the `unique` function
--
-- @example
-- [1, 2, 3].filter(has.oneValue(2));
-- // [2];
--
-- @param {any} value - Any value to use as a seed to filter.
-- @returns {function(any): boolean} - A function that will accept only one param.
-  \*/
-  function oneValue(value) {
-  return content => content === value;
-  }
+<br />
 
-/\*\*
+`unique`
+High Order Function to be used with filter and map. It will return the first value of a given key that return `truthty`.
 
-- High Order Function to be used with filter and map.
-- It will return the first value of a given key that return `truthty`.
--
-- @example
-- [{name: 'john', age: 0}, {name: 'dee', age: 20}].map(util.unique('age'));
-- // [20]
--
-- @param {any} key - The key looking for on the object.
-- @returns {function(any): boolean} - A function that will accept only one param.
-  \*/
-  function unique(key) {
-  return content => content[key];
-  }
+  - **key**: {any} _The key looking for on the object._
+  - **callback**: {function(any): boolean} _A function that will accept only one param._
 
-/\*\*
+```js
+[{name: 'john', age: 0}, {name: 'dee', age: 20}].map(util.unique('age'));
+```
 
-- It will check if one of the values is equal to the one got from using the `Key`.
-- This funciton is for using it with Array of Objects.
--
-- @example
-- [{id: 1}, {id: 2}, {id: 3}].filter(valueByKey('id', 3));
-- // [{id: 3}]
--
-- @param {string} key - The key of the object.
-- @returns {function(any): boolean} - A function that will accept only one param.
-  \*/
-  function valueByKey(key, value) {
-  return content => content[key] === value;
-  }
+<br />
+
+`valueByKey`
+  It will check if one of the values is equal to the one got from using the `Key`. This funciton is for using it with Array of Objects.
+
+  - **key** {string} _The key of the object._
+  - **callback** {function(any): boolean} _A function that will accept only one param._
+
+```js
+[{id: 1}, {id: 2}, {id: 3}].filter(valueByKey('id', 3));
+```

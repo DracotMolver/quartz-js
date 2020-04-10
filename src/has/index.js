@@ -1,7 +1,7 @@
 /**
  * QUARTZ.JS
  *
- * @file A very useful library with fancy functions
+ * @file A very useful library with fancy small functions
  * @version 1.0.0
  * @author Diego Alberto Molina Vera <dracotm25@gmail.com>
  * @copyright Diego Alberto Molina Vera 2020.
@@ -20,7 +20,7 @@ const util = require('util');
  * has.someValues([1, 2, 3], [1, 5, 4, 3, 10]);
  * // true
  *
- * @param {array} arr    - An Array of elements to used against the second param
+ * @param {array} arr    - An Array of values to used against the second param
  * @param {array} values - The values that are gonna be searched.
  * @returns {boolean}
  */
@@ -47,11 +47,11 @@ function someValues(arr, values) {
  * has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']);
  * // true
  *
- * @param {string|boolean|number} element - The element to match against with.
+ * @param {string|boolean|number} value - The value to match against with.
  * @param {array} values                  - All the values to match
  * @returns {boolean}
  */
-function someValue(element, values) {
+function someValue(value, values) {
   let result = null;
 
   if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
@@ -59,11 +59,11 @@ function someValue(element, values) {
   }
 
   if (
-    util.isNumber(element) ||
-    util.isString(element) ||
-    util.isBoolean(element)
+    util.isNumber(value) ||
+    util.isString(value) ||
+    util.isBoolean(value)
   ) {
-    result = values.indexOf(element) !== -1;
+    result = values.indexOf(value) !== -1;
   } else {
     throw new Error(
       'The first param can only be: string, number or boolean'
