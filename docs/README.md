@@ -84,6 +84,12 @@ Open your favourite terminal and type
 npm install quartz
 ```
 
+Then just use what part of *Quartz* you need
+
+```js
+  const { is } = require('quartzjs');
+```
+
 ## is
 
 It's a dependency where the functions must return a boolean. Some functions has their opposite version using `is.not`.

@@ -1,5 +1,5 @@
 {
-  "name": "quartz.js",
+  "name": "quartzjs",
   "version": "1.0.1",
   "description": "A very useful library with fancy small functions",
   "main": "lib/index.js",
