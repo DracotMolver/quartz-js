@@ -98,7 +98,7 @@ function exactSize(value, size) {
 /**
  * It will check if the given value is NaN.
  *
- * @param {*} value   - Any value to be checked that is NaN.
+ * @param {any} value   - Any value to be checked that is NaN.
  * @returns {boolean}
  */
 function nan(value) {
