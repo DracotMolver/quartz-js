@@ -1,6 +1,8 @@
-## is
+# Quarts is divided in three dependencies: **is**, **has**, and **tools**.
 
-`is` It's a dependency where the functions must return a boolean. Some functions has their opposite version using `is.not`. 
+# is
+
+`is` It's a dependency where the functions must return a boolean. Some functions has their opposite version using `is.not`.
 
 - Examples
 
@@ -30,7 +32,7 @@ if (str.length) {
 }
 ```
 
-This example for me it says nothing. I know as a developer what is going to evaluate the statement. But it says nothing. Shouldn't be nice to read clear **_What__** I'm doing?
+This example for me it says nothing. I know as a developer what is going to evaluate the statement. But it says nothing. Shouldn't be nice to read clear **\_What\_\_** I'm doing?
 
 ```js
 const str = 'qwerty';
@@ -68,300 +70,307 @@ if (is.truthty(obj2)) {
 ```
 
 ### `is` Functions
-* `moreOrEqual`
+
+- `moreOrEqual`
 
   It will check if the given value has a length greater or equal to the given size. It make strict comparision.
 
-  * value: {object|array|string} - _The value to evaluate its length._
-  * size: {number} - _The seed we will use to compare._
-  * isMoreOnly: {boolean} - _This will check the length of value must be more than the given size._
+  - value: {object|array|string} - _The value to evaluate its length._
+  - size: {number} - _The seed we will use to compare._
+  - isMoreOnly: {boolean} - _This will check the length of value must be more than the given size._
 
-* `lessOrMore`
+  ```js
+  const string = ; // length:12
+
+  is.moreOrEqual({ name: 'John Doe', married: false}, 2); // true
+  is.moreOrEqual(['hello', 'hola', 'hallo', 'priviet'], 5); // true
+  is.moreOrEqual('hellow world', 4, true); // true - It is more than 4
+  ```
+
+- `lessOrMore`
   It will check if the given value has a length lower or equal to the given size. It make strict comparision.
 
-  * value: {object|array|string} - _The value to evaluate its length._
-  * size: {number} - _The seed we will use to compare._
-  * isLessOnly: {boolean} - _This will check the length of value must be more than the given size._
+  - value: {object|array|string} - _The value to evaluate its length._
+  - size: {number} - _The seed we will use to compare._
+  - isLessOnly: {boolean} - _This will check the length of value must be more than the given size._
 
-  /**
- * It will check if the given value has exect the same length as the given size.
- * It make strict comparision
- *
- * @example
- * exactSize([1, 2, 3, 4], 4); // true
- * exactSize({a: { c: 2 }, b: 'hello'}, 2); // true
- *
- * @param {(object|array|string)} value - The value to evaluate.
- * @param {number} size                 - The seed we will use to compare.
- * @returns {boolean}
- */
-function exactSize(value, size) {
-  if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
-    throw Error('Type number are not allowed to be checked');
+- `exactSize`
+  It will check if the given value has exect the same length as the given size. It make strict comparision.
+
+  - value: {object|array|string} - _The value to evaluate._
+  - siae: {number} - _The seed we will use to compare._
+
+  ```js
+  is.exactSize([1, 2, 3, 4], 4); // true
+  is.exactSize({ a: { c: 2 }, b: 'hello' }, 2); // true
+  ```
+
+* It will check if the given value is NaN.
+*
+* @param {\*} value - Any value to be checked that is NaN.
+* @returns {boolean}
+  \*/
+  function nan(value) {
+  return String(value) === 'NaN';
   }
 
-  return (
-    (util.isString(value) ? value.trim().length : _objLen(value)) ===
-    size
-  );
-}
+/\*\*
 
-/**
- * It will check if the given value is NaN.
- *
- * @param {*} value   - Any value to be checked that is NaN.
- * @returns {boolean}
- */
-function nan(value) {
-  return String(value) === 'NaN';
-}
-
-/**
- * It will check if a value is truthty but with slightly modifications for Ojects and Arrays.
- *
- * @example
- * | type    | description                     |
- * |---------|---------------------------------|
- * | Objects | "{}" => false. "{a: 2}" => true |
- * |---------|---------------------------------|
- * | Arrays  | "[]" => false. "[2]" => true    |
- * |---------|---------------------------------|
- *
- * @param {any} value - Any value to be checked.
- * @returns {boolean}
- */
-function truthty(value) {
+- It will check if a value is truthty but with slightly modifications for Ojects and Arrays.
+-
+- @example
+- | type | description |
+- |---------|---------------------------------|
+- | Objects | "{}" => false. "{a: 2}" => true |
+- |---------|---------------------------------|
+- | Arrays | "[]" => false. "[2]" => true |
+- |---------|---------------------------------|
+-
+- @param {any} value - Any value to be checked.
+- @returns {boolean}
+  \*/
+  function truthty(value) {
   let isTruthy = false;
 
-  if (/^\d+$/.test(value)) {
-    value = Number(value);
-  }
-
-  if (value && !nan(value)) {
-    isTruthy = true;
-    if (typeof value === 'object' && Object.keys(value).length) {
-      isTruthy = true;
-    } else if (
-      typeof value === 'object' &&
-      !Object.keys(value).length
-    ) {
-      isTruthy = false;
-    }
-  }
-
-  return isTruthy;
+if (/^\d+\$/.test(value)) {
+value = Number(value);
 }
 
-/**
- * It will check if a value is falsy but with slightly modifications for Object and Array.
- *
- * @example
- * | type    |  description                    |
- * |---------|---------------------------------|
- * | Objects | "{}" => true. "{a: 2}" => false |
- * |---------|---------------------------------|
- * | Arrays  | "[]" => true. "[2]" => false    |
- * |---------|---------------------------------|
- *
- * @param {any} value - Any value to be checked
- * @returns {boolean}
- */
-function falsy(value) {
+if (value && !nan(value)) {
+isTruthy = true;
+if (typeof value === 'object' && Object.keys(value).length) {
+isTruthy = true;
+} else if (
+typeof value === 'object' &&
+!Object.keys(value).length
+) {
+isTruthy = false;
+}
+}
+
+return isTruthy;
+}
+
+/\*\*
+
+- It will check if a value is falsy but with slightly modifications for Object and Array.
+-
+- @example
+- | type | description |
+- |---------|---------------------------------|
+- | Objects | "{}" => true. "{a: 2}" => false |
+- |---------|---------------------------------|
+- | Arrays | "[]" => true. "[2]" => false |
+- |---------|---------------------------------|
+-
+- @param {any} value - Any value to be checked
+- @returns {boolean}
+  \*/
+  function falsy(value) {
   let isFalsy = false;
 
-  function isPromise(object) {
-    if (Promise && Promise.resolve) {
-      return Promise.resolve(object) === object;
-    }
-  }
-
-  if ((!isPromise(value) && !value) || nan(value)) {
-    isFalsy = true;
-  } else if (!isPromise(value) && typeof value === 'object') {
-    if (!(value instanceof Date)) {
-      // check for dates
-      isFalsy = !Boolean(Object.keys(value).length);
-    }
-  }
-
-  return isFalsy;
+function isPromise(object) {
+if (Promise && Promise.resolve) {
+return Promise.resolve(object) === object;
+}
 }
 
-/**
- * It will check if the given R.U.N is valid - Chile ID.
- *
- * @param {string} value The given R.U.N.
- * @returns {boolean}
- */
-function run(value) {
+if ((!isPromise(value) && !value) || nan(value)) {
+isFalsy = true;
+} else if (!isPromise(value) && typeof value === 'object') {
+if (!(value instanceof Date)) {
+// check for dates
+isFalsy = !Boolean(Object.keys(value).length);
+}
+}
+
+return isFalsy;
+}
+
+/\*\*
+
+- It will check if the given R.U.N is valid - Chile ID.
+-
+- @param {string} value The given R.U.N.
+- @returns {boolean}
+  \*/
+  function run(value) {
   const text = value.toLowerCase().trim().replace(/[.-]/g, '');
 
-  let counter = 2;
-  let total = 0;
-  let size = text.length - 2;
+let counter = 2;
+let total = 0;
+let size = text.length - 2;
 
-  for (; size >= 0; size--, counter += 1) {
-    if (counter > 7) {
-      counter = 2;
-    }
+for (; size >= 0; size--, counter += 1) {
+if (counter > 7) {
+counter = 2;
+}
 
     total += text[size] * counter;
-  }
 
-  total = Number(11 - (total - 11 * Math.floor(total / 11)));
-
-  if (total === 11) {
-    total = 0;
-  } else if (total === 10) {
-    total = 'k';
-  }
-
-  return String(total) === text.slice(-1);
 }
 
-/**
- * Validates that the given value has only words.
- *
- * @param {string} value - Value to match
- * @returns {boolean}
- */
-function alpha(value) {
+total = Number(11 - (total - 11 \* Math.floor(total / 11)));
+
+if (total === 11) {
+total = 0;
+} else if (total === 10) {
+total = 'k';
+}
+
+return String(total) === text.slice(-1);
+}
+
+/\*\*
+
+- Validates that the given value has only words.
+-
+- @param {string} value - Value to match
+- @returns {boolean}
+  \*/
+  function alpha(value) {
   if (
-    !util.isString(value) &&
-    process.env.NODE_ENV !== 'production'
+  !util.isString(value) &&
+  process.env.NODE_ENV !== 'production'
   ) {
-    throw Error('The value must be an string');
+  throw Error('The value must be an string');
   }
 
-  return /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+$/i.test(value);
+return /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+\$/i.test(value);
 }
 
-/**
- * Validates if the value is a well formed email.
- *
- * @param {string} value - String to match against with-
- * @returns {boolean}
- */
-function email(value) {
+/\*\*
+
+- Validates if the value is a well formed email.
+-
+- @param {string} value - String to match against with-
+- @returns {boolean}
+  \*/
+  function email(value) {
   let isEmail = true;
   if (
-    /^[a-z\d\!#\$%&'.\*\+\-\/\=\?\^_`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(
-      value.toLowerCase()
-    )
+  /^[a-z\d\!#\$%&'.\*\+\-\/\=\?\^_`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+\$/i.test(
+  value.toLowerCase()
+  )
   ) {
-    const lastPosition = value.lastIndexOf('@');
-    const localPart = value.slice(0, lastPosition);
-    const domainPart = value.slice(lastPosition + 1, value.length);
+  const lastPosition = value.lastIndexOf('@');
+  const localPart = value.slice(0, lastPosition);
+  const domainPart = value.slice(lastPosition + 1, value.length);
 
-    // Local part
-    if (/^[.,]|[.,]$/.test(localPart)) {
-      // Forbidden
-      isEmail = false;
-    } else if (
-      /(\.{2,}|["\(\),\:;<>\[\\\]]|@+?)/g.test(localPart) &&
-      localPart.slice(0, 1) !== '"' &&
-      localPart.slice(-1) !== '"'
-    ) {
-      // Forbidden
-      isEmail = false;
-    }
+      // Local part
+      if (/^[.,]|[.,]$/.test(localPart)) {
+        // Forbidden
+        isEmail = false;
+      } else if (
+        /(\.{2,}|["\(\),\:;<>\[\\\]]|@+?)/g.test(localPart) &&
+        localPart.slice(0, 1) !== '"' &&
+        localPart.slice(-1) !== '"'
+      ) {
+        // Forbidden
+        isEmail = false;
+      }
 
-    // Domain part
-    if (isEmail) {
-      isEmail = /^[\-]|[\-]$/.test(domainPart) ? false : true;
-    }
+      // Domain part
+      if (isEmail) {
+        isEmail = /^[\-]|[\-]$/.test(domainPart) ? false : true;
+      }
+
   } else {
-    isEmail = false;
+  isEmail = false;
   }
 
-  return isEmail;
+return isEmail;
 }
 
-/**
- * Validates only numbers
- *
- * @param {(string|number)} value - The value to be validated
- * @returns {boolean}
- */
-function number(value) {
+/\*\*
+
+- Validates only numbers
+-
+- @param {(string|number)} value - The value to be validated
+- @returns {boolean}
+  \*/
+  function number(value) {
   return /^\d+$/.test(String(value).trim().replace(/[.,$]/g, ''));
-}
+  }
 
-/**
- * It will check if the value is a valid ip
- *
- * @param {string} ip - The ip to be checked.
- * @return {boolean}
- */
-function ip(ip) {
+/\*\*
+
+- It will check if the value is a valid ip
+-
+- @param {string} ip - The ip to be checked.
+- @return {boolean}
+  \*/
+  function ip(ip) {
   return /\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/.test(
-    ip
+  ip
   );
-}
+  }
 
-/**
- * It will check if the url has the right format
- * based on: https://www.w3.org/Addressing/URL/url-spec.txt
- *
- * @example
- * is.url('http://google.cl');
- *
- * @param {string} value - An URL.
- * @return {boolean}
- */
-function url(value) {
+/\*\*
+
+- It will check if the url has the right format
+- based on: https://www.w3.org/Addressing/URL/url-spec.txt
+-
+- @example
+- is.url('http://google.cl');
+-
+- @param {string} value - An URL.
+- @return {boolean}
+  \*/
+  function url(value) {
   const [protocol, ...rest] = value.split(':');
   let isValid = false;
 
-  if (
-    protocol === 'http' ||
-    protocol === 'https' ||
-    protocol === 'ftp'
-  ) {
-    isValid = /^([0-65536]{2,4}|)\/\/[\w\d+-.]+\.\w+([\/\w\?=%;&]|:[0-65536]{2,4})+/.test(
-      rest.join(':')
-    );
-  } else if (protocol === 'mailto') {
-    const mailTo = value.replace('mailto', '');
-    isValid = /^::[\w\d-+]+@[\w\d-+.]+/.test(mailTo);
-  }
-
-  return isValid;
+if (
+protocol === 'http' ||
+protocol === 'https' ||
+protocol === 'ftp'
+) {
+isValid = /^([0-65536]{2,4}|)\/\/[\w\d+-.]+\.\w+([\/\w\?=%;&]|:[0-65536]{2,4})+/.test(
+rest.join(':')
+);
+} else if (protocol === 'mailto') {
+const mailTo = value.replace('mailto', '');
+isValid = /^::[\w\d-+]+@[\w\d-+.]+/.test(mailTo);
 }
 
-/**
- * It will set up a Password Strength Policy.
- * The returned funciton will check later if a password is valid under that policy.
- *
- * @param {string} pwd               - String to match against with
- * @param {object} rules             - The set of rules for your password
- * @param {number} rules.minLength   - Minimun size of characters
- * @param {number} rules.minAlpha    - Minimun size of alpha characters
- * @param {number} rules.minNumber   - Minimun of numbers
- * @param {number} rules.minSameChar - Minimun of equal characters
- * @param {boolean} rules.allowSpace - If allow or not whitespace
- * @returns {boolean}
- */
-function password(rules = null) {
+return isValid;
+}
+
+/\*\*
+
+- It will set up a Password Strength Policy.
+- The returned funciton will check later if a password is valid under that policy.
+-
+- @param {string} pwd - String to match against with
+- @param {object} rules - The set of rules for your password
+- @param {number} rules.minLength - Minimun size of characters
+- @param {number} rules.minAlpha - Minimun size of alpha characters
+- @param {number} rules.minNumber - Minimun of numbers
+- @param {number} rules.minSameChar - Minimun of equal characters
+- @param {boolean} rules.allowSpace - If allow or not whitespace
+- @returns {boolean}
+  \*/
+  function password(rules = null) {
   const isValid = {
-    minLength: false,
-    maxLength: false,
-    minAlpha: false,
-    minNumber: false,
-    minSameChar: true,
-    allowSpace: true
+  minLength: false,
+  maxLength: false,
+  minAlpha: false,
+  minNumber: false,
+  minSameChar: true,
+  allowSpace: true
   };
 
-  let callback = null;
+let callback = null;
 
-  if (truthty(rules)) {
-    callback = pwd => {
-      if (process.env.NODE_ENV !== 'production') {
-        if (rules.minLength < rules.minNumber + rules.minAlpha) {
-          throw Error(
-            "The minLength can't be less than the sum of the minNumber and minAlpha values. It can be equal or more."
-          );
-        }
+if (truthty(rules)) {
+callback = pwd => {
+if (process.env.NODE_ENV !== 'production') {
+if (rules.minLength < rules.minNumber + rules.minAlpha) {
+throw Error(
+"The minLength can't be less than the sum of the minNumber and minAlpha values. It can be equal or more."
+);
+}
 
         if (rules.maxLength < rules.minNumber + rules.minAlpha) {
           throw Error(
@@ -412,8 +421,8 @@ function password(rules = null) {
 
       return isValidPwd.length === 0 || isValidPwd;
     };
-  }
 
-  return callback;
 }
 
+return callback;
+}

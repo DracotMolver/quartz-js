@@ -8,8 +8,8 @@ What I'm trying to get with this is a better way to write code explaining **What
 
 #
 
-Quarts is divided in three dependencies: **is**, **has**, and **tools**. If you are interested in know more about Quartz visit: asdfasfd.
+Quarts is divided in three dependencies: **is**, **has**, and **tools**. If you are interested in know more about Quartz visit: https://dracotmolver.github.io/quartz-js/.
 
 Any feedback is wellcome!.
 
-I hope you enjoy it as much as I did coding it :hear:
+I hope you enjoy it as much as I did coding it :heart:
