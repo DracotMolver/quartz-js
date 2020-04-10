@@ -11,7 +11,6 @@ The heart of **Quartz**:
 - **has**: Are for working with Array and Object.
 - **tools**: A set of different usefull functions.
 
-
 ### Some examples.
 
 ```js
@@ -89,23 +88,23 @@ npm install quartz
 
 It's a dependency where the functions must return a boolean. Some functions has their opposite version using `is.not`.
 
-- `moreOrEqual`
+`moreOrEqual`
 
-  It will check if the given value has a length greater or equal to the given size. it makess strict comparision.
+It will check if the given value has a length greater or equal to the given size. it makess strict comparision.
 
-  - **value**: {object\|array\|string} _The value to evaluate its length._
-  - **size**: {number} _The seed we will use to compare._
-  - **isMoreOnly**: {boolean} _This will check the length of value must be more than the given size._
+- **value**: {object\|array\|string} _The value to evaluate its length._
+- **size**: {number} _The seed we will use to compare._
+- **isMoreOnly**: {boolean} _This will check the length of value must be more than the given size._
 
-  ```js
-  is.moreOrEqual({ name: 'John Doe', married: false }, 2); // true
-  is.moreOrEqual(['hello', 'hola', 'hallo', 'priviet'], 5); // true
-  is.moreOrEqual('hellow world', 4, true); // true - It is more than 4
-  ```
+```js
+is.moreOrEqual({ name: 'John Doe', married: false }, 2); // true
+is.moreOrEqual(['hello', 'hola', 'hallo', 'priviet'], 5); // true
+is.moreOrEqual('hellow world', 4, true); // true - It is more than 4
+```
 
   <br />
 
-* `lessOrMore`
+- `lessOrMore`
   It will check if the given value has a length lower or equal to the given size. it makes strict comparision.
 
   - **value**: {object\|array\|string} _The value to evaluate its length._
@@ -113,11 +112,11 @@ It's a dependency where the functions must return a boolean. Some functions has 
   - **isLessOnly**: {boolean} _This will check the length of value must be more than the given size._
     <br />
 
-- `exactSize`
-  It will check if the given value has exect the same length as the given size. it makes strict comparision.
+`exactSize`
+It will check if the given value has exect the same length as the given size. it makes strict comparision.
 
-  - **value**: {object\|array\|string} _The value to evaluate._
-  - **size**: {number} _The seed we will use to compare._
+- **value**: {object\|array\|string} _The value to evaluate._
+- **size**: {number} _The seed we will use to compare._
 
 ```js
 is.exactSize([1, 2, 3, 4], 4); // true
@@ -125,13 +124,15 @@ is.exactSize({ a: { c: 2 }, b: 'hello' }, 2); // true
 ```
 
 <br />
-- `nan`
-  It will check if the given value is NaN.
+
+`nan`
+It will check if the given value is NaN.
 
 - **value**: {any} _Any value to be checked that is NaN._
-  <br />
 
-* `truthty`
+<br />
+
+- `truthty`
   It will check if a value is truthty but with slightly modifications for Object and Array.
 
   - **value**: {any} _Any value to be checked._
@@ -144,55 +145,61 @@ is.exactSize({ a: { c: 2 }, b: 'hello' }, 2); // true
 | Array  | "[]" => false. "[2]" => true    |
 
 <br />
-- `falsy`
-  It will check if a value is falsy but with slightly modifications for Object and Array.
+
+`falsy`
+It will check if a value is falsy but with slightly modifications for Object and Array.
 
 - **value**: {any} _Any value to be checked._
 
 > Important Array and Object are true if they are empty.
 
-| type    | description                     |
-| ------- | ------------------------------- |
+| type   | description                     |
+| ------ | ------------------------------- |
 | Object | "{}" => true. "{a: 2}" => false |
 | Array  | "[]" => true. "[2]" => false    |
 
 <br />
-- `run`
-  _(Chile only)_ - It will check if the given R.U.N is valid.
+
+`run`
+_(Chile only)_ - It will check if the given R.U.N is valid.
 
 - **value**: {string} _The given R.U.N._
-  <br />
 
-* `alpha`
+<br />
+
+- `alpha`
   Validates that the given value has only words.
 
   - **value** {string} _Value to match if it's valid._
-    <br />
 
-- `email`
-  Validates if the value is a well formed email.
+<br />
 
-  - **value** {string} _The email to check if it's valid._
-    <br />
+`email`
+Validates if the value is a well formed email.
 
-* `ip`
+- **value** {string} _The email to check if it's valid._
+
+<br />
+
+- `ip`
   It will check if the value is a valid ip
 
   - **value** {string} _The ip to checke._
-    <br />
 
-- `url`
-  It will check if the url has the right format
+<br />
 
-  **value** {string} _An URL to check._
+`url`
+It will check if the url has the right format
 
-  ```js
-  is.url('http://google.cl'); // true
-  ```
+**value** {string} _An URL to check._
 
-  <br />
+```js
+is.url('http://google.cl'); // true
+```
 
-* `password`
+<br />
+
+- `password`
   It will set up a Password Strength Policy. The returned funciton will check later if a password is valid under that policy.
 
   - **pwd** {string} _String to match against with._
@@ -218,3 +225,120 @@ is.exactSize({ a: { c: 2 }, b: 'hello' }, 2); // true
     // valid password. Do smoething
   }
   ```
+
+# has
+
+It's a set of functions that will help you to work with Array and Objects.
+
+`somevalues`
+It will check if the values on the first Array exist at least one of them in the second Array. It Doesn't work with Array of Objects, for that use `someValuesByKey` function
+
+- **arr**: {array} _An Array of elements to used against the second param._
+- **values**: {array} _The values that are gonna be searched._
+
+```js
+has.someValues([1, 2, 3], [1, 5, 4, 3, 10]); // true
+```
+
+/\*\*
+
+- It will check a single value against N values until find one match.
+- Doesn't work with Array of Objects, for that use the `someValueByKey` function
+-
+- @example
+- has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']);
+- // true
+-
+- @param {string|boolean|number} element - The element to match against with.
+- @param {array} values - All the values to match
+- @returns {boolean}
+  \*/
+  function someValue(element, values) {
+  let result = null;
+
+if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
+throw new Error('The second param should be an Array');
+}
+
+if (
+util.isNumber(element) ||
+util.isString(element) ||
+util.isBoolean(element)
+) {
+result = values.indexOf(element) !== -1;
+} else {
+throw new Error(
+'The first param can only be: string, number or boolean'
+);
+}
+
+return result;
+}
+
+/\*\*
+
+- It will check that the given value is present in all the rest of the values.
+-
+- @param {any} value - The value to look for
+- @param {array} values - An array of possible values.
+- @returns {boolean}
+  \*/
+  function everyValue(value, values) {
+  let bool = false;
+
+const size = values.length;
+
+for (let index = 0; index < size; index += 1) {
+bool = values[index] === value;
+}
+
+return bool;
+}
+
+/\*\*
+
+- High Order Function to be with filter and map.
+- Doesn't work with Array of object, for that use the `unique` function
+-
+- @example
+- [1, 2, 3].filter(has.oneValue(2));
+- // [2];
+-
+- @param {any} value - Any value to use as a seed to filter.
+- @returns {function(any): boolean} - A function that will accept only one param.
+  \*/
+  function oneValue(value) {
+  return content => content === value;
+  }
+
+/\*\*
+
+- High Order Function to be used with filter and map.
+- It will return the first value of a given key that return `truthty`.
+-
+- @example
+- [{name: 'john', age: 0}, {name: 'dee', age: 20}].map(util.unique('age'));
+- // [20]
+-
+- @param {any} key - The key looking for on the object.
+- @returns {function(any): boolean} - A function that will accept only one param.
+  \*/
+  function unique(key) {
+  return content => content[key];
+  }
+
+/\*\*
+
+- It will check if one of the values is equal to the one got from using the `Key`.
+- This funciton is for using it with Array of Objects.
+-
+- @example
+- [{id: 1}, {id: 2}, {id: 3}].filter(valueByKey('id', 3));
+- // [{id: 3}]
+-
+- @param {string} key - The key of the object.
+- @returns {function(any): boolean} - A function that will accept only one param.
+  \*/
+  function valueByKey(key, value) {
+  return content => content[key] === value;
+  }
