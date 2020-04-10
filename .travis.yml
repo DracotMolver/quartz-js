@@ -16,7 +16,7 @@ deploy:
   email: $NPM_EMAIL_ADDRESS
   api_key: $NPM_AUTH_TOKEN
   cleanup: true
-  tag: next
   on:
     branch: master
     tags: true
+    repo: DracotMolver/quartz-js
