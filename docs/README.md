@@ -75,13 +75,11 @@ if (is.truthty(obj2)) {
 
   It will check if the given value has a length greater or equal to the given size. It make strict comparision.
 
-  - value: {object|array|string} - _The value to evaluate its length._
+  - value: {object\|array\|string} - _The value to evaluate its length._
   - size: {number} - _The seed we will use to compare._
   - isMoreOnly: {boolean} - _This will check the length of value must be more than the given size._
 
   ```js
-  const string = ; // length:12
-
   is.moreOrEqual({ name: 'John Doe', married: false}, 2); // true
   is.moreOrEqual(['hello', 'hola', 'hallo', 'priviet'], 5); // true
   is.moreOrEqual('hellow world', 4, true); // true - It is more than 4
@@ -90,14 +88,14 @@ if (is.truthty(obj2)) {
 - `lessOrMore`
   It will check if the given value has a length lower or equal to the given size. It make strict comparision.
 
-  - value: {object|array|string} - _The value to evaluate its length._
+  - value: {object\|array\|string} - _The value to evaluate its length._
   - size: {number} - _The seed we will use to compare._
   - isLessOnly: {boolean} - _This will check the length of value must be more than the given size._
 
 - `exactSize`
   It will check if the given value has exect the same length as the given size. It make strict comparision.
 
-  - value: {object|array|string} - _The value to evaluate._
+  - value: {object\|array\|string} - _The value to evaluate._
   - siae: {number} - _The seed we will use to compare._
 
   ```js
