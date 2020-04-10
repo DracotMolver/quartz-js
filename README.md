@@ -1,5 +1,8 @@
 # QuartzJS
 
+![Travis (.org) branch](https://img.shields.io/travis/DracotMolver/quartz-js/master)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/DracotMolver/quartz-js)
+
 Simple library of fancy and funny functions to write code like you were speaking. :bowtie:
 
 I started **Quartz** as a project where I could put in practice all I've been learning in JavaScript and coding in general. Here I re-invented the wheel using Functional Programing and taking the syntax from test frameworks like Mocha or Jasmin. I was looking for a way to make my code more readible without undertanding the logic behind the algorithms.
