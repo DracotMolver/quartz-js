@@ -10,11 +10,10 @@ jobs:
     - stage: deploy
       script: 'npm run build'
       name: 'Deploy to NPM'
-
-deploy:
-  provider: npm
-  email: $NPM_EMAIL_ADDRESS
-  api_key: $NPM_AUTH_TOKEN
-  cleanup: true
-  on:
-    branch: master
+      deploy:
+        provider: npm
+        email: $NPM_EMAIL_ADDRESS
+        api_key: $NPM_AUTH_TOKEN
+        cleanup: true
+        on:
+          branch: master
