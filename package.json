@@ -1,10 +1,11 @@
 {
   "name": "quartzjs",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "A very useful library with fancy small functions",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src -d lib --no-comments",
+    "prepublish": "npm run build",
     "test": "jasmine"
   },
   "author": "Diego Alberto Molina Vera <dracotm25@gmail.com>",
