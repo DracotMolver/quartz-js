@@ -1,9 +1,9 @@
 # QuartzJS
 
 ![Travis (.org) branch](https://img.shields.io/travis/DracotMolver/quartz-js/master)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/DracotMolver/quartz-js)
 ![npm](https://img.shields.io/npm/dm/quartzjs)
 [![install size](https://packagephobia.now.sh/badge?p=quartzjs)](https://packagephobia.now.sh/result?p=quartzjs)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/quartzjs)
 [![Coverage Status](https://coveralls.io/repos/github/DracotMolver/quartz-js/badge.svg?branch=master)](https://coveralls.io/github/DracotMolver/quartz-js?branch=master)
 
 A simple library with some fancy and funny functions to write code like you were speaking. :bowtie:
@@ -15,6 +15,16 @@ What I'm trying to get with this is a differnt way to write code explaining **Wh
 #
 
 Quarts has only three parts: **is**, **has**, and **tools**. If you are interested in knowing more about Quartz visit: https://dracotmolver.github.io/quartz-js/.
+
+NodeJS version support: >= 8
+
+Broweserlist:
+  * Chrome: 78 77 76 75 74 63 49
+  * Edge: 18 17
+  * Firefox 71 70
+  * IE 11
+  * Opera 64 63
+  * Safari 13 12.1 11.1 5.1
 
 Any feedback is wellcome!
 
