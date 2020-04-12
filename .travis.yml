@@ -2,11 +2,16 @@ language: node_js
 node_js:
   - '12.13'
 
+branches:
+  except:
+    - develop
+
 jobs:
   include:
     - stage: test
       name: 'Unit Tests'
       script: 'npm run test'
+      after_success: npm run coverage
     - stage: deploy
       name: 'Deploy to NPM'
       deploy:

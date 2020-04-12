@@ -28,8 +28,13 @@ function _objLen(value) {
  * @returns {boolean}
  */
 function moreOrEqual(value, size, isMoreOnly = false) {
-  if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
-    throw Error('Type number is not allowed to be checked');
+  if (!process.env.DEBUG) {
+    if (util.isNumber(value)) {
+      console.error(
+        'Pass only Object, Array or String in the first paramenter.'
+      );
+      return;
+    }
   }
 
   const comp = util.isString(value)
@@ -55,8 +60,13 @@ function moreOrEqual(value, size, isMoreOnly = false) {
  * @returns {boolean}
  */
 function lessOrEqual(value, size, isLessOnly = false) {
-  if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
-    throw Error('Type number is not allowed to be checked');
+  if (!process.env.DEBUG) {
+    if (util.isNumber(value)) {
+      console.error(
+        'Pass only Object, Array or String in the first paramenter.'
+      );
+      return;
+    }
   }
 
   const comp = util.isString(value)
@@ -85,8 +95,13 @@ function lessOrEqual(value, size, isLessOnly = false) {
  * @returns {boolean}
  */
 function exactSize(value, size) {
-  if (util.isNumber(value) && process.env.NODE_ENV !== 'production') {
-    throw Error('Type number are not allowed to be checked');
+  if (!process.env.DEBUG) {
+    if (util.isNumber(value)) {
+      console.error(
+        'Pass only Object, Array or String in the first paramenter.'
+      );
+      return;
+    }
   }
 
   return (
@@ -183,6 +198,13 @@ function falsy(value) {
  * @returns {boolean}
  */
 function run(value) {
+  if (!process.env.DEBUG) {
+    if (!util.isString(value)) {
+      console.error('The given parameter must be an String.');
+      return;
+    }
+  }
+
   const text = value.toLowerCase().trim().replace(/[.-]/g, '');
 
   let counter = 2;
@@ -215,11 +237,11 @@ function run(value) {
  * @returns {boolean}
  */
 function alpha(value) {
-  if (
-    !util.isString(value) &&
-    process.env.NODE_ENV !== 'production'
-  ) {
-    throw Error('The value must be an string');
+  if (!process.env.DEBUG) {
+    if (!util.isString(value)) {
+      console.error('The given parameter must be an String.');
+      return;
+    }
   }
 
   return /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+$/i.test(value);
@@ -232,7 +254,15 @@ function alpha(value) {
  * @returns {boolean}
  */
 function email(value) {
+  if (!process.env.DEBUG) {
+    if (!util.isString(value)) {
+      console.error('The given parameter must be an String.');
+      return;
+    }
+  }
+
   let isEmail = true;
+
   if (
     /^[a-z\d\!#\$%&'.\*\+\-\/\=\?\^_`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(
       value.toLowerCase()
@@ -282,9 +312,16 @@ function number(value) {
  * @param {string} ip - The ip to be checked.
  * @return {boolean}
  */
-function ip(ip) {
-  return /\b(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\b/.test(
-    ip
+function ip(value) {
+  if (!process.env.DEBUG) {
+    if (!util.isString(value)) {
+      console.error('The given parameter must be an String.');
+      return;
+    }
+  }
+
+  return /\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b/.test(
+    value
   );
 }
 
@@ -299,6 +336,13 @@ function ip(ip) {
  * @return {boolean}
  */
 function url(value) {
+  if (!process.env.DEBUG) {
+    if (!util.isString(value)) {
+      console.error('The given parameter must be an String.');
+      return;
+    }
+  }
+
   const [protocol, ...rest] = value.split(':');
   let isValid = false;
 
@@ -345,23 +389,26 @@ function password(rules = null) {
 
   if (truthty(rules)) {
     callback = pwd => {
-      if (process.env.NODE_ENV !== 'production') {
+      if (!process.env.DEBUG) {
         if (rules.minLength < rules.minNumber + rules.minAlpha) {
-          throw Error(
+          console.error(
             "The minLength can't be less than the sum of the minNumber and minAlpha values. It can be equal or more."
           );
+          return;
         }
 
         if (rules.maxLength < rules.minNumber + rules.minAlpha) {
-          throw Error(
+          console.error(
             "The maxLength can't be less than the sum of the minNumber and minAlpha values. It can be only equal."
           );
+          return;
         }
 
         if (rules.maxLength < rules.minLength) {
-          throw Error(
+          console.error(
             "The maxLength can't be less than the minLenght. It must be more."
           );
+          return;
         }
       }
 
@@ -435,6 +482,13 @@ const handler = {
     return prop === 'not' ? isNot : obj[prop];
   }
 };
+
+if (!process.env.DEBUG) {
+  handler.set = function get(obj, prop) {
+    // This will throw an exeception when trying to overwrite any attribute of the Object
+    return obj[prop];
+  };
+}
 
 // add ternary operator by then and else
 // add AND and OR special keys

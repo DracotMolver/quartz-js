@@ -286,7 +286,7 @@ has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']); // true
 `everyValue`
 It checks that the given value match all the rest of the values.
 
-- **value** {any} _The value to look for._
+- **value** {(boolean\|string\|number)} _The value to look for._
 - **value** {array} _An array of possible values._
 
 <br />

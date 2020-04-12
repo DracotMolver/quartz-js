@@ -12,8 +12,12 @@ What I'm trying to get with this is a differnt way to write code explaining **Wh
 
 #
 
+<<<<<<< HEAD
 Quarts has only three parts: **is**, **has**, and **tools**. If you are interested in know more about Quartz visit: https://dracotmolver.github.io/quartz-js/.
+=======
+Quarts is divided in three dependencies: **is**, **has**, and **tools**. If you are interested in know more about Quartz visit: https://dracotmolver.github.io/quartz-js/
+>>>>>>> develop
 
-Any feedback is wellcome!.
+Any feedback is wellcome!
 
 I hope you enjoy it as much as I did coding it :heart:

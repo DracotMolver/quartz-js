@@ -17,7 +17,7 @@ describe('A collectin of "is" functions', () => {
     expect(is.url('ftp://www.exampledomain.com')).toBe(true);
   });
 
-  it('truthy', done => {
+  it('truthy', () => {
     expect(is.truthty({ a: 'hello' })).toBe(true);
     expect(is.truthty('hello')).toBe(true);
     expect(is.truthty([1, 2])).toBe(true);
@@ -31,8 +31,6 @@ describe('A collectin of "is" functions', () => {
     expect(is.truthty('')).toBe(false);
     expect(is.truthty(false)).toBe(false);
     expect(is.truthty(0)).toBe(false);
-
-    done();
   });
 
   it('falsy', () => {
@@ -51,23 +49,18 @@ describe('A collectin of "is" functions', () => {
     expect(is.falsy(0)).toBe(true);
   });
 
-  it('nan', done => {
+  it('nan', () => {
     expect(is.nan(NaN)).toBe(true);
     expect(is.nan(Number('123A'))).toBe(true);
-
-    done();
   });
 
-  it('R.U.N (run) - Chile ID', done => {
+  it('R.U.N (run) - Chile ID', () => {
     expect(is.run('18150581-8')).toBe(true);
     expect(is.run('19423287-k')).toBe(true);
     expect(is.run('117945138')).toBe(true);
     expect(is.run('24.634.452-3')).toBe(true);
-
-    done();
   });
 
-  //     describe('Checking the length of the values', () => {
   const object = {
     name: 'John Doe',
     age: 20,
@@ -88,12 +81,9 @@ describe('A collectin of "is" functions', () => {
     expect(is.exactSize(object, 2)).toBe(false);
     expect(is.exactSize(array, 10)).toBe(false);
     expect(is.exactSize(string, 9)).toBe(false);
-
-    // Testing not allowed values
-    expect(() => is.exactSize(5, 5)).toThrow();
   });
 
-  it('moreOrEqual', done => {
+  it('moreOrEqual', () => {
     expect(is.moreOrEqual(object, 4)).toBe(true);
     expect(is.moreOrEqual(array, 5)).toBe(true);
     expect(is.moreOrEqual(string, 12)).toBe(true);
@@ -103,14 +93,9 @@ describe('A collectin of "is" functions', () => {
     expect(is.moreOrEqual(array, 12)).toBe(false);
     expect(is.moreOrEqual(string, 13)).toBe(false);
     expect(is.moreOrEqual('hello', 5, true)).toBe(false);
-
-    // Testing not allowed values
-    expect(() => is.moreOrEqual(5, 5)).toThrow();
-
-    done();
   });
 
-  it('lessOrEqual', done => {
+  it('lessOrEqual', () => {
     expect(is.lessOrEqual(object, 10)).toBe(true);
     expect(is.lessOrEqual(array, 7)).toBe(true);
     expect(is.lessOrEqual(string, 20)).toBe(true);
@@ -120,11 +105,6 @@ describe('A collectin of "is" functions', () => {
     expect(is.lessOrEqual(array, 2)).toBe(false);
     expect(is.lessOrEqual(string, 10)).toBe(false);
     expect(is.lessOrEqual('hello', 2, true)).toBe(false);
-
-    // Testing not allowed values
-    expect(() => is.lessOrEqual(5, 5)).toThrow();
-
-    done();
   });
 
   it('email', () => {
@@ -158,18 +138,16 @@ describe('A collectin of "is" functions', () => {
     expect(is.email('example@s.example')).toBe(true);
   });
 
-  it('alpha', done => {
+  it('alpha', () => {
     expect(is.alpha('hola')).toBe(true);
     expect(is.alpha('John Doe')).toBe(true);
     expect(is.alpha('John Doe día')).toBe(true);
     expect(is.alpha('John Doe Ño')).toBe(true);
     
     expect(is.alpha('John Doe 3')).toBe(false);
-
-    done();
   });
 
-  it('number', done => {
+  it('number', () => {
     expect(is.number('1234')).toBe(true);
     expect(is.number('12.34')).toBe(true);
     expect(is.number('12,34')).toBe(true);
@@ -177,11 +155,9 @@ describe('A collectin of "is" functions', () => {
     expect(is.number('2')).toBe(true);
     expect(is.number(2.2)).toBe(true);
     expect(is.number(2)).toBe(true);
-
-    done();
   });
 
-  it('password', done => {
+  it('password', () => {
     // set a different policy for different passwords
     let pwdMatcher = is.password({
       minLength: 7,
@@ -254,18 +230,14 @@ describe('A collectin of "is" functions', () => {
         value: false
       }
     ]);
-
-    done();
   });
 
-  it('not.ip', done => {
+  it('not.ip', () => {
     expect(is.not.ip('25x.2s5.255.255')).toBe(true);
     expect(is.not.ip('288.0.1.0')).toBe(true);
     expect(is.not.ip('288.999.999.999')).toBe(true);
     expect(is.not.ip('127.500.0.1')).toBe(true);
     expect(is.not.ip('12a.88.99.0')).toBe(true);
-
-    done();
   });
 
   it('not.url', () => {
@@ -279,28 +251,22 @@ describe('A collectin of "is" functions', () => {
     expect(is.not.url('sftp:/www.exampledomain.com')).toBe(true);
   });
 
-  it('not.nan', done => {
+  it('not.nan', () => {
     expect(is.not.nan(123)).toBe(true);
     expect(is.not.nan(Number('123'))).toBe(true);
-
-    done();
   });
 
-  it('not.alpha', done => {
+  it('not.alpha', () => {
     expect(is.not.alpha('123')).toBe(true);
     expect(is.not.alpha(String(123))).toBe(true);
     expect(is.not.alpha('123412`0.-,')).toBe(true);
-
-    done();
   });
 
-  it('not.number', done => {
+  it('not.number', () => {
     expect(is.not.number('1a234')).toBe(true);
     expect(is.not.number('hola')).toBe(true);
     expect(is.not.number(NaN)).toBe(true);
     expect(is.not.number(undefined)).toBe(true);
     expect(is.not.number(null)).toBe(true);
-
-    done();
   });
 });

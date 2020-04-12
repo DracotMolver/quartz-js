@@ -10,9 +10,19 @@
 'use strict';
 require('regenerator-runtime/runtime');
 
-const tools = require('./tools');
-const has = require('./has');
-const is = require('./is');
+let tools = null;
+let has = null;
+let is = null;
+
+if (!process.env.DEBUG) {
+  tools = require('./tools');
+  has = require('./has');
+  is = require('./is');
+} else {
+  tools = require('./tools/index.min.js');
+  has = require('./has/index.min.js');
+  is = require('./is/index.min.js');
+}
 
 exports.tools = tools;
 exports.has = has;

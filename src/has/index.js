@@ -25,6 +25,16 @@ const util = require('util');
  * @returns {boolean}
  */
 function someValues(arr, values) {
+  if (!process.env.DEBUG) {
+    if (!util.isArray(arr)) {
+      console.error('The first paramameter must be an Array.');
+      return;
+    } else if (!util.isArray(values)) {
+      console.error('The second paramameter must be an Array.');
+      return;
+    }
+  }
+
   let bool = false;
 
   const size = arr.length;
@@ -52,35 +62,45 @@ function someValues(arr, values) {
  * @returns {boolean}
  */
 function someValue(value, values) {
-  let result = null;
-
-  if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
-    throw new Error('The second param should be an Array');
+  if (!process.env.DEBUG) {
+    if (
+      !util.isNumber(value) &&
+      !util.isString(value) &&
+      !util.isBoolean(value)
+    ) {
+      console.error(
+        'The first parameter can only be: String, Number or Boolean.'
+      );
+      return;
+    } else if (!util.isArray(values)) {
+      console.error('The second paramameter must be an Array.');
+      return;
+    }
   }
 
-  if (
-    util.isNumber(value) ||
-    util.isString(value) ||
-    util.isBoolean(value)
-  ) {
-    result = values.indexOf(value) !== -1;
-  } else {
-    throw new Error(
-      'The first param can only be: string, number or boolean'
-    );
-  }
-
-  return result;
+  return values.indexOf(value) !== -1;
 }
 
 /**
  * It will check that the given value is present in all the rest of the values.
  *
- * @param {any} value    - The value to look for
+ * @param {(boolean|string|number)} value    - The value to look for
  * @param {array} values - An array of possible values.
  * @returns {boolean}
  */
 function everyValue(value, values) {
+  if (!process.env.DEBUG) {
+    if (util.isObject(value)) {
+      console.error(
+        'The first parameter can only be: String, Number or Boolean.'
+      );
+      return;
+    } else if (!util.isArray(values)) {
+      console.error('The second paramameter must be an Array.');
+      return;
+    }
+  }
+
   let bool = false;
 
   const size = values.length;
