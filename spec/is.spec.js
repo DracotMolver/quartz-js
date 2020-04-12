@@ -163,6 +163,8 @@ describe('A collectin of "is" functions', () => {
     expect(is.alpha('John Doe')).toBe(true);
     expect(is.alpha('John Doe día')).toBe(true);
     expect(is.alpha('John Doe Ño')).toBe(true);
+    
+    expect(is.alpha('John Doe 3')).toBe(false);
 
     done();
   });

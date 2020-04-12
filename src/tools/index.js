@@ -12,12 +12,12 @@
 const util = require('util');
 
 /**
- * It will convert the string as a Lower Camel Case
+ * It will convert the string to a Lower Camel Case format.
  *
  * @example
  * camelCase('user_name'); // userName
  *
- * @param {string} text - The text to converted
+ * @param {string} text - The text to be converted.
  * @returns {string}
  */
 function camelCase(text) {
@@ -36,9 +36,9 @@ function camelCase(text) {
  * It will make an Array of Objects using the key and value you
  * choose from the given Object or a new Object based on this condition.
  *
- * @param {array} array  - The Array where to work on
- * @param {string} key   - The name of the attribute to use as a key
- * @param {string} value - The name of the attribute to use as a value
+ * @param {array} array  - The Array of Object where to extract the keys.
+ * @param {string} key   - The name of the attribute to use as a key.
+ * @param {string} value - The name of the attribute to use as a value.
  * @returns {array}      - A new Array of objects
  */
 function compress(array, key, value) {
@@ -56,7 +56,7 @@ function compress(array, key, value) {
 }
 
 /**
- * It will create an object into an array of objects keeping the original keys of the object.
+ * It will create an Object into an Array of Objects keeping the original keys of the given Object.
  *
  * @example
  * util.obj2Arr({ b: '3', c: true, d: [4] });
