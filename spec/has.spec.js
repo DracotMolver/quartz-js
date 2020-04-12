@@ -7,8 +7,6 @@ describe('A collection of "has" functions', () => {
   });
 
   it('someValue - Normal Array no filter and map', () => {
-    expect(() => has.someValue([1, 2, 3], [1, 5, 6, 3, 8])).toThrow();
-    expect(() => has.someValue(3, 'hello')).toThrow();
     expect(has.someValue(4, [1, 5, 6, 3, 8])).toBeFalse();
     expect(has.someValue(6, [1, 5, 6, 3, 8])).toBeTrue();
     expect(

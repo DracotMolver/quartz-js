@@ -55,7 +55,7 @@ function someValue(value, values) {
   let result = null;
 
   if (!util.isArray(values) && process.env.NODE_ENV !== PRODUCTION) {
-    throw new Error('The second param should be an Array');
+    console.error('The second param should be an Array');
   }
 
   if (
@@ -65,7 +65,7 @@ function someValue(value, values) {
   ) {
     result = values.indexOf(value) !== -1;
   } else {
-    throw new Error(
+    console.error(
       'The first param can only be: string, number or boolean'
     );
   }

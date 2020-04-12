@@ -81,9 +81,6 @@ describe('A collectin of "is" functions', () => {
     expect(is.exactSize(object, 2)).toBe(false);
     expect(is.exactSize(array, 10)).toBe(false);
     expect(is.exactSize(string, 9)).toBe(false);
-
-    // Testing not allowed values
-    expect(() => is.exactSize(5, 5)).toThrow();
   });
 
   it('moreOrEqual', () => {
@@ -96,9 +93,6 @@ describe('A collectin of "is" functions', () => {
     expect(is.moreOrEqual(array, 12)).toBe(false);
     expect(is.moreOrEqual(string, 13)).toBe(false);
     expect(is.moreOrEqual('hello', 5, true)).toBe(false);
-
-    // Testing not allowed values
-    expect(() => is.moreOrEqual(5, 5)).toThrow();
   });
 
   it('lessOrEqual', () => {
@@ -111,9 +105,6 @@ describe('A collectin of "is" functions', () => {
     expect(is.lessOrEqual(array, 2)).toBe(false);
     expect(is.lessOrEqual(string, 10)).toBe(false);
     expect(is.lessOrEqual('hello', 2, true)).toBe(false);
-
-    // Testing not allowed values
-    expect(() => is.lessOrEqual(5, 5)).toThrow();
   });
 
   it('email', () => {
