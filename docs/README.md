@@ -83,7 +83,7 @@ if (is.truthty(obj2)) {
 Open your favourite terminal and type
 
 ```
-npm install quartz
+npm install quartzjs
 ```
 
 Then just use any of the three parts of _Quartz_ that you need.
