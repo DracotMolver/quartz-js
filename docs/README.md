@@ -1,9 +1,9 @@
 # Quartz Is Meant to Be a Readable and Understandable Set of Functions That Explains _What_ You Are Doing Instead of _How_.
 
 Everything is about functions. With this statement borned `Quartz`. Functions explain what you are doing and they abstract all the boilerplate logic you have done.
-But, Why not using functions to explain your intention and also abstract you from the _**How**_ of your code.
+But, _**Why**_ not use functions to explain your intention and also abstract you from the _**How**_ of your code.
 
-**Quartz** is strongely inspired by tests frameworks like Mocha and Jasmine, encouranging you to use functional programming and remove those side effect that algorithms cause in many developers independently their experince. Because I know, as you might to ass well, that we all code in differents ways, some can code clean and beautiful and other don't.
+**Quartz** is strongely inspired by tests frameworks like Mocha and Jasmine, encouranging you to use functional programming and remove those side effects that algorithms cause. Because I know, as you might as well, that we all code in different ways, some can code clean and beautifully and others cannot.
 
 ---
 
@@ -21,7 +21,7 @@ if (/^\d{0,3}\.\d{0,3}\.\d{0,3}\.$/.test('192.168.0.1')) {
 }
 ```
 
-Let\'s be honest. Most of the developers hate regular expressions, and who doesn\'t?!.
+Let\'s be honest. Most developers hate regular expressions, and who doesn\'t?!
 That was hard to understand at first sight. What about now using **Quartz**.
 
 ```js
@@ -30,7 +30,7 @@ if (is.ip('192.168.0.1')) {
 }
 ```
 
-Isn\'t easier to understand?. I can - _almost_ - read **_If it is an ip_**.
+Isn\'t that easier to understand? I can - _almost_ - read **_If it is an ip_**.
 
 Next example:
 
@@ -41,7 +41,7 @@ if (str.length) {
 }
 ```
 
-This example for me it says nothing. I know as a developer what this statement is about. But it says nothing. Shouldn't be nice to read clear **\_What\_** it's doing?
+This example for me says nothing. I know as a developer what this statement is about. But it says nothing. Wouldn't be nice to read clearly **\_What\_** it's doing?
 
 ```js
 const str = 'qwerty';
@@ -50,7 +50,7 @@ if (is.moreOrEqual(str, 0, true)) {
 }
 ```
 
-> NOTE: The example of above the `if (str.length)` is better for performance. But we use webpack to make websites, right? :stuck_out_tongue_winking_eye:
+> NOTE: The example of above the `if (str.length)` is better for performance. But we use webpack to make websites, right? :stuck_out_tongue_closed_eyes:
 
 Taking the last example, you can also do it using an Object.
 
@@ -61,9 +61,9 @@ if (Object.keys(str).length) {
 }
 ```
 
-Even if the Object is empty I have to do some extra code because an empty Object is `true` due the nature of JavaScript. This is well known as `Trusthy` or `Falsy`.
+Even if the Object is empty I have to write some extra code because an empty Object is `true` due to the nature of JavaScript. This is well known as `Trusthy` or `Falsy`.
 
-With **Quarzt** this would be different. An empty Object or Array are `false`. This is even in pure JavaScript if you get the length of an Array or Object, which is 0 if they are empty, therefore false.
+With **Quarzt** this would be different. An empty Object or Array is `false`. This is even in pure JavaScript if you get the length of an Array or Object, which is 0 if they are empty, therefore false.
 
 ```js
 const obj = { name: 'diego', age: 30, country: 'chile' };
@@ -96,14 +96,14 @@ const { has, tools, is } = require('quartzjs');
 
 ## is
 
-It's a Object that has conditional functions. Some functions has their opposite version using `is.not`.
+It's an Object that has conditional functions. Some functions have their opposite version using `is.not`.
 
 `moreOrEqual`
-It validates if the given value has a length greater or equal than the given size. It makes use of strict comparision.
+It validates if the given value has a length greater or equal to the given size. It makes use of strict comparision.
 
 - **value**: {object\|array\|string} _The value to evaluate its length._
 - **size**: {number} _The seed we will use to compare._
-- **isMoreOnly**: {boolean} _This validates that the length of value must be more than the given size and not equal._
+- **isMoreOnly**: {boolean} _This validates that the length of value must be more to the given size and not equal._
 
 ```js
 is.moreOrEqual({ name: 'John Doe', married: false }, 2); // true
@@ -114,11 +114,11 @@ is.moreOrEqual('hellow world', 4, true); // true - It is more than 4
   <br />
 
 `lessOrMore`
-It validates if the given value has a length lower or equal than the given size. It makes use of strict comparision.
+It validates if the given value has a length lower or equal to the given size. It makes use of strict comparision.
 
 - **value**: {object\|array\|string} _The value to evaluate its length._
 - **size**: {number} _The seed we will use to compare._
-- **isLessOnly**: {boolean} _This validates that the length of value must be less than the given size and not equal._
+- **isLessOnly**: {boolean} _This validates that the length of value must be less to the given size and not equal._
   <br />
 
 `exactSize`
@@ -142,7 +142,7 @@ It validates if the given value is NaN.
 <br />
 
 `truthty`
-It validates if a value is truthty but with slightly modifications for Object and Array.
+It validates if a value is truthty but with slight modifications for Object and Array.
 
 - **value**: {any} _Any value to be checked._
 
@@ -156,7 +156,7 @@ It validates if a value is truthty but with slightly modifications for Object an
 <br />
 
 `falsy`
-It validates if a value is falsy but with slightly modifications for Object and Array.
+It validates if a value is falsy but with slight modifications for Object and Array.
 
 - **value**: {any} _Any value to be checked._
 

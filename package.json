@@ -1,6 +1,6 @@
 {
   "name": "quartzjs",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A very useful library with fancy small functions",
   "main": "lib/index.js",
   "scripts": {
@@ -9,6 +9,7 @@
     "minify_tools": "terser lib/tools/index.js -m -o lib/tools/index.js -c toplevel=true,drop_console=true -d process.env.DEBUG=true",
     "minify_root": "terser lib/index.js -m -o lib/index.js -c toplevel=true,drop_console=true -d process.env.DEBUG=true",
     "build": "babel src -d lib --no-comments && npm run minify_is && npm run minify_has && npm run minify_tools && npm run minify_root",
+    "prepublish": "npm run build",
     "test": "nyc jasmine",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
