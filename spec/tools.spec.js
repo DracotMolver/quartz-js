@@ -1,7 +1,7 @@
 const tools = require('./../src/tools');
 
 describe('A collection of "tools" functions', () => {
-  it('camelCase', done => {
+  it('camelCase', () => {
     expect(tools.camelCase('user_name')).toEqual('userName');
     expect(tools.camelCase('user-name')).toEqual('userName');
     expect(tools.camelCase('user_middle-name')).toEqual(
@@ -10,11 +10,9 @@ describe('A collection of "tools" functions', () => {
     expect(tools.camelCase('UserMiddle-name')).toEqual(
       'userMiddleName'
     );
-
-    done();
   });
 
-  it('obj2Arr', done => {
+  it('obj2Arr', () => {
     const obj = {
       a: { a: 2 },
       b: '3',
@@ -30,11 +28,9 @@ describe('A collection of "tools" functions', () => {
     ];
 
     expect(tools.obj2Arr(obj)).toEqual(arr);
-
-    done();
   });
 
-  it('compress', done => {
+  it('compress', () => {
     const value = [
       {
         name: 'AAA',
@@ -71,11 +67,9 @@ describe('A collection of "tools" functions', () => {
     expect(tools.compress(value, 'name', 'email').object()).toEqual(
       obj
     );
-
-    done();
   });
 
-  it('clone', done => {
+  it('clone', () => {
     const arr = tools.clone([1, 2, 3, 4], [2, 10, 5]);
     const obj = tools.clone(
       { name: 'diego', age: 29 },
@@ -89,11 +83,9 @@ describe('A collection of "tools" functions', () => {
     });
 
     expect(arr).toEqual([1, 2, 3, 4, 2, 10, 5]);
-
-    done();
   });
 
-  it('upperParagraph', done => {
+  it('upperParagraph', () => {
     const paragraph = `lorem ipsum dolor sit amet consectetur adipiscing 
     elit curae sagittis, nibh nulla vivamus aliquet per cum ullamcorper vel, 
     suscipit primis velit parturient orci auctor tellus nam. himenaeos 
@@ -109,11 +101,9 @@ describe('A collection of "tools" functions', () => {
     expect(tools.upperParagraph('diego molina vera', true)).toEqual(
       'Diego Molina Vera'
     );
-
-    done();
   });
 
-  it('compose', done => {
+  it('compose', () => {
     function sum(a) {
       return a + 2;
     }
@@ -123,11 +113,9 @@ describe('A collection of "tools" functions', () => {
     }
 
     expect(tools.compose(sum, multi)(10, 30)).toEqual(302);
-
-    done();
   });
 
-  it('pip', done => {
+  it('pip', () => {
     function sum(a, b) {
       return a + b;
     }
@@ -137,11 +125,9 @@ describe('A collection of "tools" functions', () => {
     }
 
     expect(tools.pipe(sum, multi)(10, 30)).toEqual(200);
-
-    done();
   });
 
-  it('pipVal', done => {
+  it('pipVal', () => {
     function sum(a) {
       return a + 2;
     }
@@ -152,6 +138,5 @@ describe('A collection of "tools" functions', () => {
       32,
       42
     ]);
-    done();
   });
 });

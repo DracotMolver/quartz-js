@@ -431,6 +431,10 @@ const isNot = Object.freeze({
 });
 
 const handler = {
+  set(obj, prop) {
+    // This will throw an exeception when trying to overwrite any attribute of the Object
+    return obj[prop];
+  },
   get(obj, prop) {
     return prop === 'not' ? isNot : obj[prop];
   }
