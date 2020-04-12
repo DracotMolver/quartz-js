@@ -436,4 +436,7 @@ const handler = {
   }
 };
 
+// add ternary operator by then and else
+// add AND and OR special keys
+
 module.exports = new Proxy(is, handler);
