@@ -1,7 +1,6 @@
 /src/
 /docs/
 /spec/
-.babelrc
 .eslintrc.json
 .prettierrc
 .travis.yml
