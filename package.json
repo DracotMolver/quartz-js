@@ -10,7 +10,8 @@
     "minify_root": "node_modules/terser/bin/terser lib/index.js -m -o lib/index.js -c toplevel=true,drop_console=true -d process.env.DEBUG=true",
     "build": "babel src -d lib --no-comments && npm run minify_is && npm run minify_has && npm run minify_tools && npm run minify_root",
     "prepublish": "npm run build",
-    "test": "nyc jasmine"
+    "test": "nyc jasmine",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Diego Alberto Molina Vera <dracotm25@gmail.com>",
   "license": "MIT",
@@ -23,6 +24,7 @@
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.4.5",
+    "coveralls": "^3.0.11",
     "eslint": "^6.0.1",
     "jasmine": "^3.2.0",
     "jasmine-spec-reporter": "^5.0.1",

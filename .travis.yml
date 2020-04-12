@@ -11,6 +11,7 @@ jobs:
     - stage: test
       name: 'Unit Tests'
       script: 'npm run test'
+      after_success: npm run coverage
     - stage: deploy
       name: 'Deploy to NPM'
       deploy:
