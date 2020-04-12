@@ -6,3 +6,4 @@
 .prettierrc
 .travis.yml
 README.md
+.nyc_output
