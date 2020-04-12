@@ -3,6 +3,7 @@
 ![Travis (.org) branch](https://img.shields.io/travis/DracotMolver/quartz-js/master)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/DracotMolver/quartz-js)
 ![npm](https://img.shields.io/npm/dm/quartzjs)
+[![install size](https://packagephobia.now.sh/badge?p=quartzjs)](https://packagephobia.now.sh/result?p=quartzjs)
 [![Coverage Status](https://coveralls.io/repos/github/DracotMolver/quartz-js/badge.svg?branch=master)](https://coveralls.io/github/DracotMolver/quartz-js?branch=master)
 
 A simple library with some fancy and funny functions to write code like you were speaking. :bowtie:
