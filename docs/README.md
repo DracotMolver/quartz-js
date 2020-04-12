@@ -1,4 +1,4 @@
-# Quartz is meant to be a readable and understandtable set of functions that explain _What_ are you doing instead of _How_.
+# Quartz Is Meant to Be a Readable and Understandable Set of Functions That Explains _What_ You Are Doing Instead of _How_.
 
 Everything is about functions. With this statement borned `Quartz`. Functions explain what you are doing and they abstract all the boilerplate logic you have done.
 But, Why not using functions to explain your intention and also abstract you from the _**How**_ of your code.
@@ -83,7 +83,7 @@ if (is.truthty(obj2)) {
 Open your favourite terminal and type
 
 ```
-npm install quartz
+npm install quartzjs
 ```
 
 Then just use any of the three parts of _Quartz_ that you need.
