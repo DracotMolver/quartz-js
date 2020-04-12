@@ -25,6 +25,15 @@ const util = require('util');
  * @returns {boolean}
  */
 function someValues(arr, values) {
+  if (!process.env.DEBUG) {
+    if (!util.isArray(arr)) {
+      console.error('The first paramameter must be an Array.');
+    } else if (!util.isArray(values)) {
+      console.error('The second paramameter must be an Array.');
+    }
+    return;
+  }
+
   let bool = false;
 
   const size = arr.length;
