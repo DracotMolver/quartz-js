@@ -115,5 +115,29 @@ describe('General situations using Quartz', () => {
         'The second paramameter must be an Array.'
       );
     });
+
+    it('someValues', () => {
+      has.someValue([123], [3, 2, 3]);
+      expect(console.error).toHaveBeenCalledWith(
+        'The first parameter can only be: String, Number or Boolean.'
+      );
+
+      has.someValue(3, 3);
+      expect(console.error).toHaveBeenCalledWith(
+        'The second paramameter must be an Array.'
+      );
+    });
+
+    it('everyValue', () => {
+      has.everyValue([123], [3, 2, 3]);
+      expect(console.error).toHaveBeenCalledWith(
+        'The first parameter can only be: String, Number or Boolean.'
+      );
+
+      has.everyValue(3, 3);
+      expect(console.error).toHaveBeenCalledWith(
+        'The second paramameter must be an Array.'
+      );
+    });
   });
 });
