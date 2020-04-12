@@ -14,7 +14,6 @@ jobs:
       after_success: npm run coverage
     - stage: deploy
       name: 'Deploy to NPM'
-      script: "npm i -g babel-cli && npm i -g terser"
       deploy:
         provider: npm
         email: $NPM_EMAIL_ADDRESS
