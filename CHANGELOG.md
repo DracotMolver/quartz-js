@@ -1,4 +1,4 @@
-# v1.0.4
+# v1.1.0
 * It was updated all the error messages.
 * It was updated the some regex expressions.
 * Using `Terse` to minify the code.
