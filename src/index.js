@@ -10,14 +10,20 @@
 'use strict';
 require('regenerator-runtime/runtime');
 
-if (!process.env.DEBUG) {
-  const tools = require('./tools');
-  const has = require('./has');
-  const is = require('./is');
+let tools = null;
+let has = null;
+let is = null;
 
-  exports.tools = tools;
-  exports.has = has;
-  exports.is = is;
+if (!process.env.DEBUG) {
+  tools = require('./tools');
+  has = require('./has');
+  is = require('./is');
 } else {
-  module.exports = require('lib/min/index.js');
+  tools = require('./tools/index.min.js');
+  has = require('./has/index.min.js');
+  is = require('./is/index.min.js');
 }
+
+exports.tools = tools;
+exports.has = has;
+exports.is = is;
