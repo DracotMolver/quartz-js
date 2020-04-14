@@ -19,19 +19,19 @@ function _objLen(value) {
 }
 
 /**
- * It will check if the given value has a length greater or equal to the given size.
- * it makes strict comparision
+ * It validates if the given value has a length greater or equal to the given size.
+ * It makes use of strict comparison. Use it only with `String`, `Object`, and `Array`.
  *
  * @param {(object|array|string)} value - The value to evaluate its length.
  * @param {number} size                 - The seed we will use to compare.
- * @param {boolean} isMoreOnly           - This will check the length of value must be more than the given size.
+ * @param {boolean} isMoreOnly          - If you want to only validates that the length of value is more than the given size.
  * @returns {boolean}
  */
 function moreOrEqual(value, size, isMoreOnly = false) {
   if (process.env.NODE_ENV !== 'production') {
     if (util.isNumber(value)) {
       console.error(
-        'Pass only Object, Array or String in the first paramenter.'
+        'Pass only Object, Array or String in the first parameter.'
       );
       return;
     }
@@ -51,19 +51,19 @@ function moreOrEqual(value, size, isMoreOnly = false) {
 }
 
 /**
- * It will check if the given value has a length lower or equal to the given size.
- * it makes strict comparision
+ * It validates if the given value has a length lower or equal to the given size.
+ * It makes use of strict comparison. Use it only with `String`, `Object`, and `Array`.
  *
  * @param {(object|array|string)} value - The value to evaluate its length.
  * @param {number} size                 - The seed we will use to compare.
- * @param {boolean} isLessOnly          - This will check the length of value must be more than the given size.
+ * @param {boolean} isLessOnly          - If you want to only validates that the length of value is less than the given size.
  * @returns {boolean}
  */
 function lessOrEqual(value, size, isLessOnly = false) {
   if (process.env.NODE_ENV !== 'production') {
     if (util.isNumber(value)) {
       console.error(
-        'Pass only Object, Array or String in the first paramenter.'
+        'Pass only Object, Array or String in the first parameter.'
       );
       return;
     }
@@ -83,8 +83,8 @@ function lessOrEqual(value, size, isLessOnly = false) {
 }
 
 /**
- * It will check if the given value has exect the same length as the given size.
- * it makes strict comparision
+ * It validates if the given value has the exact length as the given size.
+ * It makes use of strict comparison. Use it only with `String`, `Object`, and `Array`.
  *
  * @example
  * exactSize([1, 2, 3, 4], 4); // true
@@ -98,7 +98,7 @@ function exactSize(value, size) {
   if (process.env.NODE_ENV !== 'production') {
     if (util.isNumber(value)) {
       console.error(
-        'Pass only Object, Array or String in the first paramenter.'
+        'Pass only Object, Array or String in the first parameter.'
       );
       return;
     }
@@ -111,9 +111,9 @@ function exactSize(value, size) {
 }
 
 /**
- * It will check if the given value is NaN.
+ * It validates if the given value is NaN.
  *
- * @param {any} value   - Any value to be checked that is NaN.
+ * @param {any} value - Any value to be checked that is NaN.
  * @returns {boolean}
  */
 function nan(value) {
@@ -121,7 +121,7 @@ function nan(value) {
 }
 
 /**
- * It will check if a value is truthty but with slightly modifications for Ojects and Arrays.
+ * It validates if a value is truthty but with slight modifications for Object and Array.
  *
  * @example
  * | type    | description                     |
@@ -157,7 +157,7 @@ function truthty(value) {
 }
 
 /**
- * It will check if a value is falsy but with slightly modifications for Object and Array.
+ * It validates if a value is falsy but with slight modifications for Object and Array.
  *
  * @example
  * | type    |  description                    |
@@ -192,7 +192,7 @@ function falsy(value) {
 }
 
 /**
- * It will check if the given R.U.N is valid - Chile ID.
+ * It validates if the given R.U.N is valid. - Chile ID.
  *
  * @param {string} value The given R.U.N.
  * @returns {boolean}
@@ -235,7 +235,7 @@ function run(value) {
 /**
  * Validates that the given value has only words.
  *
- * @param {string} value - Value to match
+ * @param {string} value - Value to match if it's valid
  * @returns {boolean}
  */
 function alpha(value) {
@@ -252,7 +252,7 @@ function alpha(value) {
 /**
  * Validates if the value is a well formed email.
  *
- * @param {string} value - String to match against with-
+ * @param {string} value - The email to check if it's valid
  * @returns {boolean}
  */
 function email(value) {
@@ -299,9 +299,9 @@ function email(value) {
 }
 
 /**
- * Validates only numbers
+ * It validates that the given value has only numbers.
  *
- * @param {(string|number)} value - The value to be validated
+ * @param {(string|number)} value Value to match if it's valid.
  * @returns {boolean}
  */
 function number(value) {
@@ -309,7 +309,7 @@ function number(value) {
 }
 
 /**
- * It will check if the value is a valid ip
+ * It validates if the value is a valid well formed ip.
  *
  * @param {string} value - The ip to be checked.
  * @return {boolean}
@@ -328,7 +328,7 @@ function ip(value) {
 }
 
 /**
- * It will check if the url has the right format
+ * It validates if the value is a valid well formed URL.
  * based on: https://www.w3.org/Addressing/URL/url-spec.txt
  *
  * @example
@@ -366,14 +366,14 @@ function url(value) {
 
 /**
  * It will set up a Password Strength Policy.
- * The returned funciton will check later if a password is valid under that policy.
+ * The returned function will check later if a password is valid under that policy.
  *
  * @param {object} rules             - The set of rules for your password
- * @param {number} rules.minLength   - Minimun size of characters
- * @param {number} rules.maxLength   - Maximun size of characters
- * @param {number} rules.minAlpha    - Minimun size of alpha characters
- * @param {number} rules.minNumber   - Minimun of numbers
- * @param {number} rules.minSameChar - Minimun of equal characters
+ * @param {number} rules.minLength   - Minimum size of characters
+ * @param {number} rules.maxLength   - Maximum size of characters
+ * @param {number} rules.minAlpha    - Minimum size of alpha characters
+ * @param {number} rules.minNumber   - Minimum of numbers
+ * @param {number} rules.minSameChar - Minimum of equal characters
  * @param {boolean} rules.allowSpace - If allow or not whitespace
  * @returns {function(string): any}
  */
@@ -408,7 +408,7 @@ function password(rules = null) {
 
         if (rules.maxLength < rules.minLength) {
           console.error(
-            "The maxLength can't be less than the minLenght. It must be more."
+            "The maxLength can't be less than the minLength. It must be more."
           );
           return;
         }
@@ -426,16 +426,16 @@ function password(rules = null) {
       isValid.minNumber = matchedNumbers.length >= rules.minNumber;
 
       if (rules.minSameChar) {
-        const singlekeys = [...new Set(strPwd)].filter(
+        const singleKeys = [...new Set(strPwd)].filter(
           s => !Number(s)
         );
-        let size = singlekeys.length;
+        let size = singleKeys.length;
         const tmpPwd = strPwd.slice();
 
         while (size) {
           size -= 1;
           isValid.minSameChar =
-            tmpPwd.split(singlekeys[size]).length - 1 >=
+            tmpPwd.split(singleKeys[size]).length - 1 >=
             rules.minSameChar;
         }
       }
@@ -487,7 +487,7 @@ const handler = {
 
 if (process.env.NODE_ENV !== 'production') {
   handler.set = function get(obj, prop) {
-    // This will throw an exeception when trying to overwrite any attribute of the Object
+    // This will throw an exception when trying to overwrite any attribute of the Object
     return obj[prop];
   };
 }
