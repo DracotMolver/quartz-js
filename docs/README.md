@@ -303,7 +303,9 @@ if (pwdMatcher('d@12345')) {
 ```
 
 ### List of `not` functions:
+
 All this functions will return `true` if they are not what they supposed to be.
+
 - `is.not.ip`
 - `is.not.url`
 - `is.not.nan`
@@ -377,10 +379,25 @@ A High Order Function to use with filter and map. It will return the first value
 It checks if one of the values is equal to the value obtained from using an specific `key`. This function is for using it with Array of Objects.
 
 - **key** {string} _The key of the object._
+- **value** {string} _The value to be compared._
 - **callback** {function(any): boolean} _A function that will accept only one param._
 
 ```js
 [{ id: 1 }, { id: 2 }, { id: 3 }].filter(has.valueByKey('id', 3));
+```
+
+**`valuesByKeys`**
+It checks if the Array of Object has the respective values based on the given keys. The first key on the first given param is the key that will compare the value of the first value of the second param.
+
+```js
+[
+  { id: 1, name: 'anna', age: 20, city: 'santiago' },
+  { id: 2, name: 'diego', age: 30, city: 'texas' },
+  { id: 3, name: 'drake', age: 20, city: 'puerto' },
+  { id: 4, name: 'carl', age: 20, city: 'puerto' }
+].filter(has.valuesByKeys(['age', 'city'], [20, 'puerto']));
+// [{ id: 3, name: 'drake', age: 20, city: 'puerto' },
+// { id: 4, name: 'carl', age: 20, city: 'puerto' }];
 ```
 
 ## tools
