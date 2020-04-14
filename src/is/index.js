@@ -221,7 +221,8 @@ function run(value) {
 
   total = Number(11 - (total - 11 * Math.floor(total / 11)));
 
-  let digit = '';
+  let digit = String(total);
+
   if (total === 11) {
     digit = '0';
   } else if (total === 10) {
