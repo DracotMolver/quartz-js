@@ -27,6 +27,20 @@ describe('A collection of "has" functions', () => {
     ).toEqual([{ id: 3 }]);
   });
 
+  it('valuesByKeys - Array of Objects', () => {
+    expect(
+      [
+        { id: 1, name: 'Anna', age: 20, city: 'santiago' },
+        { id: 2, name: 'diego', age: 30, city: 'iowa' },
+        { id: 3, name: 'drake', age: 20, city: 'puerto' },
+        { id: 4, name: 'carl', age: 20, city: 'puerto' }
+      ].filter(has.valuesByKeys(['age', 'city'], [20, 'puerto']))
+    ).toEqual([
+      { id: 3, name: 'drake', age: 20, city: 'puerto' },
+      { id: 4, name: 'carl', age: 20, city: 'puerto' }
+    ]);
+  });
+
   it('unique -  Array of Objects', () => {
     expect(
       [

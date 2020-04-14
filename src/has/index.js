@@ -12,9 +12,8 @@
 const util = require('util');
 
 /**
- * It will check if the values on the first Array exist at least one of them
- * in the second Array.
- * Doesn't work with Array of Objects, for that use `someValuesByKey` function
+ * It checkss if the values on the first Array exist, at least one of them, in the second Array.
+ * It Doesn't work with Array of Objects. For that case use the `someValuesByKey` function.
  *
  * @example
  * has.someValues([1, 2, 3], [1, 5, 4, 3, 10]);
@@ -27,10 +26,10 @@ const util = require('util');
 function someValues(arr, values) {
   if (process.env.NODE_ENV !== 'production') {
     if (!util.isArray(arr)) {
-      console.error('The first paramameter must be an Array.');
+      console.error('The first parameter must be an Array.');
       return;
     } else if (!util.isArray(values)) {
-      console.error('The second paramameter must be an Array.');
+      console.error('The second parameter must be an Array.');
       return;
     }
   }
@@ -50,7 +49,7 @@ function someValues(arr, values) {
 }
 
 /**
- * It will check a single value against N values until find one match.
+ * It checks a single value against N values until find one match.
  * Doesn't work with Array of Objects, for that use the `someValueByKey` function
  *
  * @example
@@ -73,7 +72,7 @@ function someValue(value, values) {
       );
       return;
     } else if (!util.isArray(values)) {
-      console.error('The second paramameter must be an Array.');
+      console.error('The second parameter must be an Array.');
       return;
     }
   }
@@ -82,7 +81,7 @@ function someValue(value, values) {
 }
 
 /**
- * It will check that the given value is present in all the rest of the values.
+ * It checks that the given value is present in all the rest of the values.
  *
  * @param {(boolean|string|number)} value    - The value to look for
  * @param {array} values - An array of possible values.
@@ -96,7 +95,7 @@ function everyValue(value, values) {
       );
       return;
     } else if (!util.isArray(values)) {
-      console.error('The second paramameter must be an Array.');
+      console.error('The second parameter must be an Array.');
       return;
     }
   }
@@ -129,7 +128,7 @@ function oneValue(value) {
 
 /**
  * High Order Function to be used with filter and map.
- * It will return the first value of a given key that return `truthty`.
+ * It return the first value of a given key that return `truthty`.
  *
  * @example
  * [{name: 'john', age: 0}, {name: 'dee', age: 20}].map(util.unique('age'));
@@ -143,24 +142,47 @@ function unique(key) {
 }
 
 /**
- * It will check if one of the values is equal to the one got from using the `Key`.
- * This funciton is for using it with Array of Objects.
+ * It checks if one of the values is equal to the one got from using the `Key`.
+ * This function is for using it with Array of Objects.
  *
  * @example
- * [{id: 1}, {id: 2}, {id: 3}].filter(valueByKey('id', 3));
- * // [{id: 3}]
+ * [{id: 1}, {id: 2}, {id: 3}, {id: 3}].filter(valueByKey('id', 3));
+ * // [{id: 3}, {id: 3}];
  *
- * @param {string} key               - The key of the object.
+ * @param {string} key               - The key of the Object.
+ * @param {string} value             - The value to be compared.
  * @returns {function(any): boolean} - A function that will accept only one param.
  */
 function valueByKey(key, value) {
   return content => content[key] === value;
 }
 
-// someValueByKey
-// someValuesByKey
+/**
+ * It checks if the Array of Object has the respective values based on the given keys.
+ * The first key on the first given param is the key that will compare the value of the first value of the second param.
+ *
+ * @param {array} keys - They keys of the Object.
+ * @param {array} values - They values to be compared.
+ */
+function valuesByKeys(keys, values) {
+  return content => {
+    let isExist = false;
+    const size = keys.length;
+
+    for (let iter = 0; iter < size; iter += 1) {
+      isExist = content[keys[iter]] === values[iter];
+
+      if (!isExist) {
+        iter = size;
+      }
+    }
+
+    return isExist;
+  };
+}
 
 module.exports = Object.freeze({
+  valuesByKeys,
   valueByKey,
   everyValue,
   someValues,

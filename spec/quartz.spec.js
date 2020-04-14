@@ -15,21 +15,21 @@ describe('General situations using Quartz', () => {
     it('moreOrEqual', () => {
       is.moreOrEqual(123, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'Pass only Object, Array or String in the first paramenter.'
+        'Pass only Object, Array or String in the first parameter.'
       );
     });
 
     it('lessOrEqual', () => {
       is.lessOrEqual(123, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'Pass only Object, Array or String in the first paramenter.'
+        'Pass only Object, Array or String in the first parameter.'
       );
     });
 
     it('exactSize', () => {
       is.exactSize(123, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'Pass only Object, Array or String in the first paramenter.'
+        'Pass only Object, Array or String in the first parameter.'
       );
     });
 
@@ -99,7 +99,7 @@ describe('General situations using Quartz', () => {
     });
   });
 
-  describe('`has` functions showgin console.error', () => {
+  describe('`has` functions showing console.error', () => {
     beforeAll(() => {
       spyOn(console, 'error');
     });
@@ -107,12 +107,12 @@ describe('General situations using Quartz', () => {
     it('someValues', () => {
       has.someValues(123, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'The first paramameter must be an Array.'
+        'The first parameter must be an Array.'
       );
 
       has.someValues([123], 3);
       expect(console.error).toHaveBeenCalledWith(
-        'The second paramameter must be an Array.'
+        'The second parameter must be an Array.'
       );
     });
 
@@ -124,7 +124,7 @@ describe('General situations using Quartz', () => {
 
       has.someValue(3, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'The second paramameter must be an Array.'
+        'The second parameter must be an Array.'
       );
     });
 
@@ -136,7 +136,7 @@ describe('General situations using Quartz', () => {
 
       has.everyValue(3, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'The second paramameter must be an Array.'
+        'The second parameter must be an Array.'
       );
     });
   });

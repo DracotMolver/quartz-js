@@ -133,8 +133,8 @@ function upperParagraph(text, byWord = false) {
 }
 
 /**
- * It will recive several function that are going to `compose` into one function.
- * If you add more than one value, only the first function will recive them and
+ * It will receive several function that are going to `compose` into one function.
+ * If you add more than one value, only the first function will receive them and
  * the result of it will be passed down to the rest of the functions.
  * This is read from right to left.
  *
@@ -157,7 +157,7 @@ function compose(...func) {
 
 /**
  * It will concat and execute several functions to the given values.
- * If you add more than one value, only the first function will recive them and
+ * If you add more than one value, only the first function will receive them and
  * the result of it will be passed down to the rest of the functions.
  * This is read from left to right.
  *
