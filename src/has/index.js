@@ -25,7 +25,7 @@ const util = require('util');
  * @returns {boolean}
  */
 function someValues(arr, values) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (!util.isArray(arr)) {
       console.error('The first paramameter must be an Array.');
       return;
@@ -62,7 +62,7 @@ function someValues(arr, values) {
  * @returns {boolean}
  */
 function someValue(value, values) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (
       !util.isNumber(value) &&
       !util.isString(value) &&
@@ -89,7 +89,7 @@ function someValue(value, values) {
  * @returns {boolean}
  */
 function everyValue(value, values) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (util.isObject(value)) {
       console.error(
         'The first parameter can only be: String, Number or Boolean.'

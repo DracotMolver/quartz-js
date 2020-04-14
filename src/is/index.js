@@ -24,11 +24,11 @@ function _objLen(value) {
  *
  * @param {(object|array|string)} value - The value to evaluate its length.
  * @param {number} size                 - The seed we will use to compare.
- * @param {boolea} isMoreOnly           - This will check the length of value must be more than the given size.
+ * @param {boolean} isMoreOnly           - This will check the length of value must be more than the given size.
  * @returns {boolean}
  */
 function moreOrEqual(value, size, isMoreOnly = false) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (util.isNumber(value)) {
       console.error(
         'Pass only Object, Array or String in the first paramenter.'
@@ -60,7 +60,7 @@ function moreOrEqual(value, size, isMoreOnly = false) {
  * @returns {boolean}
  */
 function lessOrEqual(value, size, isLessOnly = false) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (util.isNumber(value)) {
       console.error(
         'Pass only Object, Array or String in the first paramenter.'
@@ -95,7 +95,7 @@ function lessOrEqual(value, size, isLessOnly = false) {
  * @returns {boolean}
  */
 function exactSize(value, size) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (util.isNumber(value)) {
       console.error(
         'Pass only Object, Array or String in the first paramenter.'
@@ -198,7 +198,7 @@ function falsy(value) {
  * @returns {boolean}
  */
 function run(value) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (!util.isString(value)) {
       console.error('The given parameter must be an String.');
       return;
@@ -216,18 +216,19 @@ function run(value) {
       counter = 2;
     }
 
-    total += text[size] * counter;
+    total += Number(text[size]) * counter;
   }
 
   total = Number(11 - (total - 11 * Math.floor(total / 11)));
 
+  let digit = '';
   if (total === 11) {
-    total = 0;
+    digit = '0';
   } else if (total === 10) {
-    total = 'k';
+    digit = 'k';
   }
 
-  return String(total) === text.slice(-1);
+  return digit === text.slice(-1);
 }
 
 /**
@@ -237,7 +238,7 @@ function run(value) {
  * @returns {boolean}
  */
 function alpha(value) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (!util.isString(value)) {
       console.error('The given parameter must be an String.');
       return;
@@ -254,7 +255,7 @@ function alpha(value) {
  * @returns {boolean}
  */
 function email(value) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (!util.isString(value)) {
       console.error('The given parameter must be an String.');
       return;
@@ -309,11 +310,11 @@ function number(value) {
 /**
  * It will check if the value is a valid ip
  *
- * @param {string} ip - The ip to be checked.
+ * @param {string} value - The ip to be checked.
  * @return {boolean}
  */
 function ip(value) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (!util.isString(value)) {
       console.error('The given parameter must be an String.');
       return;
@@ -336,7 +337,7 @@ function ip(value) {
  * @return {boolean}
  */
 function url(value) {
-  if (!process.env.DEBUG) {
+  if (process.env.NODE_ENV !== 'production') {
     if (!util.isString(value)) {
       console.error('The given parameter must be an String.');
       return;
@@ -366,14 +367,14 @@ function url(value) {
  * It will set up a Password Strength Policy.
  * The returned funciton will check later if a password is valid under that policy.
  *
- * @param {string} pwd               - String to match against with
  * @param {object} rules             - The set of rules for your password
  * @param {number} rules.minLength   - Minimun size of characters
+ * @param {number} rules.maxLength   - Maximun size of characters
  * @param {number} rules.minAlpha    - Minimun size of alpha characters
  * @param {number} rules.minNumber   - Minimun of numbers
  * @param {number} rules.minSameChar - Minimun of equal characters
  * @param {boolean} rules.allowSpace - If allow or not whitespace
- * @returns {boolean}
+ * @returns {function(string): any}
  */
 function password(rules = null) {
   const isValid = {
@@ -389,7 +390,7 @@ function password(rules = null) {
 
   if (truthty(rules)) {
     callback = pwd => {
-      if (!process.env.DEBUG) {
+      if (process.env.NODE_ENV !== 'production') {
         if (rules.minLength < rules.minNumber + rules.minAlpha) {
           console.error(
             "The minLength can't be less than the sum of the minNumber and minAlpha values. It can be equal or more."
@@ -478,19 +479,16 @@ const isNot = Object.freeze({
 });
 
 const handler = {
-  get(obj, prop) {
+  get(obj, prop, value) {
     return prop === 'not' ? isNot : obj[prop];
   }
 };
 
-if (!process.env.DEBUG) {
+if (process.env.NODE_ENV !== 'production') {
   handler.set = function get(obj, prop) {
     // This will throw an exeception when trying to overwrite any attribute of the Object
     return obj[prop];
   };
 }
-
-// add ternary operator by then and else
-// add AND and OR special keys
 
 module.exports = new Proxy(is, handler);

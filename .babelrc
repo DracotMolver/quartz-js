@@ -5,7 +5,9 @@
       {
         "targets": {
           "node": "8.0.0",
-          "browsers": ["last 2 versions or not dead, > 0.2%"]
+          "browsers": [
+            "last 2 versions or not dead, > 0.5%"
+          ]
         },
         "useBuiltIns": "usage",
         "corejs": {

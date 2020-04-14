@@ -234,6 +234,7 @@ It sets up a Password Strength Policy. The returned function will validates late
 - **pwd** {string} _String to match against with._
 - **rules** {object} _The set of rules for your password._
 - **rules.minLength** {number} _Minimun size of characters._
+- **rules.maxLength** {number} _Maximun size of characters._
 - **rules.minAlpha** {number} _Minimun size of alpha characters._
 - **rules.minNumber** {number} _Minimun of numbers._
 - **rules.minSameChar** {number} _Minimun of equal characters._
@@ -255,7 +256,7 @@ if (pwdMatcher('d@12345')) {
 }
 ```
 
-# has
+## has
 
 It's a set of functions that will help you to work with Array and Objects in the functional way you've been doing, but with style :nail_care:.
 
@@ -313,7 +314,7 @@ A High Order Function to use with filter and map. It will return the first value
 [
   { name: 'john', age: 0 },
   { name: 'dee', age: 20 }
-].map(util.unique('age'));
+].map(has.unique('age'));
 ```
 
 <br />
@@ -325,7 +326,7 @@ It checks if one of the values is equal to the value obtained from using an spec
 - **callback** {function(any): boolean} _A function that will accept only one param._
 
 ```js
-[{ id: 1 }, { id: 2 }, { id: 3 }].filter(valueByKey('id', 3));
+[{ id: 1 }, { id: 2 }, { id: 3 }].filter(has.valueByKey('id', 3));
 ```
 
 ## tools

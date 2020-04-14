@@ -39,7 +39,7 @@ function camelCase(text) {
  * @param {array} array  - The Array of Object where to extract the keys.
  * @param {string} key   - The name of the attribute to use as a key.
  * @param {string} value - The name of the attribute to use as a value.
- * @returns {array}      - A new Array of objects
+ * @returns {object}
  */
 function compress(array, key, value) {
   const _maker = base =>
@@ -62,8 +62,8 @@ function compress(array, key, value) {
  * util.obj2Arr({ b: '3', c: true, d: [4] });
  * // [{ b: '3' }, { c: true }, { d: [4] }]
  *
- * @param {object}  - obj the object to seek for
- * @returns {array} - An array of objects
+ * @param {object}  obj - the object to seek for
+ * @returns {array}
  */
 function obj2Arr(obj) {
   return Object.entries(obj).flatMap(([key, value]) => [
@@ -79,7 +79,8 @@ function obj2Arr(obj) {
  * clone({a: 'aA'}, {b: 'bB', a: 'AA'});
  * // {a: 'AA', b: 'bB'};
  *
- * @param  {(array|object)} obj The values to merge
+ * @param  {(array|object)} obj1 - The base Array or Object
+ * @param  {(array|object)} obj2 - The Array or Object to merge on the base Array or Object.
  * @returns {(array|object)}
  */
 function clone(obj1, obj2) {
@@ -140,7 +141,7 @@ function upperParagraph(text, byWord = false) {
  * You can pass multiple variables, but then the result of the first function
  * will be passing through the rest of the functions.
  *
- * @param {function} func            - A set of functions
+ * @param {array} func            - A set of functions
  * @returns {function(any): any} - A function that will accept only one param.
  */
 function compose(...func) {
@@ -160,7 +161,7 @@ function compose(...func) {
  * the result of it will be passed down to the rest of the functions.
  * This is read from left to right.
  *
- * @param {function} func            - All the Functions to be executed.
+ * @param {array} func            - All the Functions to be executed.
  * @returns {function(any): any} - The result of passing all the values through the functions.
  */
 function pipe(...func) {
@@ -190,12 +191,15 @@ function getGenerator(func, params) {
  * It will call a single function for several independents values.
  * It will return array of N values.
  *
- * @param {function} unc         - The function to use.
+ * @param {function} func         - The function to use.
  * @returns {function(any): any} - The result of passing all the values through the function.
  */
 function pipeVal(func) {
   return (...params) => [...getGenerator(func, params)];
 }
+
+// formatter
+// humanize some values
 
 // /**
 //  * It will remove a property from an object based on the given key.
