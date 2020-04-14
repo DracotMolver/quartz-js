@@ -470,7 +470,6 @@ const is = Object.freeze({
   url,
   ip
 });
-
 const isNot = Object.freeze({
   ip: val => !is.ip(val),
   url: val => !is.url(val),
@@ -479,17 +478,14 @@ const isNot = Object.freeze({
   number: val => !is.number(val)
 });
 
-const handler = {
-  get(obj, prop, value) {
+module.exports = new Proxy(is, {
+  get(obj, prop) {
     return prop === 'not' ? isNot : obj[prop];
+  },
+  set(obj, prop) {
+    if (process.env.NODE_ENV !== 'production') {
+      // This will throw an exception when trying to overwrite any attribute of the Object
+      return obj[prop];
+    }
   }
-};
-
-if (process.env.NODE_ENV !== 'production') {
-  handler.set = function get(obj, prop) {
-    // This will throw an exception when trying to overwrite any attribute of the Object
-    return obj[prop];
-  };
-}
-
-module.exports = new Proxy(is, handler);
+});

@@ -39,8 +39,8 @@ declare function camelCase(text: string): string;
  */
 declare function compress(array: any[], key: string, value: string): any;
 /**
- * It will recive several function that are going to `compose` into one function.
- * If you add more than one value, only the first function will recive them and
+ * It will receive several function that are going to `compose` into one function.
+ * If you add more than one value, only the first function will receive them and
  * the result of it will be passed down to the rest of the functions.
  * This is read from right to left.
  *
@@ -85,7 +85,7 @@ declare function pipeVal(func: Function): (arg0: any) => any;
 declare function clone(obj1: any, obj2: any): any;
 /**
  * It will concat and execute several functions to the given values.
- * If you add more than one value, only the first function will recive them and
+ * If you add more than one value, only the first function will receive them and
  * the result of it will be passed down to the rest of the functions.
  * This is read from left to right.
  *
