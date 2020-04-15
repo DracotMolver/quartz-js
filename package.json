@@ -6,7 +6,6 @@
   "scripts": {
     "build": "babel dist -d dist --no-comments",
     "build:types": "tsc -p tsconfig.json",
-    "prepare": "npm run build",
     "test": "nyc jasmine",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
