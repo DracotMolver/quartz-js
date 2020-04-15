@@ -140,7 +140,7 @@ describe('A collection of "tools" functions', () => {
     ]);
   });
 
-  fit('rmAttrFromObj', () => {
+  it('rmAttrFromObj', () => {
     const obj = {
       age: 22,
       names: { firstName: 'John', lastName: 'Doeh' },

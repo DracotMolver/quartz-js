@@ -7,8 +7,8 @@
     "build": "npx babel dist -d dist --no-comments",
     "build:types": "npx tsc -p tsconfig.json",
     "prepublish": "npm run build",
-    "test": "nyc jasmine",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "test": "npx nyc jasmine",
+    "coverage": "npx nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Diego Alberto Molina Vera <dracotm25@gmail.com>",
   "license": "MIT",
@@ -34,8 +34,8 @@
     "nodejs",
     "functional programming",
     "functions",
-    "has function",
-    "is function",
+    "help functions",
+    "utils",
     "tools"
   ],
   "dependencies": {
