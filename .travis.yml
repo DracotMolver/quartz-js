@@ -10,10 +10,15 @@ jobs:
   include:
     - stage: test
       name: 'Unit Tests'
-      script: 'npm run test'
+      script: 
+        - npm install
+        - npm run test
       after_success: npm run coverage
     - stage: deploy
       name: 'Deploy to NPM'
+      script:
+        - npm install
+        - npm run build
       deploy:
         provider: npm
         email: $NPM_EMAIL_ADDRESS

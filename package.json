@@ -4,11 +4,11 @@
   "description": "A very useful library with fancy small functions",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx babel dist -d dist --no-comments",
-    "build:types": "npx tsc -p tsconfig.json",
+    "build": "babel dist -d dist --no-comments",
+    "build:types": "tsc -p tsconfig.json",
     "prepublish": "npm run build",
-    "test": "npx nyc jasmine",
-    "coverage": "npx nyc report --reporter=text-lcov | coveralls"
+    "test": "nyc jasmine",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "Diego Alberto Molina Vera <dracotm25@gmail.com>",
   "license": "MIT",
