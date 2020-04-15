@@ -1,5 +1,6 @@
 export var tools: {
     readonly upperParagraph: (text: string, byWord?: boolean) => string;
+    readonly rmAttrFromObj: (obj: any, keys: string | any[]) => any;
     readonly camelCase: (text: string) => string;
     readonly compress: (array: any[], key: string, value: string) => any;
     readonly compose: (...func: any[]) => (arg0: any) => any;

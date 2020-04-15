@@ -4,7 +4,7 @@
   "description": "A very useful library with fancy small functions",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel dist -d dist --no-comments",
+    "build": "npm run build:types && babel dist -d dist --no-comments",
     "build:types": "tsc -p tsconfig.json",
     "prepublish": "npm run build",
     "test": "nyc jasmine",

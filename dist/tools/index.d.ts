@@ -1,5 +1,6 @@
 declare const _exports: {
     readonly upperParagraph: typeof upperParagraph;
+    readonly rmAttrFromObj: typeof rmAttrFromObj;
     readonly camelCase: typeof camelCase;
     readonly compress: typeof compress;
     readonly compose: typeof compose;
@@ -18,6 +19,22 @@ export = _exports;
  * @returns {string} The parsed content
  */
 declare function upperParagraph(text: string, byWord?: boolean): string;
+/**
+ * It will remove a property from an Object based on the given key.
+ * This is only for Object, don't try to remove a property from an Object within an Array.
+ *
+ * 1.- It removes the property based on one key at FIRST level.
+ *
+ * 2.- Remove the properties based on more than one key at FIRST level.
+ *     You must pass an array containing the keys to remove.
+ *
+ * 3.- Remove the property based on one key at N level (nested) using a dot notation.
+ *
+ * @param {object} object - The Object that you want to remove the values from.
+ * @param {(string|array)} keys - The key(s) to remove from the Object.
+ * @returns {object}
+ */
+declare function rmAttrFromObj(obj: any, keys: string | any[]): any;
 /**
  * It will convert the string to a Lower Camel Case format.
  *

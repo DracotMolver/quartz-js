@@ -10,6 +10,8 @@ require("core-js/modules/es.array.concat");
 
 require("core-js/modules/es.array.flat-map");
 
+require("core-js/modules/es.array.index-of");
+
 require("core-js/modules/es.array.iterator");
 
 require("core-js/modules/es.array.join");
@@ -45,6 +47,24 @@ require("core-js/modules/es.string.split");
 require("core-js/modules/es.string.trim");
 
 require("core-js/modules/web.dom-collections.iterator");
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var __assign = void 0 && (void 0).__assign || function () {
+  __assign = Object.assign || function (t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+      s = arguments[i];
+
+      for (var p in s) {
+        if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+      }
+    }
+
+    return t;
+  };
+
+  return __assign.apply(this, arguments);
+};
 
 var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
   var _ = {
@@ -155,6 +175,19 @@ var __generator = void 0 && (void 0).__generator || function (thisArg, body) {
       done: true
     };
   }
+};
+
+var __rest = void 0 && (void 0).__rest || function (s, e) {
+  var t = {};
+
+  for (var p in s) {
+    if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0) t[p] = s[p];
+  }
+
+  if (s != null && typeof Object.getOwnPropertySymbols === "function") for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+    if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i])) t[p[i]] = s[p[i]];
+  }
+  return t;
 };
 
 var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
@@ -326,8 +359,58 @@ function pipeVal(func) {
   };
 }
 
+function rmAttrFromObj(obj, keys) {
+  var tmp = __assign({}, obj);
+
+  if (util.isString(keys)) {
+    var _keys = keys.split('.');
+
+    if (_keys.length === 1) {
+      var _a = tmp,
+          _b = _keys[0],
+          dropVar = _a[_b],
+          rest = __rest(_a, [_typeof(_b) === "symbol" ? _b : _b + ""]);
+
+      tmp = rest;
+    } else {
+      var size = _keys.length - 1;
+
+      var tmpObj = __assign({}, obj);
+
+      tmp = tmpObj;
+
+      for (var iter = 0; iter < size; iter += 1) {
+        if (iter === size - 1) {
+          var _c = tmp[_keys[iter]],
+              _d = _keys[size],
+              dropVar = _c[_d],
+              rest = __rest(_c, [_typeof(_d) === "symbol" ? _d : _d + ""]);
+
+          tmp[_keys[iter]] = rest;
+        } else {
+          tmp = tmp[_keys[iter]];
+        }
+      }
+    }
+  } else if (util.isArray(keys)) {
+    var size = keys.length;
+
+    for (var iter = 0; iter < size; iter += 1) {
+      var _e = tmp,
+          _f = keys[iter],
+          dropVar = _e[_f],
+          rest = __rest(_e, [_typeof(_f) === "symbol" ? _f : _f + ""]);
+
+      tmp = rest;
+    }
+  }
+
+  return tmp;
+}
+
 module.exports = Object.freeze({
   upperParagraph: upperParagraph,
+  rmAttrFromObj: rmAttrFromObj,
   camelCase: camelCase,
   compress: compress,
   compose: compose,
