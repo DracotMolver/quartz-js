@@ -201,56 +201,64 @@ function pipeVal(func) {
 // formatter
 // humanize some values
 
-// /**
-//  * It will remove a property from an object based on the given key.
-//  * It has three ways to work:
-//  * 1.- Remove the property based on one given key but at FIRST level
-//  * 2.- Remove the properties based on more than one given keys but at FIRST level.
-//  *     You must pass an array containing the keys to remove.
-//  * 3.- Remove the property based on one given key but the attribute can be nested (N level).
-//  *     You must pass `true` as the third value. You must pass an array that follows te chain
-//  *     of the nested keys from the very first one.
-//  *
-//  * @example
-//  * const obj = {age: 22, names: {firstName: 'John', lastName: 'Doeh'}, email: 'test@test.ts'};
-//  * // remove one key
-//  * rmKey(obj, 'age'); // {names: {firstName: 'John',lastName: 'Doeh'}}
-//  * // remove one key
-//  * rmKey(obj, ['age', 'names']); // {email: 'test@test.ts'}
-//  * // remove one key but nested
-//  * rmKey(obj, ['names', 'lastName'], true);
-//  * // {age: 22, names: {firstName: 'John'}, email: 'test@test.ts'}
-//  *
-//  * @param {object} object The object to check and removed its key
-//  * @param {(string|array)} keys The key(s) to remove from the object
-//  * @param {boolean} isNested Default false, if `true` is passed it will search for a nested key
-//  */
-// function rmKey(object, keys, isNested = false) {
-//   let tmp = { ...object };
-//   let dropVar = null;
+/**
+ * It will remove a property from an Object based on the given key.
+ * This is only for Object, don't try to remove a property from an Object within an Array.
+ *
+ * 1.- It removes the property based on one key at FIRST level.
+ * 
+ * 2.- Remove the properties based on more than one key at FIRST level.
+ *     You must pass an array containing the keys to remove.
+ * 
+ * 3.- Remove the property based on one key at N level (nested) using a dot notation.
+ * 
+ * @param {object} object - The Object that you want to remove the values from.
+ * @param {(string|array)} keys - The key(s) to remove from the Object.
+ * @returns {object}
+ */
+function rmAttrFromObj(obj, keys) {
+  let tmp = { ...obj };
 
-//   if (Array.isArray(keys) && !isNested) {
-//     for (let index = 0, size = keys.length; index < size; index += 1) {
-//       ({ [keys[index]]: dropVar, ...tmp } = tmp);
-//     }
-//   } else if (isNested) {
-//     const strKey = keys.map(key => `"${key}":.+`).join('');
+  // Simple searching
+  if (util.isString(keys)) {
+    const _keys = keys.split('.');
 
-//     const match = JSON.stringify(object).match(new RegExp(`${strKey}(?=(},|",|[\d\w]}))`));
+    if (_keys.length === 1) {
+      const { [_keys[0]]: dropVar, ...rest } = tmp;
+      tmp = rest;
+    } else {
+      const size = _keys.length - 1;
 
-//     const replaceFor = match[0].replace(new RegExp(`"${keys[keys.length - 1]}".+`), '');
+      const tmpObj = { ...obj };
+      tmp = tmpObj;
 
-//     tmp = JSON.parse(JSON.stringify(object).replace(match[0], replaceFor));
-//   } else {
-//     // one single key
-//     ({ [keys]: dropVar, ...tmp } = tmp);
-//   }
+      for (let iter = 0; iter < size; iter += 1) {
+        if (iter === size - 1) {
+          const { [_keys[size]]: dropVar, ...rest } = tmp[
+            _keys[iter]
+          ];
 
-//   return tmp;
-// }
+          tmp[_keys[iter]] = rest;
+        } else {
+          tmp = tmp[_keys[iter]];
+        }
+      }
+    }
+  } else if (util.isArray(keys)) {
+    const size = keys.length;
+
+    for (let iter = 0; iter < size; iter += 1) {
+      const { [keys[iter]]: dropVar, ...rest } = tmp;
+      tmp = rest;
+    }
+  }
+
+  return tmp;
+}
 
 module.exports = Object.freeze({
   upperParagraph,
+  rmAttrFromObj,
   camelCase,
   compress,
   compose,

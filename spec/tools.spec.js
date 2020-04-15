@@ -139,4 +139,61 @@ describe('A collection of "tools" functions', () => {
       42
     ]);
   });
+
+  fit('rmAttrFromObj', () => {
+    const obj = {
+      age: 22,
+      names: { firstName: 'John', lastName: 'Doeh' },
+      email: 'test@test.ts',
+      posts: [
+        {
+          id: 3,
+          comments: [
+            {
+              comment: 1
+            }
+          ]
+        }
+      ]
+    };
+
+    // remove one key - one level
+    expect(tools.rmAttrFromObj(obj, 'names')).toEqual({
+      age: 22,
+      email: 'test@test.ts',
+      posts: [
+        {
+          id: 3,
+          comments: [
+            {
+              comment: 1
+            }
+          ]
+        }
+      ]
+    });
+
+    // remove multiple keys - one level
+    expect(tools.rmAttrFromObj(obj, ['names', 'posts'])).toEqual({
+      age: 22,
+      email: 'test@test.ts'
+    });
+
+    // remove one key - nested level with object
+    expect(tools.rmAttrFromObj(obj, 'names.lastName')).toEqual({
+      age: 22,
+      names: { firstName: 'John' },
+      email: 'test@test.ts',
+      posts: [
+        {
+          id: 3,
+          comments: [
+            {
+              comment: 1
+            }
+          ]
+        }
+      ]
+    });
+  });
 });
