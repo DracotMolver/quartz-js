@@ -17,8 +17,6 @@ jobs:
       name: 'Deploy to NPM'
       before_deploy:
         - npm install
-        # - npm i -g tsc 
-        # - npm run build:types
         - npm run build
       deploy:
         provider: npm
