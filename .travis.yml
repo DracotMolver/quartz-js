@@ -12,14 +12,14 @@ jobs:
       name: 'Unit Tests'
       before_script:
         - npm install
-      script: 
+      script:
         - npm run test
       after_success: npm run coverage
     - stage: deploy
       name: 'Deploy to NPM'
+      before_install:
+        - npm install
       deploy:
-        script:
-          - npm install
         provider: npm
         email: $NPM_EMAIL_ADDRESS
         api_key: $NPM_AUTH_TOKEN
