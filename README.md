@@ -17,9 +17,9 @@ What I'm trying to get with this is a different way to write code explaining **W
 Quarts has only three parts: **is**, **has**, and **tools**. If you are interested in knowing more about Quartz visit: https://dracotmolver.github.io/quartz-js/.
 
 
-* ***is*: A set of functions to work with boolean.
-* ***has*: A set of functions to work with Array and Object.
-* ***tools*: A set of fancy and nice functions.
+* **is**: A set of functions to work with boolean.
+* **has**: A set of functions to work with Array and Object.
+* **tools**: A set of fancy and nice functions.
 
 NodeJS version support: >= 8
 
