@@ -4,8 +4,8 @@
   "description": "A very useful library with fancy small functions",
   "main": "dist/index.js",
   "scripts": {
-    "build": "npm run build:types && babel dist -d dist --no-comments",
-    "build:types": "tsc -p tsconfig.json",
+    "build": "npm run build:types && npx babel dist -d dist --no-comments",
+    "build:types": "npx tsc -p tsconfig.json",
     "prepublish": "npm run build",
     "test": "nyc jasmine",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
