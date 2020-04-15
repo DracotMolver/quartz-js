@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "babel dist -d dist --no-comments",
-    "build:types": "npx tsc -p tsconfig.json",
+    "build:types": "tsc -p tsconfig.json",
     "test": "nyc jasmine",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
