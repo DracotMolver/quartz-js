@@ -12,7 +12,7 @@
 const util = require('util');
 
 /**
- * It checkss if the values on the first Array exist, at least one of them, in the second Array.
+ * It checks if the values on the first Array exist, at least one of them, in the second Array.
  * It Doesn't work with Array of Objects. For that case use the `someValuesByKey` function.
  *
  * @example
@@ -34,9 +34,9 @@ function someValues(arr, values) {
     }
   }
 
-  let bool = false;
-
   const size = arr.length;
+
+  let bool = false;
 
   for (let index = 0; index < size; index += 1) {
     if (values.indexOf(arr[index]) !== -1) {

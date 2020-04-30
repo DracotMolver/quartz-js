@@ -12,10 +12,7 @@
 const util = require('util');
 
 function _objLen(value) {
-  return (util.isArray(value)
-    ? Object.values(value)
-    : Object.keys(value)
-  ).length;
+  return (util.isArray(value) ? value : Object.keys(value)).length;
 }
 
 /**

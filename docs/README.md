@@ -391,7 +391,7 @@ It checks if the Array of Object has the respective values based on the given ke
 
 ```js
 [
-  { id: 1, name: 'anna', age: 20, city: 'santiago' },
+  { id: 1, name: 'anna', age: 10, city: 'santiago' },
   { id: 2, name: 'diego', age: 30, city: 'texas' },
   { id: 3, name: 'drake', age: 20, city: 'puerto' },
   { id: 4, name: 'carl', age: 20, city: 'puerto' }
@@ -551,4 +551,73 @@ function sum(a) {
 
 tools.pipeVal(sum)(10, 20, 30, 40);
 // [12, 22, 32, 42];
+```
+
+<br />
+
+**`rmAttrFromObj`**
+It will remove a property from an Object based on the given key. This is only for Object, don't try to remove a property from an Object within an Array. This won't hold the reference as the `delete` keyword does.
+
+- **object** {object} The Object that you want to remove the values from.
+- **keys** {(string\|array)} The key(s) to remove from the Object.
+
+```js
+const obj = {
+  age: 22,
+  names: { firstName: 'John', lastName: 'Doeh' },
+  email: 'test@test.ts',
+  posts: [
+    {
+      id: 3,
+      comments: [
+        {
+          comment: 1
+        }
+      ]
+    }
+  ]
+};
+
+// It removes the property based on one key at FIRST level.
+tools.rmAttrFromObj(obj, 'names');
+// {
+//   age: 22,
+//   email: 'test@test.ts',
+//   posts: [
+//     {
+//       id: 3,
+//       comments: [
+//         {
+//           comment: 1
+//         }
+//       ]
+//     }
+//   ]
+// }
+
+// Remove the properties based on more than one key at FIRST level.
+// You must pass an array containing the keys to remove.
+tools.rmAttrFromObj(obj, ['names', 'posts']);
+// {
+//   age: 22,
+//   email: 'test@test.ts'
+// }
+
+// Remove the property based on one key at N level (nested) using a dot notation.
+tools.rmAttrFromObj(obj, 'names.lastName');
+// {
+//   age: 22,
+//   names: { firstName: 'John' },
+//   email: 'test@test.ts',
+//   posts: [
+//     {
+//       id: 3,
+//       comments: [
+//         {
+//           comment: 1
+//         }
+//       ]
+//     }
+//   ]
+// };
 ```
