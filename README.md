@@ -5,6 +5,7 @@
 [![install size](https://packagephobia.now.sh/badge?p=quartzjs)](https://packagephobia.now.sh/result?p=quartzjs)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/quartzjs)
 [![Coverage Status](https://coveralls.io/repos/github/DracotMolver/quartz-js/badge.svg?branch=master)](https://coveralls.io/github/DracotMolver/quartz-js?branch=master)
+![Snyk Vulnerabilities for GitHub Repo](https://img.shields.io/snyk/vulnerabilities/github/DracotMolver/quartz-js)
 
 A simple library with some fancy and funny functions to write code like you were speaking. :bowtie:
 
