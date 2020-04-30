@@ -13,6 +13,8 @@ The **core** of **Quartz**:
 - **has**: For working with Array and Object using filter, map, some, every, and on.
 - **tools**: A set of different useful functions that you might need. :+1:
 
+You can use it with any SPA or NodeJS server.
+
 ### Some examples.
 
 ```js

@@ -1,3 +1,7 @@
+# v1.1.2
+* Replace Babel for TypeScript
+* Updated some dependencies
+
 # v1.1.1
 * Stop minifying the project - The bundles are in charge of that. Therefore, `Terser` was removed.
 * Adding `d.ts` declarations to help with functions.

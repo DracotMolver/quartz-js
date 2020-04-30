@@ -24,12 +24,11 @@ Quarts has only three parts: **is**, **has**, and **tools**. If you are interest
 NodeJS version support: >= 8
 
 Browser list:
-  * Chrome: 78 77 76 75 74 63 49
-  * Edge: 18 17
-  * Firefox 71 70
-  * IE 11
-  * Opera 64 63
-  * Safari 13 12.1 11.1 5.1
+  * Chrome: 23 >
+  * Edge: 10 >
+  * Firefox 21 >
+  * IE 9 >
+  * Safari 6 >
 
 Any feedback is welcome!
 

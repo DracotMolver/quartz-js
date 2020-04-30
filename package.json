@@ -4,8 +4,7 @@
   "description": "A very useful library with fancy small functions",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel src -d dist --no-comments",
-    "build:types": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json",
     "test": "nyc jasmine",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
@@ -17,9 +16,6 @@
   },
   "homepage": "https://dracotmolver.github.io/quartz-js/",
   "devDependencies": {
-    "@babel/cli": "^7.0.0",
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
     "@types/node": "^13.11.1",
     "coveralls": "^3.1.0",
     "eslint": "^6.0.1",
