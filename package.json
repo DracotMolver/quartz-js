@@ -1,8 +1,9 @@
 {
   "name": "quartzjs",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "A very useful library with fancy small functions",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "test": "nyc jasmine",
@@ -35,6 +36,7 @@
   ],
   "dependencies": {
     "core-js": "^3.6.5",
-    "regenerator-runtime": "^0.13.2"
+    "regenerator-runtime": "^0.13.2",
+    "typescript": "^3.8.3"
   }
 }
