@@ -3,7 +3,7 @@ declare const _exports: {
     readonly lessOrEqual: typeof lessOrEqual;
     readonly exactSize: typeof exactSize;
     readonly password: typeof password;
-    readonly truthty: typeof truthty;
+    readonly truthy: typeof truthy;
     readonly number: typeof number;
     readonly email: typeof email;
     readonly falsy: typeof falsy;
@@ -23,7 +23,7 @@ export = _exports;
  * @param {boolean} isMoreOnly          - If you want to only validates that the length of value is more than the given size.
  * @returns {boolean}
  */
-declare function moreOrEqual(value: any, size: number, isMoreOnly?: boolean): boolean;
+declare function moreOrEqual(value: (object | any[] | string), size: number, isMoreOnly?: boolean): boolean;
 /**
  * It validates if the given value has a length lower or equal to the given size.
  * It makes use of strict comparison. Use it only with `String`, `Object`, and `Array`.
@@ -33,7 +33,7 @@ declare function moreOrEqual(value: any, size: number, isMoreOnly?: boolean): bo
  * @param {boolean} isLessOnly          - If you want to only validates that the length of value is less than the given size.
  * @returns {boolean}
  */
-declare function lessOrEqual(value: any, size: number, isLessOnly?: boolean): boolean;
+declare function lessOrEqual(value: (object | any[] | string), size: number, isLessOnly?: boolean): boolean;
 /**
  * It validates if the given value has the exact length as the given size.
  * It makes use of strict comparison. Use it only with `String`, `Object`, and `Array`.
@@ -46,7 +46,7 @@ declare function lessOrEqual(value: any, size: number, isLessOnly?: boolean): bo
  * @param {number} size                 - The seed we will use to compare.
  * @returns {boolean}
  */
-declare function exactSize(value: any, size: number): boolean;
+declare function exactSize(value: (object | any[] | string), size: number): boolean;
 /**
  * It will set up a Password Strength Policy.
  * The returned function will check later if a password is valid under that policy.
@@ -69,7 +69,7 @@ declare function password(rules?: {
     allowSpace: boolean;
 }): (arg0: string) => any;
 /**
- * It validates if a value is truthty but with slight modifications for Object and Array.
+ * It validates if a value is truthy but with slight modifications for Object and Array.
  *
  * @example
  * | type    | description                     |
@@ -82,14 +82,14 @@ declare function password(rules?: {
  * @param {any} value - Any value to be checked.
  * @returns {boolean}
  */
-declare function truthty(value: any): boolean;
+declare function truthy(value: any): boolean;
 /**
  * It validates that the given value has only numbers.
  *
  * @param {(string|number)} value Value to match if it's valid.
  * @returns {boolean}
  */
-declare function number(value: string | number): boolean;
+declare function number(value: (string | number)): boolean;
 /**
  * Validates if the value is a well formed email.
  *

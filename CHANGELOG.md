@@ -1,3 +1,7 @@
+# v1.1.5
+* Updated some dependencies
+* Removed require-runtime (My mistake! - I'm sorry!)
+
 # v1.1.4
 * Replace Babel for TypeScript
 * Updated some dependencies

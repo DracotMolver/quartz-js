@@ -63,7 +63,7 @@ if (Object.keys(str).length) {
 }
 ```
 
-Even if the Object is empty I have to write some extra code because an empty Object is `true` due to the nature of JavaScript. This is well known as `Truthty` or `Falsy`.
+Even if the Object is empty I have to write some extra code because an empty Object is `true` due to the nature of JavaScript. This is well known as `truthy` or `Falsy`.
 
 With **Quarzt** this would be different. An empty Object or Array is `false`. This is even in pure JavaScript if you get the length of an Array or Object, which is 0 if they are empty, therefore false.
 
@@ -75,7 +75,7 @@ if (is.moreOrLess(str, 0, true)) {
 
 // or more accurate
 const obj2 = {};
-if (is.truthty(obj2)) {
+if (is.truthy(obj2)) {
   // Do something (Won't pass because is an empty Object)
 }
 ```
@@ -149,8 +149,8 @@ is.nan(Number('123A')); // true
 
 <br />
 
-**`truthty`**
-It validates if a value is truthty but with slight modifications for Object and Array.
+**`truthy`**
+It validates if a value is truthy but with slight modifications for Object and Array.
 
 - **value**: {any} _Any value to be checked._
 
@@ -162,14 +162,14 @@ It validates if a value is truthty but with slight modifications for Object and 
 > **Important**: Array and Object are false if they are empty.
 
 ```js
-is.truthty({ a: 'hello' }); // true
-is.truthty('hello'); // true
-is.truthty([1, 2]); // true
-is.truthty(3); // true
+is.truthy({ a: 'hello' }); // true
+is.truthy('hello'); // true
+is.truthy([1, 2]); // true
+is.truthy(3); // true
 
-is.truthty(NaN); // false
-is.truthty([]); // false
-is.truthty({}); // false
+is.truthy(NaN); // false
+is.truthy([]); // false
+is.truthy({}); // false
 ```
 
 <br />
@@ -363,7 +363,7 @@ A High Order Function to use with filter and map. It Doesn't work with Array of 
 <br />
 
 **`unique`**
-A High Order Function to use with filter and map. It will return the first value of a given key that gives `truthty`.
+A High Order Function to use with filter and map. It will return the first value of a given key that gives `truthy`.
 
 - **key**: {any} _The key looking for on the object._
 - **callback**: {function(any): boolean} _A function that will accept only one param._

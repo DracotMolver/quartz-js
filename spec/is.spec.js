@@ -18,19 +18,19 @@ describe('A collectin of "is" functions', () => {
   });
 
   it('truthy', () => {
-    expect(is.truthty({ a: 'hello' })).toBe(true);
-    expect(is.truthty('hello')).toBe(true);
-    expect(is.truthty([1, 2])).toBe(true);
-    expect(is.truthty(true)).toBe(true);
-    expect(is.truthty(3)).toBe(true);
+    expect(is.truthy({ a: 'hello' })).toBe(true);
+    expect(is.truthy('hello')).toBe(true);
+    expect(is.truthy([1, 2])).toBe(true);
+    expect(is.truthy(true)).toBe(true);
+    expect(is.truthy(3)).toBe(true);
     //
-    expect(is.truthty(NaN)).toBe(false);
-    expect(is.truthty([])).toBe(false);
-    expect(is.truthty({})).toBe(false);
-    expect(is.truthty(undefined)).toBe(false);
-    expect(is.truthty('')).toBe(false);
-    expect(is.truthty(false)).toBe(false);
-    expect(is.truthty(0)).toBe(false);
+    expect(is.truthy(NaN)).toBe(false);
+    expect(is.truthy([])).toBe(false);
+    expect(is.truthy({})).toBe(false);
+    expect(is.truthy(undefined)).toBe(false);
+    expect(is.truthy('')).toBe(false);
+    expect(is.truthy(false)).toBe(false);
+    expect(is.truthy(0)).toBe(false);
   });
 
   it('falsy', () => {

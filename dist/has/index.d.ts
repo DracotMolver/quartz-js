@@ -36,7 +36,7 @@ declare function valueByKey(key: string, value: string): (arg0: any) => boolean;
  * @param {array} values - An array of possible values.
  * @returns {boolean}
  */
-declare function everyValue(value: string | number | boolean, values: any[]): boolean;
+declare function everyValue(value: (boolean | string | number), values: any[]): boolean;
 /**
  * It checks if the values on the first Array exist, at least one of them, in the second Array.
  * It Doesn't work with Array of Objects. For that case use the `someValuesByKey` function.
@@ -62,7 +62,7 @@ declare function someValues(arr: any[], values: any[]): boolean;
  * @param {array} values                  - All the values to match
  * @returns {boolean}
  */
-declare function someValue(value: string | number | boolean, values: any[]): boolean;
+declare function someValue(value: string | boolean | number, values: any[]): boolean;
 /**
  * High Order Function to be with filter and map.
  * Doesn't work with Array of object, for that use the `unique` function
@@ -77,7 +77,7 @@ declare function someValue(value: string | number | boolean, values: any[]): boo
 declare function oneValue(value: any): (arg0: any) => boolean;
 /**
  * High Order Function to be used with filter and map.
- * It return the first value of a given key that return `truthty`.
+ * It return the first value of a given key that return `truthy`.
  *
  * @example
  * [{name: 'john', age: 0}, {name: 'dee', age: 20}].map(util.unique('age'));

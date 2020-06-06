@@ -2,7 +2,7 @@
  * QUARTZ.JS
  *
  * @file A very useful library with fancy small functions
- * @version 1.0.0
+ * @version 1.1.5
  * @author Diego Alberto Molina Vera <dracotm25@gmail.com>
  * @copyright Diego Alberto Molina Vera 2020.
  */
@@ -128,7 +128,7 @@ function oneValue(value) {
 
 /**
  * High Order Function to be used with filter and map.
- * It return the first value of a given key that return `truthty`.
+ * It return the first value of a given key that return `truthy`.
  *
  * @example
  * [{name: 'john', age: 0}, {name: 'dee', age: 20}].map(util.unique('age'));

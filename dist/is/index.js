@@ -2,7 +2,7 @@
  * QUARTZ.JS
  *
  * @file A very useful library with fancy small functions
- * @version 1.0.0
+ * @version 1.1.5
  * @author Diego Alberto Molina Vera <dracotm25@gmail.com>
  * @copyright Diego Alberto Molina Vera 2020.
  */
@@ -102,7 +102,7 @@ function nan(value) {
     return String(value) === 'NaN';
 }
 /**
- * It validates if a value is truthty but with slight modifications for Object and Array.
+ * It validates if a value is truthy but with slight modifications for Object and Array.
  *
  * @example
  * | type    | description                     |
@@ -115,7 +115,7 @@ function nan(value) {
  * @param {any} value - Any value to be checked.
  * @returns {boolean}
  */
-function truthty(value) {
+function truthy(value) {
     var isTruthy = false;
     if (/^\d+$/.test(value)) {
         value = Number(value);
@@ -329,7 +329,7 @@ function password(rules) {
         allowSpace: true
     };
     var callback = null;
-    if (truthty(rules)) {
+    if (truthy(rules)) {
         callback = function (pwd) {
             if (process.env.NODE_ENV !== 'production') {
                 if (rules.minLength < rules.minNumber + rules.minAlpha) {
@@ -382,7 +382,7 @@ var is = Object.freeze({
     lessOrEqual: lessOrEqual,
     exactSize: exactSize,
     password: password,
-    truthty: truthty,
+    truthy: truthy,
     number: number,
     email: email,
     falsy: falsy,

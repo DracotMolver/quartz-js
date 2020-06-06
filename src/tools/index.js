@@ -2,7 +2,7 @@
  * QUARTZ.JS
  *
  * @file A very useful library with fancy small functions
- * @version 1.0.0
+ * @version 1.1.5
  * @author Diego Alberto Molina Vera <dracotm25@gmail.com>
  * @copyright Diego Alberto Molina Vera 2020.
  */
@@ -256,12 +256,102 @@ function rmAttrFromObj(obj, keys) {
   return tmp;
 }
 
+// function connect(param1) {
+//   const users = [
+//     {
+//       id: 1,
+//       name: 'diego',
+//       age: 20,
+//       posts: [2, 3]
+//     }
+//   ];
+
+//   const posts = [
+//     {
+//       id: 2,
+//       comment: 'test 1'
+//     },
+//     {
+//       id: 3,
+//       comment: 'test 3'
+//     }
+//   ]
+
+//   const [fromKey] = Object.keys({user: users});
+//   const [toKey] = Object.keys({post: posts});
+
+//   const tmpuser = users.map(user => {
+//     return {
+//       ...users,
+//       [`get${toKey}`]() {
+//         return this.posts.map(_post => 
+//           posts.find(post => post.id === _post)
+//         )
+//       },
+//       [`get${toKey}ById`](id) {
+//         return posts.find(post => post.id === id)
+//       }
+//     }
+//   })
+  
+
+//   // return {
+//   //   with(param2) {
+//   //     // const [toKey] = Object.keys(param1);
+
+//   //     // const actions = {
+//   //     //   ...param1[fromKey],
+//   //     //   [`get${toKey.substring(0 ,1).toUpperCase()}${toKey.substring(1)}`]() {
+
+//   //     //   }
+//   //     // }
+
+//   //     // return actions;
+
+//   //   }
+//   // }
+  
+// }
+
+/**
+ * function mask(value) {
+  const size = value.length;
+  
+  const dimension = [];
+  let count = 0;
+ 
+  for (let i = 0; i < size; i+= 1) {
+      if (value[i] === '#') {
+        count += 1;
+      } else {
+        dimension.push(count);
+        count = 0;
+      }
+  }
+  
+  dimension.push(count);
+  
+  return (v) => {
+    console.log(dimension)
+     if (v.length >= value.length) {
+         
+     }
+  }
+  
+}
+
+const m = mask('#.###');
+
+m('100');
+ */
+
 module.exports = Object.freeze({
   upperParagraph,
   rmAttrFromObj,
   camelCase,
   compress,
   compose,
+  // connect,
   obj2Arr,
   pipeVal,
   clone,

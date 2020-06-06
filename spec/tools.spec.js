@@ -115,7 +115,7 @@ describe('A collection of "tools" functions', () => {
     expect(tools.compose(sum, multi)(10, 30)).toEqual(302);
   });
 
-  it('pip', () => {
+  it('pipe', () => {
     function sum(a, b) {
       return a + b;
     }
@@ -195,5 +195,31 @@ describe('A collection of "tools" functions', () => {
         }
       ]
     });
+  });
+
+  it.only('connect', () => {
+    const users = [
+      {
+        id: 1,
+        name: 'diego',
+        age: 20,
+        posts: [
+          {
+            id: 2,
+            comment: 'test 1'
+          },
+          {
+            id: 3,
+            comment: 'test 1'
+          }
+        ]
+      }
+    ];
+
+    const x = tools.connect({ user: users }).with({ post: posts });
+
+    x.filter((user) => {
+      user.
+    })
   });
 });

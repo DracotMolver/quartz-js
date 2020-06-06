@@ -34,7 +34,7 @@ declare function upperParagraph(text: string, byWord?: boolean): string;
  * @param {(string|array)} keys - The key(s) to remove from the Object.
  * @returns {object}
  */
-declare function rmAttrFromObj(obj: any, keys: string | any[]): any;
+declare function rmAttrFromObj(obj: any, keys: (string | any[])): object;
 /**
  * It will convert the string to a Lower Camel Case format.
  *
@@ -54,7 +54,7 @@ declare function camelCase(text: string): string;
  * @param {string} value - The name of the attribute to use as a value.
  * @returns {object}
  */
-declare function compress(array: any[], key: string, value: string): any;
+declare function compress(array: any[], key: string, value: string): object;
 /**
  * It will receive several function that are going to `compose` into one function.
  * If you add more than one value, only the first function will receive them and
@@ -78,7 +78,7 @@ declare function compose(...func: any[]): (arg0: any) => any;
  * @param {object}  obj - the object to seek for
  * @returns {array}
  */
-declare function obj2Arr(obj: any): any[];
+declare function obj2Arr(obj: object): any[];
 /**
  * It will call a single function for several independents values.
  * It will return array of N values.
@@ -99,7 +99,7 @@ declare function pipeVal(func: Function): (arg0: any) => any;
  * @param  {(array|object)} obj2 - The Array or Object to merge on the base Array or Object.
  * @returns {(array|object)}
  */
-declare function clone(obj1: any, obj2: any): any;
+declare function clone(obj1: (any[] | object), obj2: (any[] | object)): (any[] | object);
 /**
  * It will concat and execute several functions to the given values.
  * If you add more than one value, only the first function will receive them and
