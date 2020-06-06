@@ -197,7 +197,7 @@ describe('A collection of "tools" functions', () => {
     });
   });
 
-  it.only('connect', () => {
+  xit('connect', () => {
     const users = [
       {
         id: 1,
@@ -217,9 +217,5 @@ describe('A collection of "tools" functions', () => {
     ];
 
     const x = tools.connect({ user: users }).with({ post: posts });
-
-    x.filter((user) => {
-      user.
-    })
   });
 });
