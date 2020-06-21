@@ -13,7 +13,10 @@
         "corejs": {
           "version": 3,
           "proposals": false
-        }
+        },
+        "modules": [
+          "commonjs"
+        ]
       }
     ]
   ]
