@@ -1,9 +1,12 @@
-/docs/
-/spec/
+docs/
+spec/
+node_modules/
 .eslintrc.json
 .prettierrc
 .travis.yml
 README.md
-.nyc_output
+.nyc_output/
 .gitignore
 CHANGELOG.md
+src/
+package-lock.json
