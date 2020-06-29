@@ -218,4 +218,15 @@ describe('A collection of "tools" functions', () => {
 
     const x = tools.connect({ user: users }).with({ post: posts });
   });
+
+  it('Converts from `hexadecimal` to `rgb|rgba`', () => {
+    const expected01 = [255, 255, 255];
+    const expected02 = [102, 255, 102];
+    const expected03 = [230, 230, 0];
+
+    expect(tools.hexToRGB('fff')).toEqual(expected01);
+    expect(tools.hexToRGB('ffffff')).toEqual( expected01);
+    expect(tools.hexToRGB('66ff66')).toEqual( expected02);
+    expect(tools.hexToRGB('e6e600')).toEqual( expected03);
+  });
 });

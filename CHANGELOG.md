@@ -1,3 +1,6 @@
+# v1.2.5
+* Added new function `hexToRGB` to convert hexadecimal values to RGB ones
+
 # v1.1.5
 * Updated some dependencies
 * Removed require-runtime (My mistake! - I'm sorry!)

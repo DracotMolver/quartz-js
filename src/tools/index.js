@@ -198,20 +198,34 @@ function pipeVal(func) {
   return (...params) => [...getGenerator(func, params)];
 }
 
-// formatter
-// humanize some values
+/**
+ * It will return an array of three values representing the RGB colors.
+ *
+ * @param {string} hex - The hexadecimal color value to convert to RGB value.
+ * @returns {array} - The array of RGB values.
+ */
+function hexToRGB(hex) {
+  // 3 => [f, f, f]
+  // 6 => [ff, ff, ff]
+  const hexadecimal =
+    hex.length > 3 ? hex.match(/[a-f\d]{2}/g) : hex.split('');
+
+  return hexadecimal.map(value =>
+    parseInt(value.length === 2 ? value : `${value}${value}`, 16)
+  );
+}
 
 /**
  * It will remove a property from an Object based on the given key.
  * This is only for Object, don't try to remove a property from an Object within an Array.
  *
  * 1.- It removes the property based on one key at FIRST level.
- * 
+ *
  * 2.- Remove the properties based on more than one key at FIRST level.
  *     You must pass an array containing the keys to remove.
- * 
+ *
  * 3.- Remove the property based on one key at N level (nested) using a dot notation.
- * 
+ *
  * @param {object} object - The Object that you want to remove the values from.
  * @param {(string|array)} keys - The key(s) to remove from the Object.
  * @returns {object}
@@ -284,7 +298,7 @@ function rmAttrFromObj(obj, keys) {
 //     return {
 //       ...users,
 //       [`get${toKey}`]() {
-//         return this.posts.map(_post => 
+//         return this.posts.map(_post =>
 //           posts.find(post => post.id === _post)
 //         )
 //       },
@@ -293,7 +307,6 @@ function rmAttrFromObj(obj, keys) {
 //       }
 //     }
 //   })
-  
 
 //   // return {
 //   //   with(param2) {
@@ -310,7 +323,7 @@ function rmAttrFromObj(obj, keys) {
 
 //   //   }
 //   // }
-  
+
 // }
 
 /**
@@ -352,6 +365,7 @@ module.exports = Object.freeze({
   compress,
   compose,
   // connect,
+  hexToRGB,
   obj2Arr,
   pipeVal,
   clone,

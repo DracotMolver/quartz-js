@@ -623,3 +623,15 @@ tools.rmAttrFromObj(obj, 'names.lastName');
 //   ]
 // };
 ```
+
+<br />
+
+**`rmAttrFromObj`**
+It will return an array of three values representing the RGB colors.
+
+- **hex** {string} The hexadecimal color value to convert to RGB value.
+
+```js
+const [R, G, B] = hexToRGB('fff');
+// [255, 255, 255]
+```
