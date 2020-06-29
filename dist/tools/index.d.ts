@@ -4,6 +4,7 @@ declare const _exports: {
     readonly camelCase: typeof camelCase;
     readonly compress: typeof compress;
     readonly compose: typeof compose;
+    readonly hexToRGB: typeof hexToRGB;
     readonly obj2Arr: typeof obj2Arr;
     readonly pipeVal: typeof pipeVal;
     readonly clone: typeof clone;
@@ -68,6 +69,13 @@ declare function compress(array: any[], key: string, value: string): object;
  * @returns {function(any): any} - A function that will accept only one param.
  */
 declare function compose(...func: any[]): (arg0: any) => any;
+/**
+ * It will return an array of three values representing the RGB colors.
+ *
+ * @param {string} hex - The hexadecimal color value to convert to RGB value.
+ * @returns {array} - The array of RGB values.
+ */
+declare function hexToRGB(hex: string): any[];
 /**
  * It will create an Object into an Array of Objects keeping the original keys of the given Object.
  *

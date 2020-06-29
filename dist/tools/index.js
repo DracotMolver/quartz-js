@@ -60,6 +60,8 @@ require("core-js/modules/es.regexp.to-string");
 
 require("core-js/modules/es.string.iterator");
 
+require("core-js/modules/es.string.match");
+
 require("core-js/modules/es.string.replace");
 
 require("core-js/modules/es.string.split");
@@ -252,6 +254,13 @@ function pipeVal(func) {
   };
 }
 
+function hexToRGB(hex) {
+  var hexadecimal = hex.length > 3 ? hex.match(/[a-f\d]{2}/g) : hex.split('');
+  return hexadecimal.map(function (value) {
+    return parseInt(value.length === 2 ? value : "".concat(value).concat(value), 16);
+  });
+}
+
 function rmAttrFromObj(obj, keys) {
   var tmp = _objectSpread({}, obj);
 
@@ -307,6 +316,7 @@ module.exports = Object.freeze({
   camelCase: camelCase,
   compress: compress,
   compose: compose,
+  hexToRGB: hexToRGB,
   obj2Arr: obj2Arr,
   pipeVal: pipeVal,
   clone: clone,
