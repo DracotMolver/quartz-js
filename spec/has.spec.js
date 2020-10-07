@@ -6,11 +6,11 @@ describe('A collection of "has" functions', () => {
     expect(has.someValues([4, 2, 3], [1, 5, 6, 3, 8])).toBeTrue();
   });
 
-  it('someValue - Normal Array no filter and map', () => {
-    expect(has.someValue(4, [1, 5, 6, 3, 8])).toBeFalse();
-    expect(has.someValue(6, [1, 5, 6, 3, 8])).toBeTrue();
+  it('singleValue - Normal Array no filter and map', () => {
+    expect(has.singleValue(4, [1, 5, 6, 3, 8])).toBeFalse();
+    expect(has.singleValue(6, [1, 5, 6, 3, 8])).toBeTrue();
     expect(
-      has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo'])
+      has.singleValue('hello', ['hello', 'priviet', 'hola', 'hallo'])
     ).toBeTrue();
   });
 

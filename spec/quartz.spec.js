@@ -2,12 +2,7 @@ const has = require('./../src/has');
 const is = require('./../src/is');
 
 describe('General situations using Quartz', () => {
-  it('is fobidden to overwrite `is`, `has` and `tools`', () => {
-    expect(() => (is.ip = 'overwrite')).toThrow();
-    expect(() => (is = 'overwrite')).toThrow();
-  });
-
-  describe('`is` functions showing consolo.error', () => {
+  describe('`is` functions showing console.error', () => {
     beforeAll(() => {
       spyOn(console, 'error');
     });
@@ -15,21 +10,21 @@ describe('General situations using Quartz', () => {
     it('moreOrEqual', () => {
       is.moreOrEqual(123, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'Pass only Object, Array or String in the first parameter.'
+        'Only pass an Object, an Array or an String at the first parameter.'
       );
     });
 
     it('lessOrEqual', () => {
       is.lessOrEqual(123, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'Pass only Object, Array or String in the first parameter.'
+        'Only pass an Object, an Array or an String at the first parameter.'
       );
     });
 
     it('exactSize', () => {
       is.exactSize(123, 3);
       expect(console.error).toHaveBeenCalledWith(
-        'Pass only Object, Array or String in the first parameter.'
+        'Only pass an Object, an Array or an String at the first parameter.'
       );
     });
 
@@ -116,13 +111,13 @@ describe('General situations using Quartz', () => {
       );
     });
 
-    it('someValues', () => {
-      has.someValue([123], [3, 2, 3]);
+    it('singleValue', () => {
+      has.singleValue([123], [3, 2, 3]);
       expect(console.error).toHaveBeenCalledWith(
         'The first parameter can only be: String, Number or Boolean.'
       );
 
-      has.someValue(3, 3);
+      has.singleValue(3, 3);
       expect(console.error).toHaveBeenCalledWith(
         'The second parameter must be an Array.'
       );

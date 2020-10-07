@@ -9,7 +9,28 @@
 
 'use strict';
 
-const util = require('util');
+const is = require('../is');
+
+function _errorMessage(condition, message) {
+  let isOK = true;
+
+  if (process.env.NODE_ENV !== 'production') {
+    if (is.array(condition)) {
+      let errorMsg = '';
+      condition.find((con, index) => {
+        errorMsg = message[index];
+        return con === true;
+      });
+      console.error(errorMsg);
+      isOK = false;
+    } else if (condition) {
+      console.error(message);
+      isOK = false;
+    }
+  }
+
+  return isOK;
+}
 
 /**
  * It checks if the values on the first Array exist, at least one of them, in the second Array.
@@ -24,28 +45,28 @@ const util = require('util');
  * @returns {boolean}
  */
 function someValues(arr, values) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (!util.isArray(arr)) {
-      console.error('The first parameter must be an Array.');
-      return;
-    } else if (!util.isArray(values)) {
-      console.error('The second parameter must be an Array.');
-      return;
+  const isOK = _errorMessage(
+    [is.not.array(arr), is.not.array(values)],
+    [
+      'The first parameter must be an Array.',
+      'The second parameter must be an Array.'
+    ]
+  );
+
+  if (isOK) {
+    const size = arr.length;
+
+    let bool = false;
+
+    for (let index = 0; index < size; index += 1) {
+      if (values.indexOf(arr[index]) !== -1) {
+        bool = true;
+        index = size;
+      }
     }
+
+    return bool;
   }
-
-  const size = arr.length;
-
-  let bool = false;
-
-  for (let index = 0; index < size; index += 1) {
-    if (values.indexOf(arr[index]) !== -1) {
-      bool = true;
-      index = size;
-    }
-  }
-
-  return bool;
 }
 
 /**
@@ -53,31 +74,25 @@ function someValues(arr, values) {
  * Doesn't work with Array of Objects, for that use the `someValueByKey` function
  *
  * @example
- * has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']);
+ * has.singleValue('hello', ['hello', 'priviet', 'hola', 'hallo']);
  * // true
  *
  * @param {string|boolean|number} value - The value to match against with.
  * @param {array} values                  - All the values to match
  * @returns {boolean}
  */
-function someValue(value, values) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (
-      !util.isNumber(value) &&
-      !util.isString(value) &&
-      !util.isBoolean(value)
-    ) {
-      console.error(
-        'The first parameter can only be: String, Number or Boolean.'
-      );
-      return;
-    } else if (!util.isArray(values)) {
-      console.error('The second parameter must be an Array.');
-      return;
-    }
-  }
+function singleValue(value, values) {
+  const isOK = _errorMessage(
+    [is.object(value), is.not.array(values)],
+    [
+      'The first parameter can only be: String, Number or Boolean.',
+      'The second parameter must be an Array.'
+    ]
+  );
 
-  return values.indexOf(value) !== -1;
+  if (isOK) {
+    return values.indexOf(value) !== -1;
+  }
 }
 
 /**
@@ -88,27 +103,25 @@ function someValue(value, values) {
  * @returns {boolean}
  */
 function everyValue(value, values) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (util.isObject(value)) {
-      console.error(
-        'The first parameter can only be: String, Number or Boolean.'
-      );
-      return;
-    } else if (!util.isArray(values)) {
-      console.error('The second parameter must be an Array.');
-      return;
+  const isOK = _errorMessage(
+    [is.object(value), is.not.array(value)],
+    [
+      'The first parameter can only be: String, Number or Boolean.',
+      'The second parameter must be an Array.'
+    ]
+  );
+
+  if (isOK) {
+    let bool = false;
+
+    const size = values.length;
+
+    for (let index = 0; index < size; index += 1) {
+      bool = values[index] === value;
     }
+
+    return bool;
   }
-
-  let bool = false;
-
-  const size = values.length;
-
-  for (let index = 0; index < size; index += 1) {
-    bool = values[index] === value;
-  }
-
-  return bool;
 }
 
 /**
@@ -183,10 +196,10 @@ function valuesByKeys(keys, values) {
 
 module.exports = Object.freeze({
   valuesByKeys,
+  singleValue,
   valueByKey,
   everyValue,
   someValues,
-  someValue,
   oneValue,
   unique
 });

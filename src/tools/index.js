@@ -9,7 +9,7 @@
 
 'use strict';
 
-const util = require('util');
+const is = require('../is');
 
 /**
  * It will convert the string to a Lower Camel Case format.
@@ -84,7 +84,7 @@ function obj2Arr(obj) {
  * @returns {(array|object)}
  */
 function clone(obj1, obj2) {
-  return util.isArray(obj1)
+  return is.array(obj1)
     ? obj1.concat(obj2)
     : Object.assign(obj1, obj2);
 }
@@ -234,7 +234,7 @@ function rmAttrFromObj(obj, keys) {
   let tmp = { ...obj };
 
   // Simple searching
-  if (util.isString(keys)) {
+  if (is.string(keys)) {
     const _keys = keys.split('.');
 
     if (_keys.length === 1) {
@@ -258,7 +258,7 @@ function rmAttrFromObj(obj, keys) {
         }
       }
     }
-  } else if (util.isArray(keys)) {
+  } else if (is.array(keys)) {
     const size = keys.length;
 
     for (let iter = 0; iter < size; iter += 1) {

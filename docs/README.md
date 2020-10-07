@@ -330,14 +330,14 @@ has.someValues([1, 2, 3], [1, 5, 4, 3, 10]); // true
 
 <br />
 
-**`someValue`**
+**`singleValue`**
 It matches a single value against N values until find one. It doesn't work with Array of Objects. For that case use the `someValueByKey` function.
 
 - **value** {(string\|boolean\|number)} _The value to match against with._
 - **values** {array} values _All the values to match._
 
 ```js
-has.someValue('hello', ['hello', 'priviet', 'hola', 'hallo']); // true
+has.singleValue('hello', ['hello', 'priviet', 'hola', 'hallo']); // true
 ```
 
 <br />
