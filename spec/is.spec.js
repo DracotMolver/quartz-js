@@ -2,63 +2,63 @@ const is = require('./../src/is');
 
 describe('A collectin of "is" functions', () => {
   it('ip', () => {
-    expect(is.ip('255.255.255.255')).toBe(true);
-    expect(is.ip('0.0.0.0')).toBe(true);
-    expect(is.ip('127.0.0.1')).toBe(true);
-    expect(is.ip('192.88.99.0')).toBe(true);
+    expect(is.ip('255.255.255.255')).toBeTrue();
+    expect(is.ip('0.0.0.0')).toBeTrue();
+    expect(is.ip('127.0.0.1')).toBeTrue();
+    expect(is.ip('192.88.99.0')).toBeTrue();
   });
 
   it('url', () => {
-    expect(is.url('http://www.exampledomain.com')).toBe(true);
-    expect(is.url('http://exampledomain.com')).toBe(true);
-    expect(is.url('http://exampledomain.com:8080')).toBe(true);
-    expect(is.url('https://www.exampledomain.com')).toBe(true);
-    expect(is.url('mailto::xalphase@ampledomain.cl')).toBe(true);
-    expect(is.url('ftp://www.exampledomain.com')).toBe(true);
+    expect(is.url('http://www.exampledomain.com')).toBeTrue();
+    expect(is.url('http://exampledomain.com')).toBeTrue();
+    expect(is.url('http://exampledomain.com:8080')).toBeTrue();
+    expect(is.url('https://www.exampledomain.com')).toBeTrue();
+    expect(is.url('mailto::xalphase@ampledomain.cl')).toBeTrue();
+    expect(is.url('ftp://www.exampledomain.com')).toBeTrue();
   });
 
   it('truthy', () => {
-    expect(is.truthy({ a: 'hello' })).toBe(true);
-    expect(is.truthy('hello')).toBe(true);
-    expect(is.truthy([1, 2])).toBe(true);
-    expect(is.truthy(true)).toBe(true);
-    expect(is.truthy(3)).toBe(true);
+    expect(is.truthy({ a: 'hello' })).toBeTrue();
+    expect(is.truthy('hello')).toBeTrue();
+    expect(is.truthy([1, 2])).toBeTrue();
+    expect(is.truthy(true)).toBeTrue();
+    expect(is.truthy(3)).toBeTrue();
     //
-    expect(is.truthy(NaN)).toBe(false);
-    expect(is.truthy([])).toBe(false);
-    expect(is.truthy({})).toBe(false);
-    expect(is.truthy(undefined)).toBe(false);
-    expect(is.truthy('')).toBe(false);
-    expect(is.truthy(false)).toBe(false);
-    expect(is.truthy(0)).toBe(false);
+    expect(is.truthy(NaN)).toBeFalse();
+    expect(is.truthy([])).toBeFalse();
+    expect(is.truthy({})).toBeFalse();
+    expect(is.truthy(undefined)).toBeFalse();
+    expect(is.truthy('')).toBeFalse();
+    expect(is.truthy(false)).toBeFalse();
+    expect(is.truthy(0)).toBeFalse();
   });
 
   it('falsy', () => {
-    expect(is.falsy({ a: 'hello' })).toBe(false);
-    expect(is.falsy('hello')).toBe(false);
-    expect(is.falsy([1, 2])).toBe(false);
-    expect(is.falsy(true)).toBe(false);
-    expect(is.falsy(3)).toBe(false);
+    expect(is.falsy({ a: 'hello' })).toBeFalse();
+    expect(is.falsy('hello')).toBeFalse();
+    expect(is.falsy([1, 2])).toBeFalse();
+    expect(is.falsy(true)).toBeFalse();
+    expect(is.falsy(3)).toBeFalse();
     //
-    expect(is.falsy(NaN)).toBe(true);
-    expect(is.falsy([])).toBe(true);
-    expect(is.falsy({})).toBe(true);
-    expect(is.falsy(undefined)).toBe(true);
-    expect(is.falsy('')).toBe(true);
-    expect(is.falsy(false)).toBe(true);
-    expect(is.falsy(0)).toBe(true);
+    expect(is.falsy(NaN)).toBeTrue();
+    expect(is.falsy([])).toBeTrue();
+    expect(is.falsy({})).toBeTrue();
+    expect(is.falsy(undefined)).toBeTrue();
+    expect(is.falsy('')).toBeTrue();
+    expect(is.falsy(false)).toBeTrue();
+    expect(is.falsy(0)).toBeTrue();
   });
 
   it('nan', () => {
-    expect(is.nan(NaN)).toBe(true);
-    expect(is.nan(Number('123A'))).toBe(true);
+    expect(is.nan(NaN)).toBeTrue();
+    expect(is.nan(Number('123A'))).toBeTrue();
   });
 
   it('R.U.N (run) - Chile ID', () => {
-    expect(is.run('18150581-8')).toBe(true);
-    expect(is.run('19423287-k')).toBe(true);
-    expect(is.run('117945138')).toBe(true);
-    expect(is.run('24.634.452-3')).toBe(true);
+    expect(is.run('18150581-8')).toBeTrue();
+    expect(is.run('19423287-k')).toBeTrue();
+    expect(is.run('117945138')).toBeTrue();
+    expect(is.run('24.634.452-3')).toBeTrue();
   });
 
   const object = {
@@ -74,44 +74,44 @@ describe('A collectin of "is" functions', () => {
   const string = 'hellow world'; // length:12
 
   it('exactSize', () => {
-    expect(is.exactSize(object, 4)).toBe(true);
-    expect(is.exactSize(array, 7)).toBe(true);
-    expect(is.exactSize(string, 12)).toBe(true);
+    expect(is.exactSize(object, 4)).toBeTrue();
+    expect(is.exactSize(array, 7)).toBeTrue();
+    expect(is.exactSize(string, 12)).toBeTrue();
     //
-    expect(is.exactSize(object, 2)).toBe(false);
-    expect(is.exactSize(array, 10)).toBe(false);
-    expect(is.exactSize(string, 9)).toBe(false);
+    expect(is.exactSize(object, 2)).toBeFalse();
+    expect(is.exactSize(array, 10)).toBeFalse();
+    expect(is.exactSize(string, 9)).toBeFalse();
   });
 
   it('moreOrEqual', () => {
-    expect(is.moreOrEqual(object, 4)).toBe(true);
-    expect(is.moreOrEqual(array, 5)).toBe(true);
-    expect(is.moreOrEqual(string, 12)).toBe(true);
-    expect(is.moreOrEqual('hello', 3, true)).toBe(true);
+    expect(is.moreOrEqual(object, 4)).toBeTrue();
+    expect(is.moreOrEqual(array, 5)).toBeTrue();
+    expect(is.moreOrEqual(string, 12)).toBeTrue();
+    expect(is.moreOrEqual('hello', 3, true)).toBeTrue();
     //
-    expect(is.moreOrEqual(object, 10)).toBe(false);
-    expect(is.moreOrEqual(array, 12)).toBe(false);
-    expect(is.moreOrEqual(string, 13)).toBe(false);
-    expect(is.moreOrEqual('hello', 5, true)).toBe(false);
+    expect(is.moreOrEqual(object, 10)).toBeFalse();
+    expect(is.moreOrEqual(array, 12)).toBeFalse();
+    expect(is.moreOrEqual(string, 13)).toBeFalse();
+    expect(is.moreOrEqual('hello', 5, true)).toBeFalse();
   });
 
   it('lessOrEqual', () => {
-    expect(is.lessOrEqual(object, 10)).toBe(true);
-    expect(is.lessOrEqual(array, 7)).toBe(true);
-    expect(is.lessOrEqual(string, 20)).toBe(true);
-    expect(is.lessOrEqual('hello', 7, true)).toBe(true);
+    expect(is.lessOrEqual(object, 10)).toBeTrue();
+    expect(is.lessOrEqual(array, 7)).toBeTrue();
+    expect(is.lessOrEqual(string, 20)).toBeTrue();
+    expect(is.lessOrEqual('hello', 7, true)).toBeTrue();
     //
-    expect(is.lessOrEqual(object, 1)).toBe(false);
-    expect(is.lessOrEqual(array, 2)).toBe(false);
-    expect(is.lessOrEqual(string, 10)).toBe(false);
-    expect(is.lessOrEqual('hello', 2, true)).toBe(false);
+    expect(is.lessOrEqual(object, 1)).toBeFalse();
+    expect(is.lessOrEqual(array, 2)).toBeFalse();
+    expect(is.lessOrEqual(string, 10)).toBeFalse();
+    expect(is.lessOrEqual('hello', 2, true)).toBeFalse();
   });
 
   it('email', () => {
-    expect(is.email('very.common@example.com')).toBe(true);
+    expect(is.email('very.common@example.com')).toBeTrue();
     expect(
       is.email('disposable.style.email.with + symbol@example.com')
-    ).toBe(true);
+    ).toBeTrue();
     expect(is.email('other.email -with-hyphen@example.com')).toBe(
       true
     );
@@ -121,40 +121,40 @@ describe('A collectin of "is" functions', () => {
     expect(is.email('user.name + tag + sorting@example.com')).toBe(
       true
     );
-    expect(is.email('x@example.com')).toBe(true);
+    expect(is.email('x@example.com')).toBeTrue();
     expect(
       is.email(
         '"very.(),:;<>[]\\".VERY."very@\\ "very".unusual"@strange.example.com'
       )
-    ).toBe(true);
+    ).toBeTrue();
     expect(is.email('example - indeed@strange-example.com')).toBe(
       true
     );
-    expect(is.email('admin@mailserver1')).toBe(true);
-    expect(is.email("#!$ %& '*+-/=?^_`{}|~@example.org")).toBe(true);
-    expect(is.email('simple@example.com')).toBe(true);
-    expect(is.email('" "@example.org')).toBe(true);
-    expect(is.email('user@[2001:DB8::1]')).toBe(true);
-    expect(is.email('example@s.example')).toBe(true);
+    expect(is.email('admin@mailserver1')).toBeTrue();
+    expect(is.email("#!$ %& '*+-/=?^_`{}|~@example.org")).toBeTrue();
+    expect(is.email('simple@example.com')).toBeTrue();
+    expect(is.email('" "@example.org')).toBeTrue();
+    expect(is.email('user@[2001:DB8::1]')).toBeTrue();
+    expect(is.email('example@s.example')).toBeTrue();
   });
 
   it('alpha', () => {
-    expect(is.alpha('hola')).toBe(true);
-    expect(is.alpha('John Doe')).toBe(true);
-    expect(is.alpha('John Doe día')).toBe(true);
-    expect(is.alpha('John Doe Ño')).toBe(true);
-    
-    expect(is.alpha('John Doe 3')).toBe(false);
+    expect(is.alpha('hola')).toBeTrue();
+    expect(is.alpha('John Doe')).toBeTrue();
+    expect(is.alpha('John Doe día')).toBeTrue();
+    expect(is.alpha('John Doe Ño')).toBeTrue();
+
+    expect(is.alpha('John Doe 3')).toBeFalse();
   });
 
   it('number', () => {
-    expect(is.number('1234')).toBe(true);
-    expect(is.number('12.34')).toBe(true);
-    expect(is.number('12,34')).toBe(true);
-    expect(is.number('$12,34')).toBe(true);
-    expect(is.number('2')).toBe(true);
-    expect(is.number(2.2)).toBe(true);
-    expect(is.number(2)).toBe(true);
+    expect(is.number('1234')).toBeTrue();
+    expect(is.number('12.34')).toBeTrue();
+    expect(is.number('12,34')).toBeTrue();
+    expect(is.number('$12,34')).toBeTrue();
+    expect(is.number('2')).toBeTrue();
+    expect(is.number(2.2)).toBeTrue();
+    expect(is.number(2)).toBeTrue();
   });
 
   it('password', () => {
@@ -169,11 +169,11 @@ describe('A collectin of "is" functions', () => {
     });
 
     // success
-    expect(pwdMatcher('di12345e')).toBe(true);
-    expect(pwdMatcher('di12345eh')).toBe(true);
-    expect(pwdMatcher('di12345')).toBe(true);
-    expect(pwdMatcher('d@12345')).toBe(true);
-    expect(pwdMatcher('d@12345')).toBe(true);
+    expect(pwdMatcher('di12345e')).toBeTrue();
+    expect(pwdMatcher('di12345eh')).toBeTrue();
+    expect(pwdMatcher('di12345')).toBeTrue();
+    expect(pwdMatcher('d@12345')).toBeTrue();
+    expect(pwdMatcher('d@12345')).toBeTrue();
     // mistakes
     expect(pwdMatcher('d12345')).toEqual([
       {
@@ -210,8 +210,8 @@ describe('A collectin of "is" functions', () => {
       allowSpace: true
     });
 
-    expect(pwdMatcher('di 12345')).toBe(true);
-    expect(pwdMatcher('di12345')).toBe(true);
+    expect(pwdMatcher('di 12345')).toBeTrue();
+    expect(pwdMatcher('di12345')).toBeTrue();
 
     // min char
     pwdMatcher = is.password({
@@ -223,50 +223,12 @@ describe('A collectin of "is" functions', () => {
       allowSpace: false
     });
 
-    expect(pwdMatcher('dd12345')).toBe(true);
+    expect(pwdMatcher('dd12345')).toBeTrue();
     expect(pwdMatcher('di12345')).toEqual([
       {
         rule: 'minSameChar',
         value: false
       }
     ]);
-  });
-
-  it('not.ip', () => {
-    expect(is.not.ip('25x.2s5.255.255')).toBe(true);
-    expect(is.not.ip('288.0.1.0')).toBe(true);
-    expect(is.not.ip('288.999.999.999')).toBe(true);
-    expect(is.not.ip('127.500.0.1')).toBe(true);
-    expect(is.not.ip('12a.88.99.0')).toBe(true);
-  });
-
-  it('not.url', () => {
-    expect(is.not.url('http//:www.exampledomain.com')).toBe(true);
-    expect(is.not.url('shttp://exampledomain.com')).toBe(true);
-    expect(is.not.url('http://8080:exampledomain.com:8080')).toBe(
-      true
-    );
-    expect(is.not.url('https/:www.exampledomain.com')).toBe(true);
-    expect(is.not.url('mailto:xalphase@ampledomain.cl')).toBe(true);
-    expect(is.not.url('sftp:/www.exampledomain.com')).toBe(true);
-  });
-
-  it('not.nan', () => {
-    expect(is.not.nan(123)).toBe(true);
-    expect(is.not.nan(Number('123'))).toBe(true);
-  });
-
-  it('not.alpha', () => {
-    expect(is.not.alpha('123')).toBe(true);
-    expect(is.not.alpha(String(123))).toBe(true);
-    expect(is.not.alpha('123412`0.-,')).toBe(true);
-  });
-
-  it('not.number', () => {
-    expect(is.not.number('1a234')).toBe(true);
-    expect(is.not.number('hola')).toBe(true);
-    expect(is.not.number(NaN)).toBe(true);
-    expect(is.not.number(undefined)).toBe(true);
-    expect(is.not.number(null)).toBe(true);
   });
 });

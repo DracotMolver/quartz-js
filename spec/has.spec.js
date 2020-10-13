@@ -1,17 +1,39 @@
 const has = require('./../src/has');
 
 describe('A collection of "has" functions', () => {
+  beforeEach(() => {
+    spyOn(console, 'error');
+  });
+
+  it('everyValue - Normal Array no filter and map', () => {
+    expect(has.everyValue(1, [1, 5, 6, 3, 8])).toBeFalse();
+    expect(has.everyValue(true, [true, true, true])).toBeTrue();
+
+    expect(has.everyValue(1, 1)).toBeUndefined();
+    expect(console.error).toHaveBeenCalled();
+  });
+
   it('someValues - Normal Array no filter and map', () => {
     expect(has.someValues([1, 2, 3], [1, 5, 6, 3, 8])).toBeTrue();
     expect(has.someValues([4, 2, 3], [1, 5, 6, 3, 8])).toBeTrue();
+
+    expect(has.someValues(1, [1, 5, 6, 3, 8])).toBeUndefined();
+    expect(console.error).toHaveBeenCalled();
   });
 
   it('singleValue - Normal Array no filter and map', () => {
     expect(has.singleValue(4, [1, 5, 6, 3, 8])).toBeFalse();
-    expect(has.singleValue(6, [1, 5, 6, 3, 8])).toBeTrue();
+    expect(has.singleValue(4, [1, 5, 6, 3, 8])).toBeFalse();
     expect(
       has.singleValue('hello', ['hello', 'priviet', 'hola', 'hallo'])
     ).toBeTrue();
+
+    expect(has.singleValue({}, [1, 5, 6, 3, 8])).toBeUndefined();
+    expect(console.error).toHaveBeenCalled();
+    expect(
+      has.singleValue([1, 2, 3], [1, 5, 6, 3, 8])
+    ).toBeUndefined();
+    expect(console.error).toHaveBeenCalled();
   });
 
   it('oneValue - Normal Array with filter and map', () => {

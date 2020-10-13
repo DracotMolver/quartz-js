@@ -17,12 +17,20 @@ function _errorMessage(condition, message) {
   if (process.env.NODE_ENV !== 'production') {
     if (is.array(condition)) {
       let errorMsg = '';
-      condition.find((con, index) => {
-        errorMsg = message[index];
-        return con === true;
-      });
+
+      for (
+        var iter = 0, size = condition.length;
+        iter < size;
+        iter += 1
+      ) {
+        if (condition[iter]) {
+          errorMsg = message[iter];
+          isOK = false;
+          break;
+        }
+      }
+
       console.error(errorMsg);
-      isOK = false;
     } else if (condition) {
       console.error(message);
       isOK = false;
@@ -104,7 +112,7 @@ function singleValue(value, values) {
  */
 function everyValue(value, values) {
   const isOK = _errorMessage(
-    [is.object(value), is.not.array(value)],
+    [is.object(value), is.not.array(values)],
     [
       'The first parameter can only be: String, Number or Boolean.',
       'The second parameter must be an Array.'
