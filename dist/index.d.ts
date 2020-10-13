@@ -1,0 +1,50 @@
+export var tools: {
+    readonly upperParagraph: (text: string, byWord?: boolean) => string;
+    readonly rmAttrFromObj: (obj: any, keys: string | any[]) => any;
+    readonly camelCase: (text: string) => string;
+    readonly compress: (array: any[], key: string, value: string) => any;
+    readonly compose: (...func: any[]) => (arg0: any) => any;
+    readonly hexToRGB: (hex: string) => any[];
+    readonly obj2Arr: (obj: any) => any[];
+    readonly pipeVal: (func: Function) => (arg0: any) => any;
+    readonly clone: (obj1: any, obj2: any) => any;
+    readonly pipe: (...func: any[]) => (arg0: any) => any;
+};
+export var has: {
+    readonly valuesByKeys: (keys: any[], values: any[]) => (content: any) => boolean;
+    readonly singleValue: (value: string | number | boolean, values: any[]) => boolean;
+    readonly valueByKey: (key: string, value: string) => (arg0: any) => boolean;
+    readonly everyValue: (value: string | number | boolean, values: any[]) => boolean;
+    readonly someValues: (arr: any[], values: any[]) => boolean;
+    readonly oneValue: (value: any) => (arg0: any) => boolean;
+    readonly unique: (key: any) => (arg0: any) => boolean;
+};
+export var is: {
+    moreOrEqual: (value: any, size: number, isMoreOnly?: boolean) => boolean;
+    lessOrEqual: (value: any, size: number, isLessOnly?: boolean) => boolean;
+    exactSize: (value: any, size: number) => boolean;
+    password: (rules?: {
+        minLength: number;
+        maxLength: number;
+        minAlpha: number;
+        minNumber: number;
+        minSameChar: number;
+        allowSpace: boolean;
+    }) => (arg0: string) => any;
+    truthy: (value: any) => boolean;
+    number: (value: string | number) => boolean;
+    email: (value: string) => boolean;
+    falsy: (value: any) => boolean;
+    alpha: (value: string) => boolean;
+    nan: (value: any) => boolean;
+    run: (value: string) => boolean;
+    url: (value: string) => boolean;
+    ip: (value: string) => boolean;
+    function: (value: any) => boolean;
+    promise: (value: any) => boolean;
+    string: (value: any) => boolean;
+    object: (value: any) => boolean;
+    array: (value: any) => boolean;
+    date: (value: any) => boolean;
+    bool: (value: any) => boolean;
+};

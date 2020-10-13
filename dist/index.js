@@ -1,0 +1,11 @@
+'use strict';
+
+var tools = require('./tools');
+
+var has = require('./has');
+
+var is = require('./is');
+
+exports.tools = tools;
+exports.has = has;
+exports.is = is;
