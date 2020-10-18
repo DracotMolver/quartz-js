@@ -129,7 +129,7 @@ export function run(value: string): boolean;
  */
 export function url(value: string): boolean;
 /**
- * It validates if the value is a valid well formed ip.
+ * It validates if the value is a valid well formed ip. (IPv4)
  *
  * @param {string} value - The ip to be checked.
  * @return {boolean}

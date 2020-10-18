@@ -1,18 +1,25 @@
 {
   "compilerOptions": {
-    "moduleResolution": "Node",
-    "target": "es5",
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": false,
+    "moduleResolution": "node",
+    "target": "ES5",
     "lib": [
+      "DOM",
       "ES6",
       "ES2015",
       "ES2019",
     ],
-    "module": "ES2015",
+    "module": "ESNext",
     "allowJs": true,
     "declaration": true,
     "outDir": "./dist"
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "spec"
   ]
 }

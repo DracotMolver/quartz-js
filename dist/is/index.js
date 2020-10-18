@@ -1,78 +1,28 @@
+/**
+ * QUARTZ.JS
+ *
+ * @file A very useful library with fancy small functions
+ * @version 1.1.5
+ * @author Diego Alberto Molina Vera <dracotm25@gmail.com>
+ * @copyright Diego Alberto Molina Vera 2020.
+ */
 'use strict';
 
-require("core-js/modules/es.symbol");
-
-require("core-js/modules/es.symbol.description");
-
-require("core-js/modules/es.symbol.iterator");
-
-require("core-js/modules/es.array.filter");
-
-require("core-js/modules/es.array.from");
-
-require("core-js/modules/es.array.iterator");
-
-require("core-js/modules/es.array.join");
-
-require("core-js/modules/es.array.last-index-of");
-
-require("core-js/modules/es.array.map");
-
-require("core-js/modules/es.array.slice");
-
-require("core-js/modules/es.function.name");
-
-require("core-js/modules/es.number.constructor");
-
-require("core-js/modules/es.object.entries");
-
-require("core-js/modules/es.object.keys");
-
-require("core-js/modules/es.object.to-string");
-
-require("core-js/modules/es.promise");
-
-require("core-js/modules/es.regexp.exec");
-
-require("core-js/modules/es.regexp.to-string");
-
-require("core-js/modules/es.set");
-
-require("core-js/modules/es.string.iterator");
-
-require("core-js/modules/es.string.match");
-
-require("core-js/modules/es.string.replace");
-
-require("core-js/modules/es.string.split");
-
-require("core-js/modules/es.string.trim");
-
-require("core-js/modules/web.dom-collections.iterator");
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+var __spreadArrays = void 0 && (void 0).__spreadArrays || function () {
+  for (var s = 0, i = 0, il = arguments.length; i < il; i++) {
+    s += arguments[i].length;
+  }
+
+  for (var r = Array(s), k = 0, i = 0; i < il; i++) {
+    for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++) {
+      r[k] = a[j];
+    }
+  }
+
+  return r;
+};
 
 function _errorMessage(condition, message) {
   var isOK = true;
@@ -89,7 +39,9 @@ function _errorMessage(condition, message) {
 
 function _objLen(value) {
   return (isArray(value) ? value : Object.keys(value)).length;
-}
+} // TODO: ADD COMMENTS
+// Strict value object comparison
+
 
 function isString(value) {
   return typeof value === 'string';
@@ -126,9 +78,21 @@ function isPromise(value) {
 function isDate(value) {
   return value instanceof Date;
 }
+/**
+ * It validates if the given value has a length greater or equal to the given size.
+ * It makes use of strict comparison. Use it only with `String`, `Object`, and `Array`.
+ *
+ * @param {(object|array|string)} value - The value to evaluate its length.
+ * @param {number} size                 - The seed we will use to compare.
+ * @param {boolean} isMoreOnly          - If you want to only validates that the length of value is more than the given size.
+ * @returns {boolean}
+ */
 
-function moreOrEqual(value, size) {
-  var isMoreOnly = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+function moreOrEqual(value, size, isMoreOnly) {
+  if (isMoreOnly === void 0) {
+    isMoreOnly = false;
+  }
 
   var isOK = _errorMessage(isNumber(value) || isBool(value), 'Only pass an Object, an Array or an String at the first parameter.');
 
@@ -143,9 +107,21 @@ function moreOrEqual(value, size) {
     return res;
   }
 }
+/**
+ * It validates if the given value has a length lower or equal to the given size.
+ * It makes use of strict comparison. Use it only with `String`, `Object`, and `Array`.
+ *
+ * @param {(object|array|string)} value - The value to evaluate its length.
+ * @param {number} size                 - The seed we will use to compare.
+ * @param {boolean} isLessOnly          - If you want to only validates that the length of value is less than the given size.
+ * @returns {boolean}
+ */
 
-function lessOrEqual(value, size) {
-  var isLessOnly = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+function lessOrEqual(value, size, isLessOnly) {
+  if (isLessOnly === void 0) {
+    isLessOnly = false;
+  }
 
   var isOK = _errorMessage(isNumber(value) || isBool(value), 'Only pass an Object, an Array or an String at the first parameter.');
 
@@ -160,6 +136,19 @@ function lessOrEqual(value, size) {
     return res;
   }
 }
+/**
+ * It validates if the given value has the exact length as the given size.
+ * It makes use of strict comparison. Use it only with `String`, `Object`, and `Array`.
+ *
+ * @example
+ * exactSize([1, 2, 3, 4], 4); // true
+ * exactSize({a: { c: 2 }, b: 'hello'}, 2); // true
+ *
+ * @param {(object|array|string)} value - The value to evaluate.
+ * @param {number} size                 - The seed we will use to compare.
+ * @returns {boolean}
+ */
+
 
 function exactSize(value, size) {
   var isOK = _errorMessage(isNumber(value) || isBool(value), 'Only pass an Object, an Array or an String at the first parameter.');
@@ -168,10 +157,32 @@ function exactSize(value, size) {
     return (isString(value) ? value.length : _objLen(value)) === size;
   }
 }
+/**
+ * It validates if the given value is NaN.
+ *
+ * @param {any} value - Any value to be checked that is NaN.
+ * @returns {boolean}
+ */
+
 
 function nan(value) {
   return String(value) === 'NaN';
 }
+/**
+ * It validates if a value is truthy but with slight modifications for Object and Array.
+ *
+ * @example
+ * | type    | description                     |
+ * |---------|---------------------------------|
+ * | Objects | "{}" => false. "{a: 2}" => true |
+ * |---------|---------------------------------|
+ * | Arrays  | "[]" => false. "[2]" => true    |
+ * |---------|---------------------------------|
+ *
+ * @param {any} value - Any value to be checked.
+ * @returns {boolean}
+ */
+
 
 function truthy(value) {
   var isTruthy = false;
@@ -192,6 +203,21 @@ function truthy(value) {
 
   return isTruthy;
 }
+/**
+ * It validates if a value is falsy but with slight modifications for Object and Array.
+ *
+ * @example
+ * | type    |  description                    |
+ * |---------|---------------------------------|
+ * | Objects | "{}" => true. "{a: 2}" => false |
+ * |---------|---------------------------------|
+ * | Arrays  | "[]" => true. "[2]" => false    |
+ * |---------|---------------------------------|
+ *
+ * @param {any} value - Any value to be checked
+ * @returns {boolean}
+ */
+
 
 function falsy(value) {
   var isFalsy = false;
@@ -200,12 +226,20 @@ function falsy(value) {
     isFalsy = true;
   } else if (!isPromise(value) && isObject(value)) {
     if (!isDate(value)) {
+      // check for dates
       isFalsy = !Boolean(Object.keys(value).length);
     }
   }
 
   return isFalsy;
 }
+/**
+ * It validates if the given R.U.N is valid. - Chile ID.
+ *
+ * @param {string} value The given R.U.N.
+ * @returns {boolean}
+ */
+
 
 function run(value) {
   var isOK = _errorMessage(!isString(value), 'The given parameter must be an String.');
@@ -236,6 +270,13 @@ function run(value) {
     return digit === text.slice(-1);
   }
 }
+/**
+ * Validates that the given value has only words.
+ *
+ * @param {string} value - Value to match if it's valid
+ * @returns {boolean}
+ */
+
 
 function alpha(value) {
   var isOK = _errorMessage(!isString(value), 'The given parameter must be an String.');
@@ -244,6 +285,13 @@ function alpha(value) {
     return /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+$/i.test(value);
   }
 }
+/**
+ * Validates if the value is a well formed email.
+ *
+ * @param {string} value - The email to check if it's valid
+ * @returns {boolean}
+ */
+
 
 function email(value) {
   var isOK = _errorMessage(!isString(value), 'The given parameter must be an String.');
@@ -251,16 +299,19 @@ function email(value) {
   if (isOK) {
     var isEmail = true;
 
-    if (/^[a-z\d\!#\$%&'.\*\+\-\/\=\?\^_`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(value.toLowerCase())) {
+    if (/^[\w\!#\$%&'.\*\+\-\/\=\?\^`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(value.toLowerCase())) {
       var lastPosition = value.lastIndexOf('@');
       var localPart = value.slice(0, lastPosition);
-      var domainPart = value.slice(lastPosition + 1, value.length);
+      var domainPart = value.slice(lastPosition + 1, value.length); // Local part
 
       if (/^[.,]|[.,]$/.test(localPart)) {
+        // Forbidden
         isEmail = false;
       } else if (/(\.{2,}|["\(\),\:;<>\[\\\]]|@+?)/g.test(localPart) && localPart.slice(0, 1) !== '"' && localPart.slice(-1) !== '"') {
+        // Forbidden
         isEmail = false;
-      }
+      } // Domain part
+
 
       if (isEmail) {
         isEmail = /^[\-]|[\-]$/.test(domainPart) ? false : true;
@@ -272,28 +323,65 @@ function email(value) {
     return isEmail;
   }
 }
+/**
+ * It validates that the given value has only numbers.
+ *
+ * @param {(string|number)} value Value to match if it's valid.
+ * @returns {boolean}
+ */
+
 
 function number(value) {
   var num = Number(String(value).trim().replace(/[.,$]/g, ''));
   return nan(num) ? false : isNumber(num);
 }
+/**
+ * It validates if the value is a valid well formed ip. (IPv4)
+ *
+ * @param {string} value - The ip to be checked.
+ * @return {boolean}
+ */
+
 
 function ip(value) {
   var isOK = _errorMessage(!isString(value), 'The given parameter must be an String.');
 
   if (isOK) {
-    return /\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b/.test(value);
+    var sections = value.split('.');
+
+    if (sections.length === 4) {
+      isOK = true;
+      sections.forEach(function (section) {
+        if (!/\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b/.test(section)) {
+          isOK = false;
+        }
+      });
+    } else {
+      isOK = false;
+    }
+
+    return isOK;
   }
 }
+/**
+ * It validates if the value is a valid well formed URL.
+ * based on: https://www.w3.org/Addressing/URL/url-spec.txt
+ *
+ * @example
+ * is.url('http://google.cl');
+ *
+ * @param {string} value - An URL.
+ * @return {boolean}
+ */
+
 
 function url(value) {
   var isOK = _errorMessage(!isString(value), 'The given parameter must be an String.');
 
   if (isOK) {
-    var _value$split = value.split(':'),
-        _value$split2 = _toArray(_value$split),
-        protocol = _value$split2[0],
-        rest = _value$split2.slice(1);
+    var _a = value.split(':'),
+        protocol = _a[0],
+        rest = _a.slice(1);
 
     var isValid = false;
 
@@ -307,9 +395,26 @@ function url(value) {
     return isValid;
   }
 }
+/**
+ * It will set up a Password Strength Policy.
+ * The returned function will check later if a password is valid under that policy.
+ *
+ * @param {object} rules             - The set of rules for your password
+ * @param {number} rules.minLength   - Minimum size of characters
+ * @param {number} rules.maxLength   - Maximum size of characters
+ * @param {number} rules.minAlpha    - Minimum size of alpha characters
+ * @param {number} rules.minNumber   - Minimum of numbers
+ * @param {number} rules.minSameChar - Minimum of equal characters
+ * @param {boolean} rules.allowSpace - If allow or not whitespace
+ * @returns {function(string): any}
+ */
 
-function password() {
-  var rules = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+
+function password(rules) {
+  if (rules === void 0) {
+    rules = null;
+  }
+
   var isValid = {
     minLength: false,
     maxLength: false,
@@ -348,7 +453,7 @@ function password() {
       isValid.minNumber = matchedNumbers.length >= rules.minNumber;
 
       if (rules.minSameChar) {
-        var singleKeys = _toConsumableArray(new Set(strPwd)).filter(function (s) {
+        var singleKeys = __spreadArrays(new Set(strPwd)).filter(function (s) {
           return !Number(s);
         });
 
@@ -365,11 +470,9 @@ function password() {
         isValid.allowSpace = strPwd.split(/\s+/g).length === 1;
       }
 
-      var isValidPwd = Object.entries(isValid).map(function (_ref) {
-        var _ref2 = _slicedToArray(_ref, 2),
-            key = _ref2[0],
-            value = _ref2[1];
-
+      var isValidPwd = Object.entries(isValid).map(function (_a) {
+        var key = _a[0],
+            value = _a[1];
         return !value ? {
           rule: key,
           value: value
@@ -382,7 +485,8 @@ function password() {
   }
 
   return callback;
-}
+} // ----------------------------------------------------------------------------------
+
 
 var is = {
   moreOrEqual: moreOrEqual,
@@ -398,6 +502,7 @@ var is = {
   run: run,
   url: url,
   ip: ip,
+  // Base on primitive types
   function: isFunction,
   promise: isPromise,
   string: isString,
@@ -409,8 +514,10 @@ var is = {
 var isNot = new Proxy(is, {
   get: function get(obj, prop) {
     return function () {
-      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-        args[_key] = arguments[_key];
+      var args = [];
+
+      for (var _i = 0; _i < arguments.length; _i++) {
+        args[_i] = arguments[_i];
       }
 
       return !obj[prop].apply(null, args);
@@ -418,6 +525,7 @@ var isNot = new Proxy(is, {
   },
   set: function set(obj, prop) {
     if (process.env.NODE_ENV !== 'production') {
+      // This will throw an exception when trying to overwrite any attribute of the Object
       return obj[prop];
     }
   }
@@ -428,6 +536,7 @@ module.exports = new Proxy(is, {
   },
   set: function set(obj, prop) {
     if (process.env.NODE_ENV !== 'production') {
+      // This will throw an exception when trying to overwrite any attribute of the Object
       return obj[prop];
     }
   }

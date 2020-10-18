@@ -293,7 +293,7 @@ function email(value) {
     let isEmail = true;
 
     if (
-      /^[a-z\d\!#\$%&'.\*\+\-\/\=\?\^_`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(
+      /^[\w\!#\$%&'.\*\+\-\/\=\?\^`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(
         value.toLowerCase()
       )
     ) {
@@ -339,21 +339,32 @@ function number(value) {
 }
 
 /**
- * It validates if the value is a valid well formed ip.
+ * It validates if the value is a valid well formed ip. (IPv4)
  *
  * @param {string} value - The ip to be checked.
  * @return {boolean}
  */
 function ip(value) {
-  const isOK = _errorMessage(
+  let isOK = _errorMessage(
     !isString(value),
     'The given parameter must be an String.'
   );
 
   if (isOK) {
-    return /\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b/.test(
-      value
-    );
+    const sections = value.split('.');
+
+    if (sections.length === 4) {
+      isOK = true;
+      sections.forEach(section => {
+        if (!/\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b/.test(section)) {
+          isOK = false;
+        }
+      });
+    } else {
+      isOK = false;
+    }
+
+    return isOK;
   }
 }
 
