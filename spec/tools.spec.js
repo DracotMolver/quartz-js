@@ -1,6 +1,6 @@
 const tools = require('./../src/tools');
 
-describe('A collection of "tools" functions', () => {
+xdescribe('A collection of "tools" functions', () => {
   it('camelCase', () => {
     expect(tools.camelCase('user_name')).toEqual('userName');
     expect(tools.camelCase('user-name')).toEqual('userName');
@@ -195,28 +195,6 @@ describe('A collection of "tools" functions', () => {
         }
       ]
     });
-  });
-
-  xit('connect', () => {
-    const users = [
-      {
-        id: 1,
-        name: 'diego',
-        age: 20,
-        posts: [
-          {
-            id: 2,
-            comment: 'test 1'
-          },
-          {
-            id: 3,
-            comment: 'test 1'
-          }
-        ]
-      }
-    ];
-
-    const x = tools.connect({ user: users }).with({ post: posts });
   });
 
   it('Converts from `hexadecimal` to `rgb|rgba`', () => {

@@ -1,6 +1,6 @@
 const is = require('./../src/is');
 
-describe('A collectin of "is not" functions', () => {
+xdescribe('A collectin of "is not" functions', () => {
   it('not.ip', () => {
     expect(is.not.ip('25x.2s5.255.255')).toBeTrue();
     expect(is.not.ip('288.0.1.0')).toBeTrue();
