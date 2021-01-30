@@ -14,6 +14,7 @@ describe('An Array function extensions', () => {
     expect([1, 2, 3, 4, 5].between()).toEqual([2, 3, 4]);
     expect([1, 2, 3, 4, 5, 6].between(2)).toEqual([3, 4, 5]);
     expect([1, 2, 3, 4, 5, 6].between(2, 2)).toEqual([3, 4]);
+    expect([1, 2, 3, 4, 5, 6].between(2, 2).map(value => value * 2)).toEqual([6, 8]);
     expect(() => [1, 2, 3, 4, 5, 6].between(3, 7)).toThrowError();
   });
 });

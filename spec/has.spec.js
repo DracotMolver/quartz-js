@@ -5,7 +5,9 @@ xdescribe('A collection of "has" functions', () => {
     expect(has.everyValue(1, [1, 5, 6, 3, 8])).toBeFalse();
     expect(has.everyValue(true, [true, true, true])).toBeTrue();
 
-    expect(has.everyValue(1, 1)).toThrowError();
+    expect(() => has.everyValue(1, 1)).toThrowError(
+      'The second parameter must be an Array.'
+    );
   });
 
   it('someValues - Normal Array no filter and map', () => {
