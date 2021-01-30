@@ -1,6 +1,6 @@
 const is = require('./../src/is');
 
-xdescribe('A collectin of "is" functions', () => {
+describe('A collectin of "is" functions', () => {
   it('ip', () => {
     expect(is.ip('255.255.255.255')).toBeTrue();
     expect(is.ip('0.0.0.0')).toBeTrue();

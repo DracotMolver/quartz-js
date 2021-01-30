@@ -53,9 +53,9 @@ function isArray(value) {
 }
 
 function isPromise(value) {
-  if (Promise && Promise.resolve) {
+  if (Promise?.resolve) {
     return Promise.resolve(value) === value;
-  }
+  } 
 
   return false;
 }
