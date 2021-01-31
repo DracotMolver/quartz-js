@@ -1,6 +1,6 @@
 const tools = require('./../src/tools');
 
-xdescribe('A collection of "tools" functions', () => {
+describe('A collection of "tools" functions', () => {
   it('camelCase', () => {
     expect(tools.camelCase('user_name')).toEqual('userName');
     expect(tools.camelCase('user-name')).toEqual('userName');

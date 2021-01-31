@@ -1,7 +1,7 @@
 const has = require('./../src/has');
 
-xdescribe('A collection of "has" functions', () => {
-  it('everyValue - Normal Array no filter and map', () => {
+describe('A collection of "has" functions', () => {
+  it('everyValue - Normal Array. No filter and map', () => {
     expect(has.everyValue(1, [1, 5, 6, 3, 8])).toBeFalse();
     expect(has.everyValue(true, [true, true, true])).toBeTrue();
 
@@ -10,22 +10,26 @@ xdescribe('A collection of "has" functions', () => {
     );
   });
 
-  it('someValues - Normal Array no filter and map', () => {
+  it('someValues - Normal Array. No filter and map', () => {
     expect(has.someValues([1, 2, 3], [1, 5, 6, 3, 8])).toBeTrue();
     expect(has.someValues([4, 2, 3], [1, 5, 6, 3, 8])).toBeTrue();
 
-    expect(has.someValues(1, [1, 5, 6, 3, 8])).toBeUndefined();
+    expect(() => has.someValues(1, [1, 5, 6, 3, 8])).toThrowError(
+      'The first parameter must be an Array.'
+    );
   });
 
-  it('singleValue - Normal Array no filter and map', () => {
+  it('singleValue - Normal Array. No filter and map', () => {
     expect(has.singleValue(4, [1, 5, 6, 3, 8])).toBeFalse();
     expect(has.singleValue(4, [1, 5, 6, 3, 8])).toBeFalse();
     expect(
       has.singleValue('hello', ['hello', 'priviet', 'hola', 'hallo'])
     ).toBeTrue();
 
-    expect(has.singleValue({}, [1, 5, 6, 3, 8])).toThrowError();
-    expect(
+    expect(() => has.singleValue({}, [1, 5, 6, 3, 8])).toThrowError(
+      'The first parameter can only be: String, Number or Boolean.'
+    );
+    expect(() =>
       has.singleValue([1, 2, 3], [1, 5, 6, 3, 8])
     ).toThrowError();
   });

@@ -9,36 +9,8 @@
 
 'use strict';
 
+const errorLog = require('../helpers/errorLog');
 const is = require('../is');
-
-function _errorMessage(condition, message) {
-  let isOK = true;
-
-  if (process.env.NODE_ENV !== 'production') {
-    if (is.array(condition)) {
-      let errorMsg = '';
-
-      for (
-        var iter = 0, size = condition.length;
-        iter < size;
-        iter += 1
-      ) {
-        if (condition[iter]) {
-          errorMsg = message[iter];
-          isOK = false;
-          break;
-        }
-      }
-
-      throw new TypeError(errorMsg);
-    } else if (condition) {
-      isOK = false;
-      throw new TypeError(message);
-    }
-  }
-
-  return isOK;
-}
 
 /**
  * It checks if the values on the first Array exist, at least one of them, in the second Array.
@@ -53,28 +25,28 @@ function _errorMessage(condition, message) {
  * @returns {boolean}
  */
 function someValues(arr, values) {
-  const isOK = _errorMessage(
-    [is.not.array(arr), is.not.array(values)],
-    [
-      'The first parameter must be an Array.',
-      'The second parameter must be an Array.'
-    ]
-  );
-
-  if (isOK) {
-    const size = arr.length;
-
-    let bool = false;
-
-    for (let index = 0; index < size; index += 1) {
-      if (values.indexOf(arr[index]) !== -1) {
-        bool = true;
-        index = size;
-      }
-    }
-
-    return bool;
+  if (process.env.NODE_ENV !== 'production') {
+    errorLog(
+      [is.not.array(arr), is.not.array(values)],
+      [
+        'The first parameter must be an Array.',
+        'The second parameter must be an Array.'
+      ]
+    );
   }
+
+  const size = arr.length;
+
+  let bool = false;
+
+  for (let index = 0; index < size; index += 1) {
+    if (~values.indexOf(arr[index])) {
+      bool = true;
+      index = size;
+    }
+  }
+
+  return bool;
 }
 
 /**
@@ -90,17 +62,17 @@ function someValues(arr, values) {
  * @returns {boolean}
  */
 function singleValue(value, values) {
-  const isOK = _errorMessage(
-    [is.object(value), is.not.array(values)],
-    [
-      'The first parameter can only be: String, Number or Boolean.',
-      'The second parameter must be an Array.'
-    ]
-  );
-
-  if (isOK) {
-    return values.indexOf(value) !== -1;
+  if (process.env.NODE_ENV !== 'production') {
+    errorLog(
+      [is.object(value), is.not.array(values)],
+      [
+        'The first parameter can only be: String, Number or Boolean.',
+        'The second parameter must be an Array.'
+      ]
+    );
   }
+
+  return Boolean(~values.indexOf(value));
 }
 
 /**
@@ -111,25 +83,25 @@ function singleValue(value, values) {
  * @returns {boolean}
  */
 function everyValue(value, values) {
-  const isOK = _errorMessage(
-    [is.object(value), is.not.array(values)],
-    [
-      'The first parameter can only be: String, Number or Boolean.',
-      'The second parameter must be an Array.'
-    ]
-  );
-
-  if (isOK) {
-    let bool = false;
-
-    const size = values.length;
-
-    for (let index = 0; index < size; index += 1) {
-      bool = values[index] === value;
-    }
-
-    return bool;
+  if (process.env.NODE_ENV !== 'production') {
+    errorLog(
+      [is.object(value), is.not.array(values)],
+      [
+        'The first parameter can only be: String, Number or Boolean.',
+        'The second parameter must be an Array.'
+      ]
+    );
   }
+
+  let bool = false;
+
+  const size = values.length;
+
+  for (let index = 0; index < size; index += 1) {
+    bool = values[index] === value;
+  }
+
+  return bool;
 }
 
 /**
@@ -186,9 +158,10 @@ function valueByKey(key, value) {
  * @param {array} values - They values to be compared.
  */
 function valuesByKeys(keys, values) {
+  const size = keys.length;
+
   return content => {
     let isExist = false;
-    const size = keys.length;
 
     for (let iter = 0; iter < size; iter += 1) {
       isExist = content[keys[iter]] === values[iter];
