@@ -12,6 +12,7 @@ The **core** of **Quartz**:
 - **is**: Primarily validations and different ways to ask _**if...**_.
 - **has**: For working with Array and Object using filter, map, some, every, and on.
 - **tools**: A set of different useful functions that you might need. :+1:
+- **ArrayBuilder**: A set of different useful functions that add power to the arrays.
 
 You can use it with any SPA or NodeJS server.
 
@@ -407,6 +408,17 @@ It checks if the Array of Object has the respective values based on the given ke
 It a set of "tools" that you might need one day.
 Sometimes some JS features are amazing, but a lot of them visually sucks. An example could be the spread operator. I love spread operator, but having a lot of them make look your code messy.
 
+**`decimal2bin`**
+It converts the number to its binary representation.
+
+- **decimal** {number} _The number to convert to binary._
+
+```js
+tools.decimal2bin(5); // 101
+```
+
+<br />
+
 **`camelCase`**
 It converts the string to its Lower Camel Case version.
 
@@ -635,3 +647,32 @@ It will return an array of three values representing the RGB colors.
 const [R, G, B] = hexToRGB('fff');
 // [255, 255, 255]
 ```
+
+## ArrayBuilder
+
+The `ArrayBuilder` function sets some properties to the Array class. These properties (methods) are usefull to acomplish small repetitive tasks.
+
+By default all the properties are added at once, but you can pass differents options to ArrayBuilder with `add` function.
+
+```js
+ArrayBuilder(); // Add all the new methods
+
+ArrayBuilder().add(ArrayBuilder.BETWEEN);
+ArrayBuilder().add(ArrayBuilder.BETWEEN | ArrayBuilder.UNION);
+```
+
+**`between`**
+It works like `slice` function but with positive numbers only.
+
+- **leftmost**: {number} _The init position._
+- **rightmost**: {number} _The last position._
+
+```js
+[1, 2, 3, 4, 5].between(); // [2, 3, 4]
+
+[1, 2, 3, 4, 5, 6].between(2); // [3, 4, 5]
+
+[1, 2, 3, 4, 5, 6].between(2, 2); // [3, 4]
+```
+
+<br />

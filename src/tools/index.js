@@ -270,9 +270,14 @@ function rmAttrFromObj(obj, keys) {
   return tmp;
 }
 
+function decimal2bin(decimal) {
+  return (decimal >>> 0).toString(2);
+}
+
 module.exports = Object.freeze({
   upperParagraph,
   rmAttrFromObj,
+  decimal2bin,
   camelCase,
   compress,
   compose,

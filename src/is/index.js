@@ -9,18 +9,7 @@
 
 'use strict';
 
-function _errorMessage(condition, message) {
-  let isOK = true;
-
-  if (process.env.NODE_ENV !== 'production') {
-    if (condition) {
-      isOK = false;
-      throw new TypeError(message);
-    }
-  }
-
-  return isOK;
-}
+const errorLog = require('../helpers/errorLog');
 
 function _objLen(value) {
   return (isArray(value) ? value : Object.keys(value)).length;
@@ -55,7 +44,7 @@ function isArray(value) {
 function isPromise(value) {
   if (Promise?.resolve) {
     return Promise.resolve(value) === value;
-  } 
+  }
 
   return false;
 }
@@ -74,24 +63,22 @@ function isDate(value) {
  * @returns {boolean}
  */
 function moreOrEqual(value, size, isMoreOnly = false) {
-  const isOK = _errorMessage(
-    isNumber(value) || isBool(value),
-    'Only pass an Object, an Array or an String at the first parameter.'
-  );
-
-  if (isOK) {
-    const comp = isString(value)
-      ? value.trim().length
-      : _objLen(value);
-
-    let res = comp >= size;
-
-    if (isMoreOnly) {
-      res = comp > size;
-    }
-
-    return res;
+  if (process.env.NODE_ENV === 'production') {
+    errorLog(
+      isNumber(value) || isBool(value),
+      'Only pass an Object, an Array or an String at the first parameter.'
+    );
   }
+
+  const comp = isString(value) ? value.trim().length : _objLen(value);
+
+  let res = comp >= size;
+
+  if (isMoreOnly) {
+    res = comp > size;
+  }
+
+  return res;
 }
 
 /**
@@ -104,24 +91,22 @@ function moreOrEqual(value, size, isMoreOnly = false) {
  * @returns {boolean}
  */
 function lessOrEqual(value, size, isLessOnly = false) {
-  const isOK = _errorMessage(
-    isNumber(value) || isBool(value),
-    'Only pass an Object, an Array or an String at the first parameter.'
-  );
-
-  if (isOK) {
-    const comp = isString(value)
-      ? value.trim().length
-      : _objLen(value);
-
-    let res = comp <= size;
-
-    if (isLessOnly) {
-      res = comp < size;
-    }
-
-    return res;
+  if (process.env.NODE_ENV === 'production') {
+    errorLog(
+      isNumber(value) || isBool(value),
+      'Only pass an Object, an Array or an String at the first parameter.'
+    );
   }
+
+  const comp = isString(value) ? value.trim().length : _objLen(value);
+
+  let res = comp <= size;
+
+  if (isLessOnly) {
+    res = comp < size;
+  }
+
+  return res;
 }
 
 /**
@@ -137,14 +122,12 @@ function lessOrEqual(value, size, isLessOnly = false) {
  * @returns {boolean}
  */
 function exactSize(value, size) {
-  const isOK = _errorMessage(
+  if (process.env.NODE_ENV === 'production') {
     isNumber(value) || isBool(value),
-    'Only pass an Object, an Array or an String at the first parameter.'
-  );
-
-  if (isOK) {
-    return (isString(value) ? value.length : _objLen(value)) === size;
+      'Only pass an Object, an Array or an String at the first parameter.';
   }
+
+  return (isString(value) ? value.length : _objLen(value)) === size;
 }
 
 /**
@@ -226,38 +209,38 @@ function falsy(value) {
  * @returns {boolean}
  */
 function run(value) {
-  const isOK = _errorMessage(
-    !isString(value),
-    'The given parameter must be an String.'
-  );
-
-  if (isOK) {
-    const text = value.toLowerCase().trim().replace(/[.-]/g, '');
-
-    let counter = 2;
-    let total = 0;
-    let size = text.length - 2;
-
-    for (; size >= 0; size--, counter += 1) {
-      if (counter > 7) {
-        counter = 2;
-      }
-
-      total += Number(text[size]) * counter;
-    }
-
-    total = Number(11 - (total - 11 * Math.floor(total / 11)));
-
-    let digit = String(total);
-
-    if (total === 11) {
-      digit = '0';
-    } else if (total === 10) {
-      digit = 'k';
-    }
-
-    return digit === text.slice(-1);
+  if (process.env.NODE_ENV === 'production') {
+    errorLog(
+      !isString(value),
+      'The given parameter must be an String.'
+    );
   }
+
+  const text = value.toLowerCase().trim().replace(/[.-]/g, '');
+
+  let counter = 2;
+  let total = 0;
+  let size = text.length - 2;
+
+  for (; size >= 0; size--, counter += 1) {
+    if (counter > 7) {
+      counter = 2;
+    }
+
+    total += Number(text[size]) * counter;
+  }
+
+  total = Number(11 - (total - 11 * Math.floor(total / 11)));
+
+  let digit = String(total);
+
+  if (total === 11) {
+    digit = '0';
+  } else if (total === 10) {
+    digit = 'k';
+  }
+
+  return digit === text.slice(-1);
 }
 
 /**
@@ -267,14 +250,11 @@ function run(value) {
  * @returns {boolean}
  */
 function alpha(value) {
-  const isOK = _errorMessage(
-    !isString(value),
-    'The given parameter must be an String.'
-  );
-
-  if (isOK) {
-    return /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+$/i.test(value);
+  if (process.env.NODE_ENV === 'production') {
+    !isString(value), 'The given parameter must be an String.';
   }
+
+  return /^[a-z\sа-яáéíóúäëïöüàèìòùñ]+$/i.test(value);
 }
 
 /**
@@ -284,46 +264,46 @@ function alpha(value) {
  * @returns {boolean}
  */
 function email(value) {
-  const isOK = _errorMessage(
-    !isString(value),
-    'The given parameter must be an String.'
-  );
+  if (process.env.NODE_ENV === 'production') {
+    errorLog(
+      !isString(value),
+      'The given parameter must be an String.'
+    );
+  }
 
-  if (isOK) {
-    let isEmail = true;
+  let isEmail = true;
 
-    if (
-      /^[\w\!#\$%&'.\*\+\-\/\=\?\^`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(
-        value.toLowerCase()
-      )
+  if (
+    /^[\w\!#\$%&'.\*\+\-\/\=\?\^`\{\|\}~"\(\),\:;<>@\[\\\]\s]{1,64}@([a-z\d\-\[\]\:]{1,235}|\.[a-z]{1,20})+$/i.test(
+      value.toLowerCase()
+    )
+  ) {
+    const lastPosition = value.lastIndexOf('@');
+    const localPart = value.slice(0, lastPosition);
+    const domainPart = value.slice(lastPosition + 1, value.length);
+
+    // Local part
+    if (/^[.,]|[.,]$/.test(localPart)) {
+      // Forbidden
+      isEmail = false;
+    } else if (
+      /(\.{2,}|["\(\),\:;<>\[\\\]]|@+?)/g.test(localPart) &&
+      localPart.slice(0, 1) !== '"' &&
+      localPart.slice(-1) !== '"'
     ) {
-      const lastPosition = value.lastIndexOf('@');
-      const localPart = value.slice(0, lastPosition);
-      const domainPart = value.slice(lastPosition + 1, value.length);
-
-      // Local part
-      if (/^[.,]|[.,]$/.test(localPart)) {
-        // Forbidden
-        isEmail = false;
-      } else if (
-        /(\.{2,}|["\(\),\:;<>\[\\\]]|@+?)/g.test(localPart) &&
-        localPart.slice(0, 1) !== '"' &&
-        localPart.slice(-1) !== '"'
-      ) {
-        // Forbidden
-        isEmail = false;
-      }
-
-      // Domain part
-      if (isEmail) {
-        isEmail = /^[\-]|[\-]$/.test(domainPart) ? false : true;
-      }
-    } else {
+      // Forbidden
       isEmail = false;
     }
 
-    return isEmail;
+    // Domain part
+    if (isEmail) {
+      isEmail = /^[\-]|[\-]$/.test(domainPart) ? false : true;
+    }
+  } else {
+    isEmail = false;
   }
+
+  return isEmail;
 }
 
 /**
@@ -345,27 +325,27 @@ function number(value) {
  * @return {boolean}
  */
 function ip(value) {
-  let isOK = _errorMessage(
-    !isString(value),
-    'The given parameter must be an String.'
-  );
-
-  if (isOK) {
-    const sections = value.split('.');
-
-    if (sections.length === 4) {
-      isOK = true;
-      sections.forEach(section => {
-        if (!/\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b/.test(section)) {
-          isOK = false;
-        }
-      });
-    } else {
-      isOK = false;
-    }
-
-    return isOK;
+  if (process.env.NODE_ENV === 'production') {
+    errorLog(
+      !isString(value),
+      'The given parameter must be an String.'
+    );
   }
+
+  const sections = value.split('.');
+
+  let isOK = true;
+  if (sections.length === 4) {
+    sections.forEach(section => {
+      if (!/\b(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)\b/.test(section)) {
+        isOK = false;
+      }
+    });
+  } else {
+    isOK = false;
+  }
+
+  return isOK;
 }
 
 /**
@@ -379,30 +359,30 @@ function ip(value) {
  * @return {boolean}
  */
 function url(value) {
-  const isOK = _errorMessage(
-    !isString(value),
-    'The given parameter must be an String.'
-  );
-
-  if (isOK) {
-    const [protocol, ...rest] = value.split(':');
-    let isValid = false;
-
-    if (
-      protocol === 'http' ||
-      protocol === 'https' ||
-      protocol === 'ftp'
-    ) {
-      isValid = /^([0-65536]{2,4}|)\/\/[\w\d+-.]+\.\w+([\/\w\?=%;&]|:[0-65536]{2,4})+/.test(
-        rest.join(':')
-      );
-    } else if (protocol === 'mailto') {
-      const mailTo = value.replace('mailto', '');
-      isValid = /^::[\w\d-+]+@[\w\d-+.]+/.test(mailTo);
-    }
-
-    return isValid;
+  if (process.env.NODE_ENV === 'production') {
+    errorLog(
+      !isString(value),
+      'The given parameter must be an String.'
+    );
   }
+
+  const [protocol, ...rest] = value.split(':');
+  let isValid = false;
+
+  if (
+    protocol === 'http' ||
+    protocol === 'https' ||
+    protocol === 'ftp'
+  ) {
+    isValid = /^([0-65536]{2,4}|)\/\/[\w\d+-.]+\.\w+([\/\w\?=%;&]|:[0-65536]{2,4})+/.test(
+      rest.join(':')
+    );
+  } else if (protocol === 'mailto') {
+    const mailTo = value.replace('mailto', '');
+    isValid = /^::[\w\d-+]+@[\w\d-+.]+/.test(mailTo);
+  }
+
+  return isValid;
 }
 
 /**
@@ -434,24 +414,21 @@ function password(rules = null) {
     callback = pwd => {
       if (process.env.NODE_ENV !== 'production') {
         if (rules.minLength < rules.minNumber + rules.minAlpha) {
-          console.error(
+          throw new TypeError(
             "The minLength can't be less than the sum of the minNumber and minAlpha values. It can be equal or more."
           );
-          return;
         }
 
         if (rules.maxLength < rules.minNumber + rules.minAlpha) {
-          console.error(
+          throw new TypeError(
             "The maxLength can't be less than the sum of the minNumber and minAlpha values. It can be only equal."
           );
-          return;
         }
 
         if (rules.maxLength < rules.minLength) {
-          console.error(
+          throw new TypeError(
             "The maxLength can't be less than the minLength. It must be more."
           );
-          return;
         }
       }
 

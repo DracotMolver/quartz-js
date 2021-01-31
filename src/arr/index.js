@@ -48,9 +48,9 @@ function between(leftmost = 1, rightmost = 0) {
   return arr;
 }
 
-function ArrayBuilder(array) {
-  if (!array.prototype.between) {
-    Object.defineProperty(array.prototype, 'between', {
+function ArrayBuilder() {
+  if (!Array.prototype.between) {
+    Object.defineProperty(Array.prototype, 'between', {
       value: between,
       writable: false
     });
