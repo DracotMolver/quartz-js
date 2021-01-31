@@ -652,13 +652,11 @@ const [R, G, B] = hexToRGB('fff');
 
 The `ArrayBuilder` function sets some properties to the Array class. These properties (methods) are usefull to acomplish small repetitive tasks.
 
-By default all the properties are added at once, but you can pass differents options to ArrayBuilder with `add` function.
-
 ```js
 ArrayBuilder(); // Add all the new methods
 
-ArrayBuilder().add(ArrayBuilder.BETWEEN);
-ArrayBuilder().add(ArrayBuilder.BETWEEN | ArrayBuilder.UNION);
+ArrayBuilder(ArrayBuilder.BETWEEN); // add some methods
+ArrayBuilder(ArrayBuilder.BETWEEN | ArrayBuilder.UNION);
 ```
 
 **`between`**

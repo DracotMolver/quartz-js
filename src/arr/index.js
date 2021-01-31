@@ -48,8 +48,10 @@ function between(leftmost = 1, rightmost = 0) {
   return arr;
 }
 
-function ArrayBuilder() {
-  if (!Array.prototype.between) {
+const BETWEEN = 1;
+
+function addMethods(mask) {
+  if (!Array.prototype.between && mask & ARRAY_METHOD.BETWEEN) {
     Object.defineProperty(Array.prototype, 'between', {
       value: between,
       writable: false
@@ -57,4 +59,5 @@ function ArrayBuilder() {
   }
 }
 
-module.exports = ArrayBuilder;
+module.exports = BETWEEN;
+module.exports = addMethods;
