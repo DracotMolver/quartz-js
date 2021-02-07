@@ -648,19 +648,35 @@ const [R, G, B] = hexToRGB('fff');
 // [255, 255, 255]
 ```
 
-## ArrayBuilder
+## addArrayMethods
 
-The `ArrayBuilder` function sets some properties to the Array class. These properties (methods) are usefull to acomplish small repetitive tasks.
+The `addArrayMethods` function sets some properties to the Array class. These properties (methods) are usefull to acomplish small repetitive tasks.
 
 ```js
-ArrayBuilder(); // Add all the new methods
+addArrayMethods(); // Add all the new methods
 
-ArrayBuilder(ArrayBuilder.BETWEEN); // add some methods
-ArrayBuilder(ArrayBuilder.BETWEEN | ArrayBuilder.UNION);
+addArrayMethods(ARRAY_METHOD.BETWEEN); // add one method
+addArrayMethods(ARRAY_METHOD.BETWEEN | ARRAY_METHOD.UNION); // add two method
 ```
 
 **`between`**
-It works like `slice` function but with positive numbers only.
+It works like the `slice` function but with positive numbers.
+
+- **leftmost**: {number} _The init position._
+- **rightmost**: {number} _The last position._
+
+```js
+[1, 2, 3, 4, 5].between(); // [2, 3, 4]
+
+[1, 2, 3, 4, 5, 6].between(2); // [3, 4, 5]
+
+[1, 2, 3, 4, 5, 6].between(2, 2); // [3, 4]
+```
+
+<br />
+
+**`union`**
+Join one or multiple arrays into one array with unique values.
 
 - **leftmost**: {number} _The init position._
 - **rightmost**: {number} _The last position._

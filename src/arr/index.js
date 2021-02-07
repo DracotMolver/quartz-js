@@ -20,6 +20,17 @@ function _hasSize(arr, leftmost, rightmost) {
   );
 }
 
+/**
+ * It works like the `slice` function but with positive numbers. It will return a new array
+ * between the given values.
+ *
+ * @example
+ * [1, 2, 3, 4, 5, 6].between(2, 2); // [3, 4]
+ *
+ * @param {number} leftmost - The init position
+ * @param {number} rightmost - The last position
+ * @returns {array} a new array.
+ */
 function between(leftmost = 1, rightmost = 0) {
   if (process.env.NODE_ENV !== 'production') {
     errorLog(
@@ -48,16 +59,45 @@ function between(leftmost = 1, rightmost = 0) {
   return arr;
 }
 
-const BETWEEN = 1;
+/**
+ * Join one or multiple arrays into one array with unique values.
+ * It returns a new array.
+ * 
+ * @param  {...any} Any value to concat to the array.
+ * @returns {array} a new array
+ */
+function union(...args) {
+  let arr = this;
 
-function addMethods(mask) {
-  if (!Array.prototype.between && mask & ARRAY_METHOD.BETWEEN) {
+  if (args.length) {
+    arr = [...new Set(this.concat(...args))];
+  }
+
+  console.log(this, arr);
+  return arr;
+}
+
+const BETWEEN = 1;
+const UNION = 2;
+
+const defaultMask = BETWEEN | UNION;
+
+function addArrayMethods(mask = defaultMask) {
+  if (!Array.prototype.between && mask & BETWEEN) {
     Object.defineProperty(Array.prototype, 'between', {
       value: between,
       writable: false
     });
   }
+
+  if (!Array.prototype.union && mask & UNION) {
+    Object.defineProperty(Array.prototype, 'union', {
+      value: union,
+      writable: false
+    });
+  }
 }
 
-module.exports = BETWEEN;
-module.exports = addMethods;
+exports.BETWEEN = BETWEEN;
+exports.UNION = UNION;
+exports.addArrayMethods = addArrayMethods;

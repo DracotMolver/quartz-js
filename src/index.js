@@ -9,12 +9,16 @@
 
 'use strict';
 
-const ArrayBuilder = require('./arr');
+const { addArrayMethods, BETWEEN, UNION } = require('./arr');
 const tools = require('./tools');
 const has = require('./has');
 const is = require('./is');
 
-exports.ArrayBuilder = ArrayBuilder;
+exports.ARRAY_METHOD = {
+  BETWEEN,
+  UNION
+};
+exports.addArrayMethods = addArrayMethods;
 exports.tools = tools;
 exports.has = has;
 exports.is = is;
